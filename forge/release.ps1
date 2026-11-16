@@ -23,7 +23,7 @@ if (-not (Test-Path $exe)) { throw 'no build to release' }
 $out = 'dist\release'; Remove-Item $out -Recurse -Force -ErrorAction SilentlyContinue; New-Item -ItemType Directory -Force $out | Out-Null
 if ($Ci) {
     # The public tree must be this commit's export, so the CI build is this code.
-    pwsh -NoProfile -File forge\export.ps1 -Message "Release build $(git rev-parse --short HEAD)"
+    pwsh -NoProfile -File forge\export.ps1 -Message "Release $((Select-String -Path Cargo.toml -Pattern '^version = "(.+)"').Matches[0].Groups[1].Value)"
     $publicHead = (Get-Content (Join-Path (git rev-parse --git-dir) 'proteus-public-head') -Raw).Trim()
     gh workflow run release-build.yml -R $Repo -f "ref=$publicHead"
     Start-Sleep -Seconds 8

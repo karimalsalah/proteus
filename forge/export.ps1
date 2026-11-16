@@ -11,7 +11,7 @@
 # forge\export\public\ replace their private counterparts. Afterwards every
 # byte of every file is searched for forge\export\forbidden.txt and the push
 # is refused on any hit.
-param([string]$Repo = 'karimalsalah/proteus', [string]$Message = '', [switch]$DryRun)
+param([string]$Repo = 'karimalsalah/proteus', [string]$Message = '', [switch]$DryRun, [switch]$NoKeyCheck)
 $ErrorActionPreference = 'Stop'
 $root = Split-Path $PSScriptRoot -Parent
 Set-Location $root
@@ -19,6 +19,8 @@ if (git status --porcelain) { throw 'commit first: the export is made from HEAD'
 # Public changes (merged pull requests, Dependabot) come back first.
 if (-not $DryRun) { pwsh -NoProfile -File (Join-Path $PSScriptRoot 'sync.ps1') -Repo $Repo; if ($LASTEXITCODE -ne 0) { throw 'sync from public failed' } }
 $cfg = Join-Path $root 'forge\export'
+# Trees left by earlier runs (a dry run, or one that refused) go first.
+Get-ChildItem $env:TEMP -Directory -Filter 'proteus-export-*' -EA 0 | ForEach-Object { Remove-Item $_.FullName -Recurse -Force -EA 0 }
 $work = Join-Path $env:TEMP "proteus-export-$PID"
 Remove-Item $work -Recurse -Force -ErrorAction SilentlyContinue
 New-Item -ItemType Directory -Force "$work\tree" | Out-Null
@@ -79,6 +81,14 @@ Get-ChildItem "$work\tree" -Recurse -File -Force | ForEach-Object {
     foreach ($s in $needles) { $f = Forms $s; if ($text.Contains($f[0]) -or $text.Contains($f[1])) { $bad += "$($_.FullName.Substring($work.Length + 6)): $s" } }
 }
 if ($bad) { $bad | ForEach-Object { "  FORBIDDEN $_" }; throw "not exported: $($bad.Count) forbidden strings remain" }
+# Deeper: names, UTF-16BE, URL-encoded, base64, compressed streams, the key in every form,
+# and the commit text. A missing key file is a refusal, not a skip.
+if (-not (Test-Path $keyFile) -and -not $NoKeyCheck) { throw "no release key at $keyFile to search for; pass -NoKeyCheck on a machine without it" }
+$deep = @('-I', (Join-Path $cfg 'deepscan.py'), "$work\tree", "$cfg\forbidden.txt")
+if (Test-Path $keyFile) { $deep += $keyFile }
+$deep += @('--text', $Message)
+python @deep
+if ($LASTEXITCODE -ne 0) { throw 'not exported: the deep search found private strings (above)' }
 "searched every byte of {0} files: nothing forbidden" -f (Get-ChildItem "$work\tree" -Recurse -File -Force).Count
 
 # 6. Commit on top of the public history.
