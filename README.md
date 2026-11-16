@@ -101,7 +101,13 @@ PROTEUS is an MCP server. It gives an agent what a person has at a terminal: a r
 
 **Claude Desktop:** download `proteus-mcp.mcpb` from the [latest release](https://github.com/karimalsalah/proteus/releases/latest) and open it.
 
-**Claude Code** (or any MCP client):
+**Claude Code plugin** (MCP server plus a skill on using sessions well; needs `proteus` on PATH, for example via Scoop):
+```powershell
+claude plugin marketplace add karimalsalah/proteus
+claude plugin install proteus@proteus-terminal
+```
+
+**Claude Code** by hand (or any MCP client):
 ```powershell
 claude mcp add --scope user --transport stdio proteus -- "C:\path\to\PROTEUS.exe" mcp
 ```

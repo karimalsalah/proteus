@@ -1,0 +1,12 @@
+{
+  "name": "proteus-terminal",
+  "description": "PROTEUS: real Windows terminal sessions for Claude Code, through its MCP server",
+  "owner": { "name": "karimalsalah", "url": "https://github.com/karimalsalah" },
+  "plugins": [
+    {
+      "name": "proteus",
+      "source": "./plugins/proteus",
+      "description": "Spawn, drive, wait on (without polling), read lean output from, and see real Windows terminal sessions that a person can watch live"
+    }
+  ]
+}
