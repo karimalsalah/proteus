@@ -1,10 +1,10 @@
 {
-    "version": "0.5.4",
+    "version": "0.5.5",
     "description": "GPU terminal for Windows that journals every session, sees every process, undoes shell commands and serves AI agents over MCP",
     "homepage": "https://github.com/karimalsalah/proteus",
     "license": "MIT",
-    "url": "https://github.com/karimalsalah/proteus/releases/download/v0.5.4/PROTEUS.exe#/proteus.exe",
-    "hash": "8722ed95d209ae56969469740b372a07c00451e98a146d77e21ee14779230111",
+    "url": "https://github.com/karimalsalah/proteus/releases/download/v0.5.5/PROTEUS.exe#/proteus.exe",
+    "hash": "9252b2c240a41d555e240a41d1af790ce41b106eea05ef4759c002b7cf7f6036",
     "bin": "proteus.exe",
     "shortcuts": [["proteus.exe", "PROTEUS"]],
     "checkver": "github",
