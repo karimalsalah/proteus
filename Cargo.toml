@@ -8,7 +8,7 @@ license = "MIT"
 [dependencies]
 wgpu = "27"
 winit = "0.30"
-alacritty_terminal = "0.25"
+alacritty_terminal = "0.26"
 portable-pty = "0.9"
 ab_glyph = "0.2"
 bytemuck = { version = "1", features = ["derive"] }
