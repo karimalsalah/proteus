@@ -2,6 +2,14 @@
 
 Numbers and how each was measured: `forge/ledger.json`. Signed builds: [Releases](https://github.com/karimalsalah/proteus/releases).
 
+## 0.5.4
+
+- `proteus send --raw` types text exactly; Windows paths are no longer turned into control keys (#20).
+- `proteus shot --journal` keeps the recorded grid and shrinks the font to fit, instead of rewrapping history into a smaller grid (#22).
+- Built on GitHub Actions from the public source (release-build.yml), ready for SignPath Foundation signing; code signing policy published.
+- Claude Code plugin marketplace in the repository: `claude plugin marketplace add karimalsalah/proteus`.
+- A test no longer depends on the machine's System32 listing; CI runs tests serially while #24 is open.
+
 ## 0.5.3
 
 - Claude Desktop bundle (`proteus-mcp.mcpb`) in every release; listed in the MCP Registry as `io.github.karimalsalah/proteus`.

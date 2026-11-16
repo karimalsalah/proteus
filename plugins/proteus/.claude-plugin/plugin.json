@@ -1,6 +1,6 @@
 {
   "name": "proteus",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "description": "Real Windows terminal sessions for Claude Code: spawn programs on a real pseudo-console, type into them, wait for output or exit without polling, read lean output, and see the screen as text or PNG. Needs PROTEUS on PATH (scoop or winget install).",
   "author": { "name": "karimalsalah", "url": "https://github.com/karimalsalah" },
   "homepage": "https://github.com/karimalsalah/proteus",

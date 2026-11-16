@@ -71,7 +71,9 @@ const OP_DROP: u32 = 3;
 const OUTBOX_MAX: usize = 1 << 16;
 /// How long an exit may wait for the kernel to finish with the process
 /// before it is recorded with whatever is known.
-const EXIT_PATIENCE: Duration = Duration::from_secs(2);
+// How long a session's end waits for its shell's own exit. 2 s was too short on
+// a fully loaded machine (the full suite failed once with ten agents building).
+const EXIT_PATIENCE: Duration = Duration::from_secs(5);
 
 /// What the sensor has done since this program started. Counters, read by
 /// tests and written to the log when a session ends.

@@ -1,6 +1,6 @@
 [package]
 name = "proteus"
-version = "0.5.3"
+version = "0.5.4"
 edition = "2021"
 description = "PROTEUS - GPU-native terminal engine for humans and agents"
 license = "MIT"

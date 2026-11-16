@@ -31,7 +31,8 @@ jobs:
         shell: pwsh
         run: |
           $env:PROTEUS_DATA = "$env:RUNNER_TEMP\proteus"
-          ./target/release/proteus.exe shot --vt forge/samples/basic.vt --out basic.png --size 1600x800
+          # The exe is a windowed program, so PowerShell would not wait for it (#21).
+          Start-Process ./target/release/proteus.exe -Wait -NoNewWindow -ArgumentList 'shot', '--vt', 'forge/samples/basic.vt', '--out', 'basic.png', '--size', '1600x800'
           if (-not (Test-Path basic.png)) { throw 'no image' }
       - uses: actions/upload-artifact@v7
         if: always()
