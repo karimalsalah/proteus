@@ -387,3 +387,182 @@ Ranked by value over effort, dependencies respected. Every item says how it will
 - Is the Slug patent disclaimer recorded at the USPTO, and what is the origin and licence of the embedded font (which also decides which ligatures exist)? Both must be settled before the exe goes to anyone else.
 - Does a full prompt-and-answer round trip with Claude Code work inside PROTEUS? The ledger has never run one, and one unreproduced report says a prompt sent about 20 s after launch did not appear.
 - The targets for attention metrics (30 s median blocked-to-attended, 10% blocked share, 6 alerts per hour) are proposals by a researcher, not sourced; a baseline week must be measured first. The METR 2026 update that supersedes the cited 2025 result was not read.
+
+## Next wave (harvested 2026-11-16 from Warp, Windows Terminal and Intelligent Terminal, VS Code, herdr, WezTerm, Zellij and the Agent Client Protocol)
+
+Each item names where it was seen, why it matters, how it ports to PROTEUS's architecture, and its effort. Full sources: the research record in the release notes of this push.
+
+### 21. Ship the agent-state display together with the OSC 7501 reply
+
+*Seen in: Claude Code docs, OSC 7501 support from v2.1.295 (opened today). Zellij 0.46 inbox (2026-11-11). Intelligent Terminal v0.3 sidebar (2026-11-04). Ghostty 1.4 only parses it (2026-10-27).. Effort: S for the caption and `sessions` field; M with the attention queue (roadmap item 2).*
+
+**Why.** Claude Code drops its title status glyph in any terminal that answers the 7501 query. PROTEUS answers it (ledger status.reply) but draws nothing (ledger known_issues), so today a Claude Code session in PROTEUS probably shows less state than in a terminal that ignores 7501. This is predicted from the docs, the ledger and src/app.rs:1302; it has not been observed. It is the cheapest high-value fix in the list.
+
+**Port.** 1. In src/marks.rs and src/daemon.rs, keep the per-session record table that roadmap item 2 specifies. 2. Send state changes to windows as a new message in src/proto.rs, received in src/remote.rs. 3. In src/app.rs, put one state glyph in the caption beside the program's own title, and add state to `proteus sessions`. 4. Treat msg and title as untrusted text. 5. Gate: replay a recorded Claude Code journal and require the caption to show working, then blocked, then done, with zero frames drawn while the state is unchanged. Do not remove the reply: that would zero roadmap item 2's metric.
+
+### 22. Order every agent by need: an inbox of blocked first, then error, working and done
+
+*Seen in: Warp orchestration child pills sorted 'attention-needed items first' (2026-05-27). Zellij 0.46 inbox with a count of programs needing attention (2026-11-11). Intelligent Terminal v0.3 'Agents only' sidebar filter (2026-11-04). herdr 0.9.2 Go To list with status per agent (2026-09-29).. Effort: M.*
+
+**Why.** With several agents, the operator's attention is the scarce resource. Four of the five competitors converged on the same answer within six months.
+
+**Port.** 1. `proteus sessions` and the MCP `sessions` tool sort by state (blocked > error > working > idle > done), then by age. 2. One key, for example Ctrl+Shift+J, jumps to the oldest blocked session (already in roadmap item 2). 3. The world view (src/world.rs) gives each session a fixed slot, with an engine-drawn count of sessions needing you that is redrawn only on a state change. 4. Measure blocked-to-attended latency (roadmap item 12).
+
+### 23. Clicking a notification lands on the exact session
+
+*Seen in: Warp: 'A focus URL lets external notification tools return focus to the originating pane' (2026-05-27). herdr 0.9.4: 'Windows notifications stay in Notification Center. Clicking one jumps to its pane and brings the terminal window forward' (2026-10-13).. Effort: M.*
+
+**Why.** An alert is only useful if acting on it takes one click. Roadmap item 10 already allows an OS toast for the attention tier when the window is in the background.
+
+**Port.** 1. Register a per-user protocol, proteus://session/<id>, under HKCU/Software/Classes. This needs no admin, is written once, and is shown to the user. 2. Raise toasts with WinRT ToastNotification through the windows crate, using an AppUserModelID set on a Start-menu shortcut [unverified: the AUMID requirement for unpackaged apps]. 3. Activation starts PROTEUS.exe, which asks the daemon (src/remote.rs) to focus or attach that session. 4. Count toasts in roadmap item 10's budget of 6 per hour.
+
+### 24. Agents report their own resume command and release; PROTEUS restores them after a restart
+
+*Seen in: herdr 0.9.2: report-agent with -- <resume argv>, release-agent, and pane variables HERDR_BIN_PATH and HERDR_PANE_ID (2026-09-29). Intelligent Terminal v0.3: recent agent sessions with a resume flow (2026-11-04).. Effort: M.*
+
+**Why.** Sessions already outlive windows (ledger daemon) but not reboots. Resuming the agent conversation is what users want after a restart. herdr has published a contract that agent authors are adopting.
+
+**Port.** 1. src/session.rs exports PROTEUS_SESSION_ID and PROTEUS_EXE to every session. Avoid PROTEUS_SOCKET and PROTEUS_DATA: they are test-isolation switches. 2. `proteus report --state working|idle|blocked --seq N -- <argv>` writes a journal record (src/journal.rs). Accept herdr-compatible semantics: a rising --seq, and argv[0] must be a plain command on PATH. 3. On daemon start after a restart, offer to resume recorded argv in their cwd, 100 ms apart. 4. A release, or a return to a prompt (OSC 133 A), clears the record.
+
+### 25. Survive Windows shutdown and restart cleanly
+
+*Seen in: herdr 0.9.4: 'Herdr saves before the system starts closing apps, so agents come back where they were', and saves are written before replacing the old file (2026-10-13).. Effort: S.*
+
+**Why.** The daemon holds every session's journal. A shutdown that kills it mid-write loses the tail and leaves no record of why sessions ended.
+
+**Port.** 1. The daemon in src/daemon.rs creates a hidden message-only window. 2. On WM_QUERYENDSESSION and WM_ENDSESSION, flush and sync journals and write a 'system shutdown' record per session. 3. Optionally call RegisterApplicationRestart [unverified for a windowless daemon]. 4. At next launch, offer the resume list from the previous item. 5. Gate with a simulated end-session message against an isolated PROTEUS_DATA, requiring zero lost journal bytes. Zero idle cost: the window only waits for messages.
+
+### 26. Submit after the text lands: a delayed Enter for agent UIs
+
+*Seen in: Warp: Antigravity CLI 'gets structured notifications and delayed-enter input' (2026-10-22).. Effort: S.*
+
+**Why.** It addresses a ledger known issue: 'A prompt sent ~20 s after launching Claude Code did not appear'. Typing text and Enter in one write races the agent UI's input handling. MCP `send` is how agents drive agents in PROTEUS.
+
+**Port.** 1. The MCP `send` tool (src/mcp.rs) gains a submit mode: write the text as a bracketed paste. 2. Wait for the grid change in src/term.rs that shows the text, or an OSC 7501 idle state, with a bounded timeout. 3. Then send CR on its own. 4. Return 'not echoed within N ms' as an error rather than pressing Enter blind. 5. Gate: 100 prompts sent at random delays after starting a recorded TUI fixture must all land.
+
+### 27. Mark agent-run sessions, and stop at secret prompts
+
+*Seen in: VS Code 1.121: a 'VSCODE_AGENT environment variable for agent-initiated terminal commands', and 'When a chat terminal command reaches a sensitive prompt, VS Code now intercepts it' (2026-05-20).. Effort: S to M.*
+
+**Why.** Agents hang on password, passphrase and PIN prompts, and must never type secrets. An environment marker lets tools choose non-interactive behaviour. This sharpens roadmap items 9 (awaiting input) and 15 (agent-facing safety).
+
+**Port.** 1. Sessions started through MCP spawn or `proteus run` get PROTEUS_AGENT=1. Document it; change no other variables silently. 2. The classifier in roadmap item 9 adds awaiting_input(reason=secret), triggered when the cursor is parked after a line matching password, passphrase, PIN or verification code, or by an OSC 7501 blocked report of kind auth. 3. While that verdict holds, MCP `send` refuses to type into the session and tells the person to type in the window. Keys are never journaled. 4. Gate: a corpus of git, ssh-keygen and Read-Host -AsSecureString prompts gives the right verdict in at least 95% of cases.
+
+### 28. Unattended runs end as 'blocked', not as a hang
+
+*Seen in: Warp: 'Unattended CLI runs end as blocked instead of hanging' (2026-10-07). Intelligent Terminal v0.3 fixed false 'Waiting for input' transitions (2026-11-04).. Effort: M.*
+
+**Why.** An agent-spawned session with nobody watching is where a stuck prompt costs the most: model calls and wall-clock time.
+
+**Port.** 1. In roadmap item 9's wait verdict, when no window is attached and there has been no input for T seconds, return blocked with its evidence: the cursor line, the CPU-time change across the session's job (src/procs_win.rs) and the age of the last output. 2. Never kill anything automatically. 3. Gate: the 60-command corpus in roadmap item 9.
+
+### 29. Agent hooks run the exe directly, never through a shell
+
+*Seen in: Intelligent Terminal v0.3 (#1158): 'Hooks invoke the bridge executable directly rather than starting PowerShell or Bash first, reducing per-event overhead' (2026-11-04).. Effort: S.*
+
+**Why.** Roadmap item 5's kill criterion is routed-command latency p95 over 100 ms. Starting pwsh per hook would spend much of that budget [unverified: pwsh start-up on this machine].
+
+**Port.** 1. The consented PreToolUse hook writes `"command": "<absolute path to PROTEUS.exe> hook pretooluse"`, with no `pwsh -c` wrapper. 2. A `hook` subcommand in src/main.rs reads the hook JSON from stdin. 3. Record hook-to-exit time p50 and p95 in stats.json. 4. Use the same rule for Notification and Stop hooks.
+
+### 30. Name each session by where it is: cwd, git branch, dirty files, listening ports
+
+*Seen in: Intelligent Terminal v0.3: up to two rich metadata fields per tab (agent status, working directory, repository, branch, changes) (2026-11-04). cmux sidebar: branch, PR status, cwd, listening ports and latest notification [SN].. Effort: S to M.*
+
+**Why.** Ten agents named 'pwsh' cannot be told apart. These facts are what make many agents readable at a glance.
+
+**Port.** 1. Take cwd from OSC 7 and 9;9, already parsed (src/marks.rs). 2. Read the branch from .git/HEAD on a cwd change, without starting git. 3. Read ports with GetExtendedTcpTable filtered to the session job's pids (src/procs_win.rs) [unverified: needs no admin], refreshed only at command boundaries. 4. Draw them outside the grid, and serve them to agents in the MCP `sessions` tool. 5. Gate: idle stays at 0.00%.
+
+### 31. Command-level navigation, selection and copy
+
+*Seen in: Zellij 0.45: OSC 133 jump between prompts, 'Select a command with its whole output', 'Copy the last command's output' (2026-08-20).. Effort: S once roadmap item 1 lands.*
+
+**Why.** Once roadmap item 1 makes commands first-class records, these are the first everyday payoffs for people. Agents get the same unit.
+
+**Port.** 1. After marks are journaled, add keys in src/input.rs for previous and next prompt, select a command's output, and copy the last output. 2. Read the range from the sidecar index (roadmap item 1b). 3. Add an MCP `read` by command id that returns the lean text of that range (src/lean.rs).
+
+### 32. Peek at another session and send one line without switching
+
+*Seen in: Zellij 0.46: previews of other sessions and panes, and 'enter a quick command without switching to them' (2026-11-11).. Effort: M.*
+
+**Why.** Answering a blocked agent without losing your place is the moment that decides blocked-to-attended latency.
+
+**Port.** 1. In the world view, hovering or selecting a session slot renders its live grid into an inset through the existing shot pipeline (src/shot.rs). 2. A one-line input sends through `proteus send` (ledger organ.send). 3. Draw only on change.
+
+### 33. Program notifications (OSC 9, 777, 99), with ConEmu subcommands told apart
+
+*Seen in: Windows Terminal 1.26 Preview: OSC 777 notifications, off by default (2026-10-02). Zellij 0.45.1 fixed OSC 9 overloading the OSC 99 notification spec (2026-08-28). Ghostty 1.4 parses but does not implement kitty notifications (2026-10-27).. Effort: S.*
+
+**Why.** These are the fallback attention signal for agents without OSC 7501. Getting OSC 9;<digit> wrong turns progress pings into toast spam.
+
+**Port.** 1. In src/marks.rs, treat OSC 9;<digit>; as ConEmu subcommands: 9;4 is progress and 9;9 is cwd. 2. Only a plain OSC 9 body, OSC 777;notify or OSC 99 becomes a notification record. 3. Rate-limit through roadmap item 10's budget.
+
+### 34. An ACP-shaped terminal API: create, output, wait_for_exit, kill, release
+
+*Seen in: Agent Client Protocol v1.18.0 (2026-11-14) [gh]. Intelligent Terminal routes agents over ACP (2026-06-02 onward). Warp sends resource links to ACP agents (2026-10-22).. Effort: M.*
+
+**Why.** ACP is becoming the harness-to-host contract on Windows (Microsoft, Zed, Warp). Its terminal methods match what PROTEUS already does, so matching their semantics makes PROTEUS a drop-in terminal provider. It is not a built-in agent, so it does not hit the roadmap's 'Avoid' list.
+
+**Port.** 1. Add MCP tools in src/mcp.rs that mirror ACP: terminal_create(command, args, env, cwd, outputByteLimit) returns an id immediately; terminal_output returns output, truncated and exitStatus{exitCode, signal}; then wait_for_exit, kill (the terminal stays readable) and release. 2. Truncate from the beginning, at a character boundary. 3. Later, implement ACP's client-side terminal capability for hosts that embed PROTEUS.
+
+### 35. Agent-called command resolver: what would this name run, here?
+
+*Seen in: Intelligent Terminal WTA: `wta resolve-command which --cwd . --json`, which resolves from cwd, PATH and shell-specific sources (tools/wta/OVERVIEW.md, opened today; the repository is from 2026-05 onward).. Effort: S.*
+
+**Why.** On Windows, PowerShell functions, aliases and .cmd or .ps1 shims are invisible to a PATH lookup, so agents guess wrong. This is an on-demand tool, unlike the preflight lint the roadmap defers.
+
+**Port.** 1. MCP `resolve(session, name)` runs `Get-Command <name> | Select CommandType, Source, Version` inside that live pwsh session through the routed run path (roadmap item 5). 2. Return JSON. 3. Count use, which feeds item 5's not-found baseline.
+
+### 36. Agent sessions clean themselves up when done
+
+*Seen in: VS Code 1.121: 'automatically disposes background terminals created by the chat agent when their command completes' (2026-05-20).. Effort: S.*
+
+**Why.** Agent-spawned sessions pile up and hold processes (roadmap item 11 cites 12 orphaned processes holding 4.04 GB).
+
+**Port.** 1. MCP spawn gains on_exit: keep or dispose, defaulting to dispose for agent-started sessions. 2. On exit, the daemon seals the journal and frees the session after the job reports zero active processes (src/procs_win.rs). 3. Survivors are listed, never silently killed.
+
+### 37. A daemon started elevated refuses lower-integrity clients by default
+
+*Seen in: herdr 0.9.4: 'An elevated Windows server now only accepts administrator clients by default' (2026-10-13).. Effort: S.*
+
+**Why.** The ledger records that the shell agents ran in held a High-integrity token with SeDebugPrivilege. A Medium process that reaches an elevated PROTEUS daemon socket could drive administrator shells.
+
+**Port.** 1. On accept in src/daemon.rs, get the client pid. For AF_UNIX on Windows, SIO_AF_UNIX_GETPEERPID [unverified]. 2. Read its token integrity. 3. Refuse a Medium client to a High daemon unless config allows it. 4. Show integrity on every session (roadmap item 8). 5. Gate: a Medium test client is refused by an elevated isolated daemon (PROTEUS_DATA and PROTEUS_SOCKET).
+
+### 38. Queue a command for the next prompt
+
+*Seen in: Warp: 'Terminal commands can now be queued' (2026-06-10). Intelligent Terminal v0.3: queued follow-up messages (2026-11-04).. Effort: S once roadmap item 1 lands.*
+
+**Why.** An agent or person can line up the next step without polling for the prompt.
+
+**Port.** 1. `proteus run --session S --queue -- <cmd>` appends to a per-session queue in the daemon. 2. The queued command is typed at the next trusted OSC 133;A (nonce-checked). 3. The receipt arrives by the existing wait.
+
+### 39. Kitty graphics as the single image path
+
+*Seen in: herdr 0.9.2 removed its own pane graphics API: 'Apps show images by writing standard Kitty graphics' (2026-09-29). Zellij 0.45 implemented kitty graphics (2026-08-20).. Effort: L.*
+
+**Why.** It confirms the order of roadmap item 19 (kitty first, sixel after) against the multiplexers agents now run in.
+
+**Port.** As roadmap item 19: an APC tap in src/marks.rs after the item 3 pass-through probe, content-addressed blobs in the journal, and placements tied to cells.
+
+## In flight now (one agent per lane, each inside a PROTEUS session)
+
+- marks: commands as objects (OSC 133), agent state shown (OSC 7501), outcome sound
+- speed: fast attach from keyframes, stage-by-stage throughput bench, daemon hop
+- reach: OSC 8 links, sound follows the output device, reduced motion and flash safety
+- onboard: proteus doctor, agent detection and setup, update at every start
+- deps: alacritty_terminal 0.26, sha2 0.11, cpal 0.18, pollster 1.0
+- shaping: colour emoji, combining marks, run shaping
+- wgpu30: wgpu 30 and HDR light
+- site: the public website
+- fleet: every session live in one window; spawns grow out of their parent
+- look: CRT presets from real optics, themes, 3D views with meaning, synthesised sound presets, adaptive quality
+- versus: reproducible head-to-head against Windows Terminal, WT Preview, WezTerm, Ghostty and conhost, looping on every row PROTEUS loses
+
+## Competitive map
+
+- **Warp.** Agent features: Built-in Warp Agent with local and cloud runs. Multi-agent orchestration arrived 2026-05-18. Runs hand off from local to cloud and back ('Continue locally', 2026-06-24) [O changelog]. Detects third-party CLI agents automatically: Claude Code, Codex, Gemini, OpenCode, goose and Mistral Vibe (2026-05-06), Kiro (2026-10-07), Antigravity agy, Grok Build and oh-my-pi. Each gets a rich input editor, with status shown on the pane and in vertical tabs [O changelog; SN docs.warp.dev/agents/cli-agents]. Weak spots: Its business is its own agent and paid usage: AI is tied to a Warp account (onboarding change 2026-07-03), and the server is closed [O changelog; O pricing; SN]. Third-party agent sessions do not appear in Warp's conversation panel [SN docs]. Claude Code notifications need Warp's plugin or a hook [O Claude Code docs].
+- **Windows Terminal 1.25 and Microsoft Intelligent Terminal 0.3.** Agent features: WT: no agent features in the 1.24 to 1.26 release notes [O]. 'Terminal Chat' is being deprecated in Canary [O devblog 2026-06-02]. IT agent pane (Ctrl+Shift+.) talks ACP over stdio to Copilot, Claude, Codex, Gemini, OpenCode and Antigravity. GitHub Copilot CLI is the default and is installed through WinGet if no agent is found. It 'always asks before running commands' [O README, devblog]. Weak spots: WT shell integration needs manual profile and settings edits, and cmd cannot report an exit code [O tutorial]. WT notifications (OSC 777 and bell) are off by default. OSC 7 support was announced in 1.25 and then removed [O 1.26 notes].
+- **VS Code integrated terminal (with Copilot agent terminal tools).** Agent features: The send_to_terminal tool lets the agent keep typing into background terminals. The experimental setting chat.tools.terminal.backgroundNotifications tells the agent when a background command 'finishes or requires user input' (1.115, 2026-04-08: supporting evidence, before the six-month window) [O]. 1.121 (2026-05-20): a VSCODE_AGENT environment variable on agent-initiated commands. 'When a chat terminal command reaches a sensitive prompt, VS Code now intercepts it.' Background terminals are disposed when their command completes, and more kinds of verbose output are compressed before reaching the model [O]. Weak spots: The terminal tools serve VS Code's own chat agent; external CLI agents get a plain terminal [O 1.115 and 1.121 notes]. Per Claude Code's docs: no desktop notification in the VS Code terminal, Shift+Enter needs setup, GPU acceleration is turned off for correctness, and large pastes can drop characters [O].
+- **herdr.** Agent features: Every pane is marked working, blocked or idle. Agents are recognised by process and screen output (Claude Code, Codex, Cursor, OpenCode, Grok and others) [O README; SN reviews]. Agents can report on themselves through $HERDR_BIN_PATH report-agent: idle, working or blocked, with a --seq number that must increase. A resume command goes after --, and release-agent clears the pane on exit. Panes get HERDR_ENV, HERDR_PANE_ID, HERDR_BIN_PATH and HERDR_SOCKET_PATH (0.9.2, 2026-09-29) [O herdr.dev/docs/add-herdr-support]. Weak spots: It is not a renderer. It draws inside another terminal, so latency, fonts and images depend on the host, and 'Windows Terminal does not expose the Kitty graphics path Herdr uses' [O Windows doc]. Some state still comes from screen detection: 0.9.5 says Codex status 'comes from screen detection again' [O].
+- **WezTerm.** Agent features: No built-in agent features on the features page [O]. wezterm cli drives a running GUI or mux instance with spawn, send-text, get-text, list, split-pane, activate-pane and more; agents can use it [O wezterm.org/cli/cli]. Weak spots: No tagged release since 2024-02-03 [gh]. No agent state, notification routing or command journal in any source opened today. Kitty keyboard and OSC 133 are not on its features page (unknown).
+
