@@ -1361,14 +1361,21 @@ impl ApplicationHandler<UiEvent> for App {
         }
         use winit::platform::windows::WindowAttributesExtWindows;
         let icon = |n: u32| winit::window::Icon::from_rgba(crate::icon::rgba(n), n, n).ok();
+        // Test runs set this so their windows never take the keyboard from
+        // whoever is typing. `with_active(false)` alone is not enough: a
+        // window created visible (WS_VISIBLE) is activated by Windows at
+        // creation, before winit's no-activate path runs, and the versus
+        // lane measured test windows taking the foreground 9 times in 36.
+        // So the window is created hidden and then shown, which winit does
+        // with SW_SHOWNOACTIVATE when the window was made inactive.
+        let quiet = std::env::var_os("PROTEUS_NO_FOCUS").is_some();
         let attrs = Window::default_attributes()
             .with_title("PROTEUS")
             .with_inner_size(LogicalSize::new(1180.0, 760.0))
             .with_min_inner_size(LogicalSize::new(320.0, 200.0))
             .with_theme(Some(winit::window::Theme::Dark))
-            // Test runs set this so their windows never take the keyboard
-            // from whoever is typing.
-            .with_active(std::env::var_os("PROTEUS_NO_FOCUS").is_none())
+            .with_active(!quiet)
+            .with_visible(!quiet)
             .with_window_icon(icon(32))
             .with_taskbar_icon(icon(256));
         let window = match el.create_window(attrs) {
@@ -1378,6 +1385,9 @@ impl ApplicationHandler<UiEvent> for App {
                 return el.exit();
             }
         };
+        if quiet {
+            window.set_visible(true);
+        }
         window.set_ime_allowed(true);
         match State::new(window, &self.opts, self.proxy.clone()) {
             Ok(s) => self.state = Some(s),

@@ -1,0 +1,198 @@
+{
+ "what": "C: ConPTY 1.24 (vendor/conpty) alone with a discarding reader, 16 MiB ascii, synchronous ReadFile of 64 KiB vs 128 KiB, interleaved, 2026-11-16 19:44:30-19:44:55; machine 28% CPU, 4.1 GB free at the start",
+ "command": "versus sink --conpty vendor\\conpty --buf N --out s.json -- --kind ascii --bytes 16777216 --report r.json",
+ "runs": [
+  {
+   "sink": {
+    "conpty": "%WORKTREE%\\vendor\\conpty",
+    "buf": 65536,
+    "bytes_read": 16777369,
+    "reads": 264,
+    "avg_read": 63551
+   },
+   "workload_report": {
+    "kind": "ascii",
+    "console": true,
+    "cols": 123,
+    "rows": 30,
+    "bytes": 16777306,
+    "seconds": 0.860814,
+    "mb_per_s": 19.49,
+    "frames": 0,
+    "fps": 0.0,
+    "qpf": 10000000,
+    "t0": 0,
+    "t_start": 78802384567,
+    "t_first": 78802597639,
+    "t_payload_start": 78802604615,
+    "t_payload_end": 78811212758,
+    "start_ms": -1.0,
+    "first_write_ms": -1.0,
+    "self_cpu_s": 0.0625,
+    "in_runner_job": null,
+    "pid": 39388,
+    "second_half_mb_per_s": 17.1283
+   }
+  },
+  {
+   "sink": {
+    "conpty": "%WORKTREE%\\vendor\\conpty",
+    "buf": 131072,
+    "bytes_read": 16777369,
+    "reads": 261,
+    "avg_read": 64281
+   },
+   "workload_report": {
+    "kind": "ascii",
+    "console": true,
+    "cols": 123,
+    "rows": 30,
+    "bytes": 16777306,
+    "seconds": 0.91932,
+    "mb_per_s": 18.2497,
+    "frames": 0,
+    "fps": 0.0,
+    "qpf": 10000000,
+    "t0": 0,
+    "t_start": 78845798450,
+    "t_first": 78846292554,
+    "t_payload_start": 78846298353,
+    "t_payload_end": 78855491554,
+    "start_ms": -1.0,
+    "first_write_ms": -1.0,
+    "self_cpu_s": 0.0625,
+    "in_runner_job": null,
+    "pid": 41196,
+    "second_half_mb_per_s": 19.1076
+   }
+  },
+  {
+   "sink": {
+    "conpty": "%WORKTREE%\\vendor\\conpty",
+    "buf": 65536,
+    "bytes_read": 16777369,
+    "reads": 264,
+    "avg_read": 63551
+   },
+   "workload_report": {
+    "kind": "ascii",
+    "console": true,
+    "cols": 123,
+    "rows": 30,
+    "bytes": 16777306,
+    "seconds": 0.856308,
+    "mb_per_s": 19.5926,
+    "frames": 0,
+    "fps": 0.0,
+    "qpf": 10000000,
+    "t0": 0,
+    "t_start": 78889326903,
+    "t_first": 78890285505,
+    "t_payload_start": 78890331971,
+    "t_payload_end": 78898895052,
+    "start_ms": -1.0,
+    "first_write_ms": -1.0,
+    "self_cpu_s": 0.0781,
+    "in_runner_job": null,
+    "pid": 42780,
+    "second_half_mb_per_s": 32.4908
+   }
+  },
+  {
+   "sink": {
+    "conpty": "%WORKTREE%\\vendor\\conpty",
+    "buf": 131072,
+    "bytes_read": 16777369,
+    "reads": 261,
+    "avg_read": 64281
+   },
+   "workload_report": {
+    "kind": "ascii",
+    "console": true,
+    "cols": 123,
+    "rows": 30,
+    "bytes": 16777306,
+    "seconds": 0.841142,
+    "mb_per_s": 19.9459,
+    "frames": 0,
+    "fps": 0.0,
+    "qpf": 10000000,
+    "t0": 0,
+    "t_start": 78931549450,
+    "t_first": 78931793101,
+    "t_payload_start": 78931803330,
+    "t_payload_end": 78940214750,
+    "start_ms": -1.0,
+    "first_write_ms": -1.0,
+    "self_cpu_s": 0.0625,
+    "in_runner_job": null,
+    "pid": 11504,
+    "second_half_mb_per_s": 18.6557
+   }
+  },
+  {
+   "sink": {
+    "conpty": "%WORKTREE%\\vendor\\conpty",
+    "buf": 65536,
+    "bytes_read": 16777369,
+    "reads": 264,
+    "avg_read": 63551
+   },
+   "workload_report": {
+    "kind": "ascii",
+    "console": true,
+    "cols": 123,
+    "rows": 30,
+    "bytes": 16777306,
+    "seconds": 0.472548,
+    "mb_per_s": 35.5039,
+    "frames": 0,
+    "fps": 0.0,
+    "qpf": 10000000,
+    "t0": 0,
+    "t_start": 78973273716,
+    "t_first": 78973403892,
+    "t_payload_start": 78973410308,
+    "t_payload_end": 78978135791,
+    "start_ms": -1.0,
+    "first_write_ms": -1.0,
+    "self_cpu_s": 0.0156,
+    "in_runner_job": null,
+    "pid": 27284,
+    "second_half_mb_per_s": 39.7664
+   }
+  },
+  {
+   "sink": {
+    "conpty": "%WORKTREE%\\vendor\\conpty",
+    "buf": 131072,
+    "bytes_read": 16777369,
+    "reads": 261,
+    "avg_read": 64281
+   },
+   "workload_report": {
+    "kind": "ascii",
+    "console": true,
+    "cols": 123,
+    "rows": 30,
+    "bytes": 16777306,
+    "seconds": 0.890425,
+    "mb_per_s": 18.8419,
+    "frames": 0,
+    "fps": 0.0,
+    "qpf": 10000000,
+    "t0": 0,
+    "t_start": 79010457634,
+    "t_first": 79010993334,
+    "t_payload_start": 79011000242,
+    "t_payload_end": 79019904497,
+    "start_ms": -1.0,
+    "first_write_ms": -1.0,
+    "self_cpu_s": 0.0312,
+    "in_runner_job": null,
+    "pid": 804,
+    "second_half_mb_per_s": 20.7484
+   }
+  }
+ ]
+}

@@ -546,18 +546,24 @@ Each item names where it was seen, why it matters, how it ports to PROTEUS's arc
 
 ## In flight now (one agent per lane, each inside a PROTEUS session)
 
-- marks: commands as objects (OSC 133), agent state shown (OSC 7501), outcome sound
-- speed: fast attach from keyframes, stage-by-stage throughput bench, daemon hop
-- reach: OSC 8 links, sound follows the output device, reduced motion and flash safety
-- onboard: proteus doctor, agent detection and setup, update at every start
-- deps: alacritty_terminal 0.26, sha2 0.11, cpal 0.18, pollster 1.0
-- shaping: colour emoji, combining marks, run shaping
-- wgpu30: wgpu 30 and HDR light
-- site: the public website
-- fleet: every session live in one window; spawns grow out of their parent
-- look: CRT presets from real optics, themes, 3D views with meaning, synthesised sound presets, adaptive quality
-- versus: reproducible head-to-head against Windows Terminal, WT Preview, WezTerm, Ghostty and conhost, looping on every row PROTEUS loses
+Shipped from earlier lanes: reach (#13, #14, sound device) in 0.5.5; site (the public website); versus (results in forge/versus.md, losses included); conhost (#7 findings).
 
+| lane | roadmap items | state |
+|---|---|---|
+| marks | #1, #2, #21, #22, #23, #33, #12 | building: marks drawn, elapsed time, outcome sound |
+| fleet | #31, #32, Fleet as home (selection, scroll, expand), HUD, `proteus spawn` | building |
+| speed | #3, fast attach, daemon hop; memory (versus: 347-361 MB flood vs WT 146-156) | building |
+| onboard | doctor, agent detection, first-run setup and guided tour | testing |
+| echo | predictive local echo | measuring |
+| resurrect | #24, #25 | building |
+| look | CRT presets, themes, symbiote theme, 3D, adaptive quality | building |
+| deps | alacritty_terminal 0.26, sha2 0.11, cpal 0.18, pollster 1.0 | testing |
+| shaping (Cursor) | #18 | building |
+| wgpu30 (Antigravity) | #20 | building |
+| agentapi | #34, #36, #28, #9, #38, #35, #29 | started |
+| safety | audit M1, F1, U1, U2, R1, F2, F3, M2; #37, #15, #27, #8 (off by default) | started |
+
+Queued for the next free lanes (at most 2 compile at once; a lane starts when one merges): #5 and #16 (routing and receipts), #11 and #30 (cost per command, session names), #19 and #39 (kitty graphics), #4 and #6 (correctness and coverage gates), #17 (Execution Containers spike), #26 (delayed Enter for agent UIs), #10 remainder.
 ## Competitive map
 
 - **Warp.** Agent features: Built-in Warp Agent with local and cloud runs. Multi-agent orchestration arrived 2026-05-18. Runs hand off from local to cloud and back ('Continue locally', 2026-06-24) [O changelog]. Detects third-party CLI agents automatically: Claude Code, Codex, Gemini, OpenCode, goose and Mistral Vibe (2026-05-06), Kiro (2026-10-07), Antigravity agy, Grok Build and oh-my-pi. Each gets a rich input editor, with status shown on the pane and in vertical tabs [O changelog; SN docs.warp.dev/agents/cli-agents]. Weak spots: Its business is its own agent and paid usage: AI is tied to a Warp account (onboarding change 2026-07-03), and the server is closed [O changelog; O pricing; SN]. Third-party agent sessions do not appear in Warp's conversation panel [SN docs]. Claude Code notifications need Warp's plugin or a hook [O Claude Code docs].

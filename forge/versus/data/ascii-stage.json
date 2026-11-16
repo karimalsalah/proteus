@@ -1,0 +1,2440 @@
+{
+  "machine": {
+    "cpu": "Intel(R) Core(TM) Ultra 9 285H",
+    "gpu": "Intel(R) Arc(TM) 140T GPU (16GB) driver 32.0.101.9175",
+    "os": "Microsoft Windows 11 Pro for Workstations Insider Preview build 26340",
+    "logical_cpus": 16,
+    "ram_gb": 31.4,
+    "started": "2026-11-16T19:46:22",
+    "other_processes": 512,
+    "finished": "2026-11-16T19:49:51"
+  },
+  "versions": {
+    "proteus": "proteus-versus-20261116-191139.exe",
+    "proteus-local": "proteus-versus-20261116-191139.exe",
+    "proteus-nojournal": "proteus-versus-20261116-191139.exe",
+    "wt": "1.25.3131.0",
+    "wtp": "1.26.3133.0",
+    "wezterm": "wezterm 20261112-061903-ce8e6b14",
+    "ghostty": "1.3.2-win.4",
+    "conhost": "10.0.26100.8951"
+  },
+  "cols": 123,
+  "rows": 30,
+  "runs": 3,
+  "summary": {
+    "proteus": {
+      "name": "PROTEUS",
+      "version": "proteus-versus-20261116-191139.exe",
+      "ascii": {
+        "mb_per_s": {
+          "median": 13.0067,
+          "min": 8.2332,
+          "max": 14.2332,
+          "n": 3
+        },
+        "sustained_mb_per_s": {
+          "median": 11.8813,
+          "min": 9.3682,
+          "max": 13.096,
+          "n": 3
+        },
+        "machine_cpu_busy_pct": {
+          "median": 70.0,
+          "min": 68.6,
+          "max": 72.4,
+          "n": 3
+        },
+        "min_free_ram_mb": {
+          "median": 3634,
+          "min": 3289,
+          "max": 3802,
+          "n": 3
+        },
+        "seconds": {
+          "median": 1.289896,
+          "min": 1.178747,
+          "max": 2.037751,
+          "n": 3
+        },
+        "fps": null,
+        "first_write_ms": {
+          "median": 1318.091,
+          "min": 1224.978,
+          "max": 1589.429,
+          "n": 3
+        },
+        "tree_cpu_s": {
+          "median": 1.2813,
+          "min": 0.9532,
+          "max": 1.3593,
+          "n": 3
+        },
+        "payload_cpu_s": {
+          "median": 0.6718999999999999,
+          "min": 0.4844,
+          "max": 0.9061999999999999,
+          "n": 3
+        },
+        "invalid_runs": 0,
+        "peak_ws_mb": {
+          "median": 360.6,
+          "min": 360.1,
+          "max": 361.5,
+          "n": 3
+        },
+        "drip_write_p99_ms": null,
+        "drip_late_p99_ms": null,
+        "grid": "123x30",
+        "failures": 0
+      }
+    },
+    "ghostty": {
+      "name": "Ghostty",
+      "version": "1.3.2-win.4",
+      "ascii": {
+        "mb_per_s": {
+          "median": 28.1751,
+          "min": 5.7545,
+          "max": 67.7169,
+          "n": 3
+        },
+        "sustained_mb_per_s": {
+          "median": 21.856,
+          "min": 5.3648,
+          "max": 42.8537,
+          "n": 3
+        },
+        "machine_cpu_busy_pct": {
+          "median": 72.4,
+          "min": 72.0,
+          "max": 74.3,
+          "n": 3
+        },
+        "min_free_ram_mb": {
+          "median": 3346,
+          "min": 3259,
+          "max": 3647,
+          "n": 3
+        },
+        "seconds": {
+          "median": 0.595466,
+          "min": 0.247756,
+          "max": 2.915521,
+          "n": 3
+        },
+        "fps": null,
+        "first_write_ms": {
+          "median": 774.358,
+          "min": 624.771,
+          "max": 1430.056,
+          "n": 3
+        },
+        "tree_cpu_s": {
+          "median": 0.5157,
+          "min": 0.4375,
+          "max": 0.9688000000000001,
+          "n": 3
+        },
+        "payload_cpu_s": {
+          "median": 0.2188,
+          "min": 0.0625,
+          "max": 0.6875,
+          "n": 3
+        },
+        "invalid_runs": 0,
+        "peak_ws_mb": {
+          "median": 228.2,
+          "min": 226.8,
+          "max": 228.7,
+          "n": 3
+        },
+        "drip_write_p99_ms": null,
+        "drip_late_p99_ms": null,
+        "grid": "123x30",
+        "failures": 0
+      }
+    },
+    "wt": {
+      "name": "Windows Terminal",
+      "version": "1.25.3131.0",
+      "ascii": {
+        "mb_per_s": {
+          "median": 8.2719,
+          "min": 5.8719,
+          "max": 8.6759,
+          "n": 3
+        },
+        "sustained_mb_per_s": {
+          "median": 6.8414,
+          "min": 4.7102,
+          "max": 7.9661,
+          "n": 3
+        },
+        "machine_cpu_busy_pct": {
+          "median": 72.8,
+          "min": 72.2,
+          "max": 73.2,
+          "n": 3
+        },
+        "min_free_ram_mb": {
+          "median": 3387,
+          "min": 3326,
+          "max": 3537,
+          "n": 3
+        },
+        "seconds": {
+          "median": 2.028222,
+          "min": 1.933785,
+          "max": 2.857198,
+          "n": 3
+        },
+        "fps": null,
+        "first_write_ms": {
+          "median": 1407.539,
+          "min": 1162.154,
+          "max": 1733.869,
+          "n": 3
+        },
+        "tree_cpu_s": {
+          "median": 1.0469,
+          "min": 0.9531,
+          "max": 1.0781,
+          "n": 3
+        },
+        "payload_cpu_s": {
+          "median": 0.3281,
+          "min": 0.2188,
+          "max": 0.3906,
+          "n": 3
+        },
+        "invalid_runs": 0,
+        "peak_ws_mb": {
+          "median": 154.4,
+          "min": 154.1,
+          "max": 154.5,
+          "n": 3
+        },
+        "drip_write_p99_ms": null,
+        "drip_late_p99_ms": null,
+        "grid": "123x30",
+        "failures": 0
+      }
+    },
+    "wezterm": {
+      "name": "WezTerm",
+      "version": "wezterm 20261112-061903-ce8e6b14",
+      "ascii": {
+        "mb_per_s": {
+          "median": 5.152,
+          "min": 4.9741,
+          "max": 13.718,
+          "n": 3
+        },
+        "sustained_mb_per_s": {
+          "median": 5.8507,
+          "min": 4.807,
+          "max": 12.0616,
+          "n": 3
+        },
+        "machine_cpu_busy_pct": {
+          "median": 70.8,
+          "min": 70.6,
+          "max": 73.3,
+          "n": 3
+        },
+        "min_free_ram_mb": {
+          "median": 3303,
+          "min": 3229,
+          "max": 3424,
+          "n": 3
+        },
+        "seconds": {
+          "median": 3.256494,
+          "min": 1.223011,
+          "max": 3.372916,
+          "n": 3
+        },
+        "fps": null,
+        "first_write_ms": {
+          "median": 1095.155,
+          "min": 714.929,
+          "max": 1507.205,
+          "n": 3
+        },
+        "tree_cpu_s": {
+          "median": 1.7969000000000002,
+          "min": 1.5625,
+          "max": 2.0,
+          "n": 3
+        },
+        "payload_cpu_s": {
+          "median": 1.2032,
+          "min": 1.0155999999999998,
+          "max": 1.5156,
+          "n": 3
+        },
+        "invalid_runs": 0,
+        "peak_ws_mb": {
+          "median": 293.5,
+          "min": 287.2,
+          "max": 294.5,
+          "n": 3
+        },
+        "drip_write_p99_ms": null,
+        "drip_late_p99_ms": null,
+        "grid": "123x30",
+        "failures": 0
+      }
+    }
+  },
+  "records": [
+    {
+      "terminal": "proteus",
+      "workload": "ascii",
+      "run": 1,
+      "runner": {
+        "cmdline": "\"%WORKTREE%\\dist\\proteus-versus-20261116-191139.exe\" -e \"%WORKTREE%\\forge\\out\\versus-target\\release\\versus.exe\" emit --kind ascii --bytes 16777216 --report \"%WORKTREE%\\forge\\out\\versus\\ascii-stage\\proteus\\ascii\\1\\workload.json\" --t0 {T0}",
+        "pid": 30360,
+        "t0": 79998761588,
+        "wall_s": 6.436,
+        "report_after_s": 3.372,
+        "cpu_s": 1.4062,
+        "user_s": 0.6875,
+        "kernel_s": 0.7188,
+        "total_processes": 4,
+        "active_at_end": 0,
+        "peak_ws_mb": 360.6,
+        "closed_by_harness": true,
+        "timed_out": false,
+        "payload_cpu_s": 0.9531,
+        "took_foreground": false,
+        "procs": [
+          {
+            "pid": 30360,
+            "name": "proteus-versus-20261116-191139.exe",
+            "peak_ws_mb": 309.3
+          },
+          {
+            "pid": 36120,
+            "name": "proteus-0.5.4-1794845076.exe",
+            "peak_ws_mb": 14.4
+          },
+          {
+            "pid": 36856,
+            "name": "versus.exe",
+            "peak_ws_mb": 24.5
+          },
+          {
+            "pid": 38436,
+            "name": "OpenConsole.exe",
+            "peak_ws_mb": 13.3
+          }
+        ],
+        "machine_cpu_busy_pct": 72.4,
+        "min_free_ram_mb": 3802
+      },
+      "workload_report": {
+        "kind": "ascii",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777306,
+        "seconds": 2.037751,
+        "mb_per_s": 8.2332,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 79998761588,
+        "t_start": 80011237349,
+        "t_first": 80011942499,
+        "t_payload_start": 80012046874,
+        "t_payload_end": 80032424380,
+        "start_ms": 1247.576,
+        "first_write_ms": 1318.091,
+        "self_cpu_s": 0.0469,
+        "in_runner_job": true,
+        "pid": 36856,
+        "second_half_mb_per_s": 9.3682
+      },
+      "invalid": []
+    },
+    {
+      "terminal": "proteus",
+      "workload": "ascii",
+      "run": 2,
+      "runner": {
+        "cmdline": "\"%WORKTREE%\\dist\\proteus-versus-20261116-191139.exe\" -e \"%WORKTREE%\\forge\\out\\versus-target\\release\\versus.exe\" emit --kind ascii --bytes 16777216 --report \"%WORKTREE%\\forge\\out\\versus\\ascii-stage\\proteus\\ascii\\2\\workload.json\" --t0 {T0}",
+        "pid": 38440,
+        "t0": 80360456855,
+        "wall_s": 5.906,
+        "report_after_s": 2.881,
+        "cpu_s": 0.9688,
+        "user_s": 0.4531,
+        "kernel_s": 0.5156,
+        "total_processes": 4,
+        "active_at_end": 0,
+        "peak_ws_mb": 360.1,
+        "closed_by_harness": true,
+        "timed_out": false,
+        "payload_cpu_s": 0.5,
+        "took_foreground": false,
+        "procs": [
+          {
+            "pid": 32376,
+            "name": "versus.exe",
+            "peak_ws_mb": 24.4
+          },
+          {
+            "pid": 35568,
+            "name": "proteus-0.5.4-1794845076.exe",
+            "peak_ws_mb": 14.5
+          },
+          {
+            "pid": 38440,
+            "name": "proteus-versus-20261116-191139.exe",
+            "peak_ws_mb": 308.8
+          },
+          {
+            "pid": 40396,
+            "name": "OpenConsole.exe",
+            "peak_ws_mb": 13.3
+          }
+        ],
+        "machine_cpu_busy_pct": 70.0,
+        "min_free_ram_mb": 3634
+      },
+      "workload_report": {
+        "kind": "ascii",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777306,
+        "seconds": 1.289896,
+        "mb_per_s": 13.0067,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 80360456855,
+        "t_start": 80375614856,
+        "t_first": 80376351147,
+        "t_payload_start": 80376359067,
+        "t_payload_end": 80389258028,
+        "start_ms": 1515.8,
+        "first_write_ms": 1589.429,
+        "self_cpu_s": 0.0156,
+        "in_runner_job": true,
+        "pid": 32376,
+        "second_half_mb_per_s": 13.096
+      },
+      "invalid": []
+    },
+    {
+      "terminal": "proteus",
+      "workload": "ascii",
+      "run": 3,
+      "runner": {
+        "cmdline": "\"%WORKTREE%\\dist\\proteus-versus-20261116-191139.exe\" -e \"%WORKTREE%\\forge\\out\\versus-target\\release\\versus.exe\" emit --kind ascii --bytes 16777216 --report \"%WORKTREE%\\forge\\out\\versus\\ascii-stage\\proteus\\ascii\\3\\workload.json\" --t0 {T0}",
+        "pid": 37584,
+        "t0": 80496056402,
+        "wall_s": 5.462,
+        "report_after_s": 2.42,
+        "cpu_s": 1.3125,
+        "user_s": 0.7031,
+        "kernel_s": 0.6094,
+        "total_processes": 4,
+        "active_at_end": 0,
+        "peak_ws_mb": 361.5,
+        "closed_by_harness": true,
+        "timed_out": false,
+        "payload_cpu_s": 0.7031,
+        "took_foreground": false,
+        "procs": [
+          {
+            "pid": 27196,
+            "name": "proteus-0.5.4-1794845076.exe",
+            "peak_ws_mb": 14.5
+          },
+          {
+            "pid": 27416,
+            "name": "versus.exe",
+            "peak_ws_mb": 24.4
+          },
+          {
+            "pid": 37180,
+            "name": "OpenConsole.exe",
+            "peak_ws_mb": 13.3
+          },
+          {
+            "pid": 37584,
+            "name": "proteus-versus-20261116-191139.exe",
+            "peak_ws_mb": 310.1
+          }
+        ],
+        "machine_cpu_busy_pct": 68.6,
+        "min_free_ram_mb": 3289
+      },
+      "workload_report": {
+        "kind": "ascii",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777306,
+        "seconds": 1.178747,
+        "mb_per_s": 14.2332,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 80496056402,
+        "t_start": 80507827282,
+        "t_first": 80508306184,
+        "t_payload_start": 80508312767,
+        "t_payload_end": 80520100238,
+        "start_ms": 1177.088,
+        "first_write_ms": 1224.978,
+        "self_cpu_s": 0.0312,
+        "in_runner_job": true,
+        "pid": 27416,
+        "second_half_mb_per_s": 11.8813
+      },
+      "invalid": []
+    },
+    {
+      "terminal": "ghostty",
+      "workload": "ascii",
+      "run": 1,
+      "runner": {
+        "cmdline": "%LOCALAPPDATA%\\tools\\ghostty\\bin\\ghostty.exe --config-default-files=false --window-width=123 --window-height=30 -e \"%WORKTREE%\\forge\\out\\versus-target\\release\\versus.exe\" emit --kind ascii --bytes 16777216 --report \"%WORKTREE%\\forge\\out\\versus\\ascii-stage\\ghostty\\ascii\\1\\workload.json\" --t0 {T0}",
+        "pid": 41492,
+        "t0": 80069928170,
+        "wall_s": 4.751,
+        "report_after_s": 4.373,
+        "cpu_s": 0.9844,
+        "user_s": 0.4375,
+        "kernel_s": 0.5469,
+        "total_processes": 3,
+        "active_at_end": 0,
+        "peak_ws_mb": 228.7,
+        "closed_by_harness": false,
+        "timed_out": false,
+        "payload_cpu_s": 0.7031,
+        "took_foreground": false,
+        "procs": [
+          {
+            "pid": 18864,
+            "name": "versus.exe",
+            "peak_ws_mb": 24.4
+          },
+          {
+            "pid": 40500,
+            "name": "OpenConsole.exe",
+            "peak_ws_mb": 14.4
+          },
+          {
+            "pid": 41492,
+            "name": "ghostty.exe",
+            "peak_ws_mb": 191.2
+          }
+        ],
+        "machine_cpu_busy_pct": 74.3,
+        "min_free_ram_mb": 3647
+      },
+      "workload_report": {
+        "kind": "ascii",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777306,
+        "seconds": 2.915521,
+        "mb_per_s": 5.7545,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 80069928170,
+        "t_start": 80081844948,
+        "t_first": 80084228728,
+        "t_payload_start": 80084236952,
+        "t_payload_end": 80113392162,
+        "start_ms": 1191.678,
+        "first_write_ms": 1430.056,
+        "self_cpu_s": 0.0156,
+        "in_runner_job": true,
+        "pid": 18864,
+        "second_half_mb_per_s": 5.3648
+      },
+      "invalid": []
+    },
+    {
+      "terminal": "ghostty",
+      "workload": "ascii",
+      "run": 2,
+      "runner": {
+        "cmdline": "%LOCALAPPDATA%\\tools\\ghostty\\bin\\ghostty.exe --config-default-files=false --window-width=123 --window-height=30 -e \"%WORKTREE%\\forge\\out\\versus-target\\release\\versus.exe\" emit --kind ascii --bytes 16777216 --report \"%WORKTREE%\\forge\\out\\versus\\ascii-stage\\ghostty\\ascii\\2\\workload.json\" --t0 {T0}",
+        "pid": 28688,
+        "t0": 80232373063,
+        "wall_s": 1.643,
+        "report_after_s": 1.399,
+        "cpu_s": 0.5469,
+        "user_s": 0.2344,
+        "kernel_s": 0.3125,
+        "total_processes": 3,
+        "active_at_end": 0,
+        "peak_ws_mb": 228.2,
+        "closed_by_harness": false,
+        "timed_out": false,
+        "payload_cpu_s": 0.25,
+        "took_foreground": false,
+        "procs": [
+          {
+            "pid": 27392,
+            "name": "versus.exe",
+            "peak_ws_mb": 24.4
+          },
+          {
+            "pid": 28688,
+            "name": "ghostty.exe",
+            "peak_ws_mb": 190.6
+          },
+          {
+            "pid": 30060,
+            "name": "OpenConsole.exe",
+            "peak_ws_mb": 13.5
+          }
+        ],
+        "machine_cpu_busy_pct": 72.4,
+        "min_free_ram_mb": 3259
+      },
+      "workload_report": {
+        "kind": "ascii",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777306,
+        "seconds": 0.595466,
+        "mb_per_s": 28.1751,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 80232373063,
+        "t_start": 80239650652,
+        "t_first": 80240116646,
+        "t_payload_start": 80240121854,
+        "t_payload_end": 80246076510,
+        "start_ms": 727.759,
+        "first_write_ms": 774.358,
+        "self_cpu_s": 0.0312,
+        "in_runner_job": true,
+        "pid": 27392,
+        "second_half_mb_per_s": 21.856
+      },
+      "invalid": []
+    },
+    {
+      "terminal": "ghostty",
+      "workload": "ascii",
+      "run": 3,
+      "runner": {
+        "cmdline": "%LOCALAPPDATA%\\tools\\ghostty\\bin\\ghostty.exe --config-default-files=false --window-width=123 --window-height=30 -e \"%WORKTREE%\\forge\\out\\versus-target\\release\\versus.exe\" emit --kind ascii --bytes 16777216 --report \"%WORKTREE%\\forge\\out\\versus\\ascii-stage\\ghostty\\ascii\\3\\workload.json\" --t0 {T0}",
+        "pid": 39672,
+        "t0": 80552534718,
+        "wall_s": 1.078,
+        "report_after_s": 0.877,
+        "cpu_s": 0.4844,
+        "user_s": 0.1406,
+        "kernel_s": 0.3438,
+        "total_processes": 3,
+        "active_at_end": 0,
+        "peak_ws_mb": 226.8,
+        "closed_by_harness": false,
+        "timed_out": false,
+        "payload_cpu_s": 0.1094,
+        "took_foreground": false,
+        "procs": [
+          {
+            "pid": 31100,
+            "name": "OpenConsole.exe",
+            "peak_ws_mb": 13.2
+          },
+          {
+            "pid": 35580,
+            "name": "versus.exe",
+            "peak_ws_mb": 24.5
+          },
+          {
+            "pid": 39672,
+            "name": "ghostty.exe",
+            "peak_ws_mb": 189.3
+          }
+        ],
+        "machine_cpu_busy_pct": 72.0,
+        "min_free_ram_mb": 3346
+      },
+      "workload_report": {
+        "kind": "ascii",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777306,
+        "seconds": 0.247756,
+        "mb_per_s": 67.7169,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 80552534718,
+        "t_start": 80558607572,
+        "t_first": 80558782431,
+        "t_payload_start": 80558790155,
+        "t_payload_end": 80561267720,
+        "start_ms": 607.285,
+        "first_write_ms": 624.771,
+        "self_cpu_s": 0.0469,
+        "in_runner_job": true,
+        "pid": 35580,
+        "second_half_mb_per_s": 42.8537
+      },
+      "invalid": []
+    },
+    {
+      "terminal": "wt",
+      "workload": "ascii",
+      "run": 1,
+      "runner": {
+        "cmdline": "%LOCALAPPDATA%\\Microsoft\\WindowsApps\\Microsoft.WindowsTerminal_8wekyb3d8bbwe\\wt.exe -w new --size 123,30 new-tab -- \"%WORKTREE%\\forge\\out\\versus-target\\release\\versus.exe\" emit --kind ascii --bytes 16777216 --report \"%WORKTREE%\\forge\\out\\versus\\ascii-stage\\wt\\ascii\\1\\workload.json\" --t0 {T0}",
+        "pid": 33760,
+        "t0": 80121154906,
+        "wall_s": 5.397,
+        "report_after_s": 4.607,
+        "cpu_s": 1.0781,
+        "user_s": 0.5156,
+        "kernel_s": 0.5625,
+        "total_processes": 3,
+        "active_at_end": 0,
+        "peak_ws_mb": 154.5,
+        "closed_by_harness": false,
+        "timed_out": false,
+        "payload_cpu_s": 0.3906,
+        "took_foreground": false,
+        "procs": [
+          {
+            "pid": 33760,
+            "name": "wt.exe",
+            "peak_ws_mb": 8.6
+          },
+          {
+            "pid": 35896,
+            "name": "WindowsTerminal.exe",
+            "peak_ws_mb": 146.8
+          },
+          {
+            "pid": 37880,
+            "name": "OpenConsole.exe",
+            "peak_ws_mb": 13.6
+          }
+        ],
+        "machine_cpu_busy_pct": 72.2,
+        "min_free_ram_mb": 3387
+      },
+      "workload_report": {
+        "kind": "ascii",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777306,
+        "seconds": 2.857198,
+        "mb_per_s": 5.8719,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 80121154906,
+        "t_start": 80138348076,
+        "t_first": 80138493594,
+        "t_payload_start": 80138498939,
+        "t_payload_end": 80167070920,
+        "start_ms": 1719.317,
+        "first_write_ms": 1733.869,
+        "self_cpu_s": 0.0469,
+        "in_runner_job": false,
+        "pid": 38432,
+        "second_half_mb_per_s": 4.7102
+      },
+      "invalid": []
+    },
+    {
+      "terminal": "wt",
+      "workload": "ascii",
+      "run": 2,
+      "runner": {
+        "cmdline": "%LOCALAPPDATA%\\Microsoft\\WindowsApps\\Microsoft.WindowsTerminal_8wekyb3d8bbwe\\wt.exe -w new --size 123,30 new-tab -- \"%WORKTREE%\\forge\\out\\versus-target\\release\\versus.exe\" emit --kind ascii --bytes 16777216 --report \"%WORKTREE%\\forge\\out\\versus\\ascii-stage\\wt\\ascii\\2\\workload.json\" --t0 {T0}",
+        "pid": 39588,
+        "t0": 80251514485,
+        "wall_s": 4.978,
+        "report_after_s": 3.358,
+        "cpu_s": 0.9531,
+        "user_s": 0.4531,
+        "kernel_s": 0.5,
+        "total_processes": 3,
+        "active_at_end": 0,
+        "peak_ws_mb": 154.4,
+        "closed_by_harness": false,
+        "timed_out": false,
+        "payload_cpu_s": 0.2188,
+        "took_foreground": false,
+        "procs": [
+          {
+            "pid": 18692,
+            "name": "WindowsTerminal.exe",
+            "peak_ws_mb": 147.1
+          },
+          {
+            "pid": 32464,
+            "name": "OpenConsole.exe",
+            "peak_ws_mb": 13.5
+          },
+          {
+            "pid": 39588,
+            "name": "wt.exe",
+            "peak_ws_mb": 7.3
+          }
+        ],
+        "machine_cpu_busy_pct": 73.2,
+        "min_free_ram_mb": 3326
+      },
+      "workload_report": {
+        "kind": "ascii",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777306,
+        "seconds": 1.933785,
+        "mb_per_s": 8.6759,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 80251514485,
+        "t_start": 80265453846,
+        "t_first": 80265589873,
+        "t_payload_start": 80265595511,
+        "t_payload_end": 80284933358,
+        "start_ms": 1393.936,
+        "first_write_ms": 1407.539,
+        "self_cpu_s": 0.0312,
+        "in_runner_job": false,
+        "pid": 40760,
+        "second_half_mb_per_s": 6.8414
+      },
+      "invalid": []
+    },
+    {
+      "terminal": "wt",
+      "workload": "ascii",
+      "run": 3,
+      "runner": {
+        "cmdline": "%LOCALAPPDATA%\\Microsoft\\WindowsApps\\Microsoft.WindowsTerminal_8wekyb3d8bbwe\\wt.exe -w new --size 123,30 new-tab -- \"%WORKTREE%\\forge\\out\\versus-target\\release\\versus.exe\" emit --kind ascii --bytes 16777216 --report \"%WORKTREE%\\forge\\out\\versus\\ascii-stage\\wt\\ascii\\3\\workload.json\" --t0 {T0}",
+        "pid": 41108,
+        "t0": 80422098278,
+        "wall_s": 4.604,
+        "report_after_s": 3.202,
+        "cpu_s": 1.0469,
+        "user_s": 0.3906,
+        "kernel_s": 0.6562,
+        "total_processes": 3,
+        "active_at_end": 0,
+        "peak_ws_mb": 154.1,
+        "closed_by_harness": false,
+        "timed_out": false,
+        "payload_cpu_s": 0.3281,
+        "took_foreground": false,
+        "procs": [
+          {
+            "pid": 2284,
+            "name": "WindowsTerminal.exe",
+            "peak_ws_mb": 147.5
+          },
+          {
+            "pid": 16704,
+            "name": "OpenConsole.exe",
+            "peak_ws_mb": 12.1
+          },
+          {
+            "pid": 41108,
+            "name": "wt.exe",
+            "peak_ws_mb": 7.8
+          }
+        ],
+        "machine_cpu_busy_pct": 72.8,
+        "min_free_ram_mb": 3537
+      },
+      "workload_report": {
+        "kind": "ascii",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777306,
+        "seconds": 2.028222,
+        "mb_per_s": 8.2719,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 80422098278,
+        "t_start": 80433580410,
+        "t_first": 80433719814,
+        "t_payload_start": 80433725592,
+        "t_payload_end": 80454007813,
+        "start_ms": 1148.213,
+        "first_write_ms": 1162.154,
+        "self_cpu_s": 0.0156,
+        "in_runner_job": false,
+        "pid": 40016,
+        "second_half_mb_per_s": 7.9661
+      },
+      "invalid": []
+    },
+    {
+      "terminal": "wezterm",
+      "workload": "ascii",
+      "run": 1,
+      "runner": {
+        "cmdline": "%LOCALAPPDATA%\\tools\\wezterm\\wezterm-gui.exe -n --config initial_cols=123 --config initial_rows=30 start --always-new-process -- \"%WORKTREE%\\forge\\out\\versus-target\\release\\versus.exe\" emit --kind ascii --bytes 16777216 --report \"%WORKTREE%\\forge\\out\\versus\\ascii-stage\\wezterm\\ascii\\1\\workload.json\" --t0 {T0}",
+        "pid": 38136,
+        "t0": 80179182408,
+        "wall_s": 4.945,
+        "report_after_s": 4.392,
+        "cpu_s": 2.0469,
+        "user_s": 0.9844,
+        "kernel_s": 1.0625,
+        "total_processes": 9,
+        "active_at_end": 0,
+        "peak_ws_mb": 293.5,
+        "closed_by_harness": false,
+        "timed_out": false,
+        "payload_cpu_s": 1.5625,
+        "took_foreground": false,
+        "procs": [
+          {
+            "pid": 21124,
+            "name": "conhost.exe",
+            "peak_ws_mb": 7.7
+          },
+          {
+            "pid": 26704,
+            "name": "OpenConsole.exe",
+            "peak_ws_mb": 15.5
+          },
+          {
+            "pid": 27288,
+            "name": "conhost.exe",
+            "peak_ws_mb": 7.7
+          },
+          {
+            "pid": 31380,
+            "name": "versus.exe",
+            "peak_ws_mb": 24.4
+          },
+          {
+            "pid": 35684,
+            "name": "wsl.exe",
+            "peak_ws_mb": 7.7
+          },
+          {
+            "pid": 38136,
+            "name": "wezterm-gui.exe",
+            "peak_ws_mb": 255.7
+          },
+          {
+            "pid": 38244,
+            "name": "wsl.exe",
+            "peak_ws_mb": 7.1
+          },
+          {
+            "pid": 39824,
+            "name": "wsl.exe",
+            "peak_ws_mb": 7.3
+          },
+          {
+            "pid": 40104,
+            "name": "conhost.exe",
+            "peak_ws_mb": 7.7
+          }
+        ],
+        "machine_cpu_busy_pct": 70.8,
+        "min_free_ram_mb": 3229
+      },
+      "workload_report": {
+        "kind": "ascii",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777306,
+        "seconds": 3.256494,
+        "mb_per_s": 5.152,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 80179182408,
+        "t_start": 80188469752,
+        "t_first": 80190133963,
+        "t_payload_start": 80190288384,
+        "t_payload_end": 80222853324,
+        "start_ms": 928.734,
+        "first_write_ms": 1095.155,
+        "self_cpu_s": 0.0469,
+        "in_runner_job": true,
+        "pid": 31380,
+        "second_half_mb_per_s": 5.8507
+      },
+      "invalid": []
+    },
+    {
+      "terminal": "wezterm",
+      "workload": "ascii",
+      "run": 2,
+      "runner": {
+        "cmdline": "%LOCALAPPDATA%\\tools\\wezterm\\wezterm-gui.exe -n --config initial_cols=123 --config initial_rows=30 start --always-new-process -- \"%WORKTREE%\\forge\\out\\versus-target\\release\\versus.exe\" emit --kind ascii --bytes 16777216 --report \"%WORKTREE%\\forge\\out\\versus\\ascii-stage\\wezterm\\ascii\\2\\workload.json\" --t0 {T0}",
+        "pid": 11112,
+        "t0": 80304348151,
+        "wall_s": 5.344,
+        "report_after_s": 4.908,
+        "cpu_s": 1.8281,
+        "user_s": 0.9375,
+        "kernel_s": 0.8906,
+        "total_processes": 9,
+        "active_at_end": 0,
+        "peak_ws_mb": 294.5,
+        "closed_by_harness": false,
+        "timed_out": false,
+        "payload_cpu_s": 1.2344,
+        "took_foreground": false,
+        "procs": [
+          {
+            "pid": 11112,
+            "name": "wezterm-gui.exe",
+            "peak_ws_mb": 256.6
+          },
+          {
+            "pid": 23692,
+            "name": "conhost.exe",
+            "peak_ws_mb": 8.2
+          },
+          {
+            "pid": 28304,
+            "name": "wsl.exe",
+            "peak_ws_mb": 10.5
+          },
+          {
+            "pid": 29768,
+            "name": "conhost.exe",
+            "peak_ws_mb": 8.1
+          },
+          {
+            "pid": 38060,
+            "name": "wsl.exe",
+            "peak_ws_mb": 8.4
+          },
+          {
+            "pid": 39624,
+            "name": "conhost.exe",
+            "peak_ws_mb": 8.7
+          },
+          {
+            "pid": 41000,
+            "name": "wsl.exe",
+            "peak_ws_mb": 10.5
+          },
+          {
+            "pid": 42756,
+            "name": "versus.exe",
+            "peak_ws_mb": 24.5
+          },
+          {
+            "pid": 42896,
+            "name": "OpenConsole.exe",
+            "peak_ws_mb": 15.5
+          }
+        ],
+        "machine_cpu_busy_pct": 73.3,
+        "min_free_ram_mb": 3303
+      },
+      "workload_report": {
+        "kind": "ascii",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777306,
+        "seconds": 3.372916,
+        "mb_per_s": 4.9741,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 80304348151,
+        "t_start": 80319075221,
+        "t_first": 80319420197,
+        "t_payload_start": 80319428484,
+        "t_payload_end": 80353157643,
+        "start_ms": 1472.707,
+        "first_write_ms": 1507.205,
+        "self_cpu_s": 0.0312,
+        "in_runner_job": true,
+        "pid": 42756,
+        "second_half_mb_per_s": 4.807
+      },
+      "invalid": []
+    },
+    {
+      "terminal": "wezterm",
+      "workload": "ascii",
+      "run": 3,
+      "runner": {
+        "cmdline": "%LOCALAPPDATA%\\tools\\wezterm\\wezterm-gui.exe -n --config initial_cols=123 --config initial_rows=30 start --always-new-process -- \"%WORKTREE%\\forge\\out\\versus-target\\release\\versus.exe\" emit --kind ascii --bytes 16777216 --report \"%WORKTREE%\\forge\\out\\versus\\ascii-stage\\wezterm\\ascii\\3\\workload.json\" --t0 {T0}",
+        "pid": 30612,
+        "t0": 80470755926,
+        "wall_s": 2.325,
+        "report_after_s": 1.961,
+        "cpu_s": 1.5781,
+        "user_s": 0.8438,
+        "kernel_s": 0.7344,
+        "total_processes": 9,
+        "active_at_end": 0,
+        "peak_ws_mb": 287.2,
+        "closed_by_harness": false,
+        "timed_out": false,
+        "payload_cpu_s": 1.0312,
+        "took_foreground": false,
+        "procs": [
+          {
+            "pid": 3536,
+            "name": "wsl.exe",
+            "peak_ws_mb": 7.3
+          },
+          {
+            "pid": 5612,
+            "name": "versus.exe",
+            "peak_ws_mb": 24.4
+          },
+          {
+            "pid": 22196,
+            "name": "conhost.exe",
+            "peak_ws_mb": 8.1
+          },
+          {
+            "pid": 30612,
+            "name": "wezterm-gui.exe",
+            "peak_ws_mb": 252.7
+          },
+          {
+            "pid": 34368,
+            "name": "wsl.exe",
+            "peak_ws_mb": 9.4
+          },
+          {
+            "pid": 37768,
+            "name": "wsl.exe",
+            "peak_ws_mb": 7.9
+          },
+          {
+            "pid": 38832,
+            "name": "conhost.exe",
+            "peak_ws_mb": 8.1
+          },
+          {
+            "pid": 41552,
+            "name": "OpenConsole.exe",
+            "peak_ws_mb": 15.2
+          },
+          {
+            "pid": 41848,
+            "name": "conhost.exe",
+            "peak_ws_mb": 7.7
+          }
+        ],
+        "machine_cpu_busy_pct": 70.6,
+        "min_free_ram_mb": 3424
+      },
+      "workload_report": {
+        "kind": "ascii",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777306,
+        "seconds": 1.223011,
+        "mb_per_s": 13.718,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 80470755926,
+        "t_start": 80477477180,
+        "t_first": 80477905219,
+        "t_payload_start": 80477922345,
+        "t_payload_end": 80490152453,
+        "start_ms": 672.125,
+        "first_write_ms": 714.929,
+        "self_cpu_s": 0.0156,
+        "in_runner_job": true,
+        "pid": 5612,
+        "second_half_mb_per_s": 12.0616
+      },
+      "invalid": []
+    }
+  ],
+  "stages": [
+    {
+      "host": "proteus-1.24",
+      "workload": "ascii",
+      "run": 1,
+      "workload_report": {
+        "kind": "ascii",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777306,
+        "seconds": 0.738673,
+        "mb_per_s": 22.7128,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 0,
+        "t_start": 80596350554,
+        "t_first": 80596578515,
+        "t_payload_start": 80596585751,
+        "t_payload_end": 80603972484,
+        "start_ms": -1.0,
+        "first_write_ms": -1.0,
+        "self_cpu_s": 0.0156,
+        "in_runner_job": null,
+        "pid": 41144,
+        "second_half_mb_per_s": 17.8769
+      },
+      "sink": {
+        "conpty": "%WORKTREE%\\vendor\\conpty",
+        "buf": 65536,
+        "bytes_read": 16777369,
+        "reads": 264,
+        "avg_read": 63551
+      }
+    },
+    {
+      "host": "wezterm-1.22",
+      "workload": "ascii",
+      "run": 1,
+      "workload_report": {
+        "kind": "ascii",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777306,
+        "seconds": 0.672647,
+        "mb_per_s": 24.9422,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 0,
+        "t_start": 80637523282,
+        "t_first": 80637809781,
+        "t_payload_start": 80637815251,
+        "t_payload_end": 80644541724,
+        "start_ms": -1.0,
+        "first_write_ms": -1.0,
+        "self_cpu_s": 0.0938,
+        "in_runner_job": null,
+        "pid": 37032,
+        "second_half_mb_per_s": 27.1327
+      },
+      "sink": {
+        "conpty": "%LOCALAPPDATA%\\tools\\wezterm",
+        "buf": 65536,
+        "bytes_read": 16777353,
+        "reads": 263,
+        "avg_read": 63792
+      }
+    },
+    {
+      "host": "ghostty-1.25",
+      "workload": "ascii",
+      "run": 1,
+      "workload_report": {
+        "kind": "ascii",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777306,
+        "seconds": 1.102788,
+        "mb_per_s": 15.2135,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 0,
+        "t_start": 80678517334,
+        "t_first": 80679138920,
+        "t_payload_start": 80679145369,
+        "t_payload_end": 80690173253,
+        "start_ms": -1.0,
+        "first_write_ms": -1.0,
+        "self_cpu_s": 0.0312,
+        "in_runner_job": null,
+        "pid": 24856,
+        "second_half_mb_per_s": 16.2378
+      },
+      "sink": {
+        "conpty": "%LOCALAPPDATA%\\tools\\ghostty\\bin",
+        "buf": 65536,
+        "bytes_read": 16777369,
+        "reads": 264,
+        "avg_read": 63551
+      }
+    },
+    {
+      "host": "inbox",
+      "workload": "ascii",
+      "run": 1,
+      "workload_report": {
+        "kind": "ascii",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777306,
+        "seconds": 1.878889,
+        "mb_per_s": 8.9294,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 0,
+        "t_start": 80692385311,
+        "t_first": 80692508328,
+        "t_payload_start": 80692513211,
+        "t_payload_end": 80711302097,
+        "start_ms": -1.0,
+        "first_write_ms": -1.0,
+        "self_cpu_s": 0.0469,
+        "in_runner_job": null,
+        "pid": 40876,
+        "second_half_mb_per_s": 8.1847
+      },
+      "sink": {
+        "conpty": "system",
+        "buf": 65536,
+        "bytes_read": 16777507,
+        "reads": 409,
+        "avg_read": 41021
+      }
+    },
+    {
+      "host": "proteus-1.24",
+      "workload": "ascii",
+      "run": 2,
+      "workload_report": {
+        "kind": "ascii",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777306,
+        "seconds": 0.344132,
+        "mb_per_s": 48.7525,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 0,
+        "t_start": 80744672097,
+        "t_first": 80744853546,
+        "t_payload_start": 80744858714,
+        "t_payload_end": 80748300038,
+        "start_ms": -1.0,
+        "first_write_ms": -1.0,
+        "self_cpu_s": 0.0,
+        "in_runner_job": null,
+        "pid": 13316,
+        "second_half_mb_per_s": 49.6894
+      },
+      "sink": {
+        "conpty": "%WORKTREE%\\vendor\\conpty",
+        "buf": 65536,
+        "bytes_read": 16777369,
+        "reads": 264,
+        "avg_read": 63551
+      }
+    },
+    {
+      "host": "wezterm-1.22",
+      "workload": "ascii",
+      "run": 2,
+      "workload_report": {
+        "kind": "ascii",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777306,
+        "seconds": 0.39058,
+        "mb_per_s": 42.9549,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 0,
+        "t_start": 80780605839,
+        "t_first": 80780756023,
+        "t_payload_start": 80780761333,
+        "t_payload_end": 80784667130,
+        "start_ms": -1.0,
+        "first_write_ms": -1.0,
+        "self_cpu_s": 0.0469,
+        "in_runner_job": null,
+        "pid": 27884,
+        "second_half_mb_per_s": 36.8551
+      },
+      "sink": {
+        "conpty": "%LOCALAPPDATA%\\tools\\wezterm",
+        "buf": 65536,
+        "bytes_read": 16777353,
+        "reads": 263,
+        "avg_read": 63792
+      }
+    },
+    {
+      "host": "ghostty-1.25",
+      "workload": "ascii",
+      "run": 2,
+      "workload_report": {
+        "kind": "ascii",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777306,
+        "seconds": 0.615362,
+        "mb_per_s": 27.2641,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 0,
+        "t_start": 80816713732,
+        "t_first": 80817121204,
+        "t_payload_start": 80817132210,
+        "t_payload_end": 80823285827,
+        "start_ms": -1.0,
+        "first_write_ms": -1.0,
+        "self_cpu_s": 0.0312,
+        "in_runner_job": null,
+        "pid": 28076,
+        "second_half_mb_per_s": 27.7078
+      },
+      "sink": {
+        "conpty": "%LOCALAPPDATA%\\tools\\ghostty\\bin",
+        "buf": 65536,
+        "bytes_read": 16777369,
+        "reads": 264,
+        "avg_read": 63551
+      }
+    },
+    {
+      "host": "inbox",
+      "workload": "ascii",
+      "run": 2,
+      "workload_report": {
+        "kind": "ascii",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777306,
+        "seconds": 1.984818,
+        "mb_per_s": 8.4528,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 0,
+        "t_start": 80825140841,
+        "t_first": 80825481483,
+        "t_payload_start": 80825487729,
+        "t_payload_end": 80845335906,
+        "start_ms": -1.0,
+        "first_write_ms": -1.0,
+        "self_cpu_s": 0.0156,
+        "in_runner_job": null,
+        "pid": 35244,
+        "second_half_mb_per_s": 8.0548
+      },
+      "sink": {
+        "conpty": "system",
+        "buf": 65536,
+        "bytes_read": 16777507,
+        "reads": 406,
+        "avg_read": 41324
+      }
+    },
+    {
+      "host": "proteus-1.24",
+      "workload": "ascii",
+      "run": 3,
+      "workload_report": {
+        "kind": "ascii",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777306,
+        "seconds": 0.841078,
+        "mb_per_s": 19.9474,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 0,
+        "t_start": 80877452476,
+        "t_first": 80877727154,
+        "t_payload_start": 80877734212,
+        "t_payload_end": 80886144991,
+        "start_ms": -1.0,
+        "first_write_ms": -1.0,
+        "self_cpu_s": 0.0625,
+        "in_runner_job": null,
+        "pid": 42768,
+        "second_half_mb_per_s": 21.1715
+      },
+      "sink": {
+        "conpty": "%WORKTREE%\\vendor\\conpty",
+        "buf": 65536,
+        "bytes_read": 16777369,
+        "reads": 264,
+        "avg_read": 63551
+      }
+    },
+    {
+      "host": "wezterm-1.22",
+      "workload": "ascii",
+      "run": 3,
+      "workload_report": {
+        "kind": "ascii",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777306,
+        "seconds": 0.895142,
+        "mb_per_s": 18.7426,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 0,
+        "t_start": 80920905653,
+        "t_first": 80921209738,
+        "t_payload_start": 80921218132,
+        "t_payload_end": 80930169555,
+        "start_ms": -1.0,
+        "first_write_ms": -1.0,
+        "self_cpu_s": 0.0312,
+        "in_runner_job": null,
+        "pid": 42944,
+        "second_half_mb_per_s": 15.982
+      },
+      "sink": {
+        "conpty": "%LOCALAPPDATA%\\tools\\wezterm",
+        "buf": 65536,
+        "bytes_read": 16777353,
+        "reads": 263,
+        "avg_read": 63792
+      }
+    },
+    {
+      "host": "ghostty-1.25",
+      "workload": "ascii",
+      "run": 3,
+      "workload_report": {
+        "kind": "ascii",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777306,
+        "seconds": 1.124199,
+        "mb_per_s": 14.9238,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 0,
+        "t_start": 80962625352,
+        "t_first": 80963072473,
+        "t_payload_start": 80963081009,
+        "t_payload_end": 80974323001,
+        "start_ms": -1.0,
+        "first_write_ms": -1.0,
+        "self_cpu_s": 0.0,
+        "in_runner_job": null,
+        "pid": 42080,
+        "second_half_mb_per_s": 15.6959
+      },
+      "sink": {
+        "conpty": "%LOCALAPPDATA%\\tools\\ghostty\\bin",
+        "buf": 65536,
+        "bytes_read": 16777369,
+        "reads": 264,
+        "avg_read": 63551
+      }
+    },
+    {
+      "host": "inbox",
+      "workload": "ascii",
+      "run": 3,
+      "workload_report": {
+        "kind": "ascii",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777306,
+        "seconds": 1.961106,
+        "mb_per_s": 8.555,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 0,
+        "t_start": 80977042969,
+        "t_first": 80977557694,
+        "t_payload_start": 80977565046,
+        "t_payload_end": 80997176108,
+        "start_ms": -1.0,
+        "first_write_ms": -1.0,
+        "self_cpu_s": 0.0469,
+        "in_runner_job": null,
+        "pid": 22300,
+        "second_half_mb_per_s": 7.9204
+      },
+      "sink": {
+        "conpty": "system",
+        "buf": 65536,
+        "bytes_read": 16777501,
+        "reads": 404,
+        "avg_read": 41528
+      }
+    },
+    {
+      "host": "proteus-1.24",
+      "workload": "sgr",
+      "run": 1,
+      "workload_report": {
+        "kind": "sgr",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777294,
+        "seconds": 0.554448,
+        "mb_per_s": 30.2594,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 0,
+        "t_start": 81029446513,
+        "t_first": 81029706346,
+        "t_payload_start": 81029858959,
+        "t_payload_end": 81035403440,
+        "start_ms": -1.0,
+        "first_write_ms": -1.0,
+        "self_cpu_s": 0.0312,
+        "in_runner_job": null,
+        "pid": 31856,
+        "second_half_mb_per_s": 29.0144
+      },
+      "sink": {
+        "conpty": "%WORKTREE%\\vendor\\conpty",
+        "buf": 65536,
+        "bytes_read": 16777354,
+        "reads": 263,
+        "avg_read": 63792
+      }
+    },
+    {
+      "host": "wezterm-1.22",
+      "workload": "sgr",
+      "run": 1,
+      "workload_report": {
+        "kind": "sgr",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777294,
+        "seconds": 1.110708,
+        "mb_per_s": 15.105,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 0,
+        "t_start": 81067564527,
+        "t_first": 81068205164,
+        "t_payload_start": 81068211360,
+        "t_payload_end": 81079318444,
+        "start_ms": -1.0,
+        "first_write_ms": -1.0,
+        "self_cpu_s": 0.0469,
+        "in_runner_job": null,
+        "pid": 16636,
+        "second_half_mb_per_s": 15.2719
+      },
+      "sink": {
+        "conpty": "%LOCALAPPDATA%\\tools\\wezterm",
+        "buf": 65536,
+        "bytes_read": 16777338,
+        "reads": 262,
+        "avg_read": 64036
+      }
+    },
+    {
+      "host": "ghostty-1.25",
+      "workload": "sgr",
+      "run": 1,
+      "workload_report": {
+        "kind": "sgr",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777294,
+        "seconds": 1.482029,
+        "mb_per_s": 11.3205,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 0,
+        "t_start": 81111509517,
+        "t_first": 81111777157,
+        "t_payload_start": 81111783370,
+        "t_payload_end": 81126603658,
+        "start_ms": -1.0,
+        "first_write_ms": -1.0,
+        "self_cpu_s": 0.0625,
+        "in_runner_job": null,
+        "pid": 35424,
+        "second_half_mb_per_s": 9.9856
+      },
+      "sink": {
+        "conpty": "%LOCALAPPDATA%\\tools\\ghostty\\bin",
+        "buf": 65536,
+        "bytes_read": 16777354,
+        "reads": 263,
+        "avg_read": 63792
+      }
+    },
+    {
+      "host": "inbox",
+      "workload": "sgr",
+      "run": 1,
+      "workload_report": {
+        "kind": "sgr",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777294,
+        "seconds": 2.364197,
+        "mb_per_s": 7.0964,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 0,
+        "t_start": 81129797956,
+        "t_first": 81130162920,
+        "t_payload_start": 81130171191,
+        "t_payload_end": 81153813163,
+        "start_ms": -1.0,
+        "first_write_ms": -1.0,
+        "self_cpu_s": 0.0312,
+        "in_runner_job": null,
+        "pid": 32128,
+        "second_half_mb_per_s": 6.736
+      },
+      "sink": {
+        "conpty": "system",
+        "buf": 65536,
+        "bytes_read": 16095085,
+        "reads": 406,
+        "avg_read": 39643
+      }
+    },
+    {
+      "host": "proteus-1.24",
+      "workload": "sgr",
+      "run": 2,
+      "workload_report": {
+        "kind": "sgr",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777294,
+        "seconds": 1.455325,
+        "mb_per_s": 11.5282,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 0,
+        "t_start": 81186097440,
+        "t_first": 81186380431,
+        "t_payload_start": 81186386079,
+        "t_payload_end": 81200939327,
+        "start_ms": -1.0,
+        "first_write_ms": -1.0,
+        "self_cpu_s": 0.0312,
+        "in_runner_job": null,
+        "pid": 38224,
+        "second_half_mb_per_s": 13.2005
+      },
+      "sink": {
+        "conpty": "%WORKTREE%\\vendor\\conpty",
+        "buf": 65536,
+        "bytes_read": 16777354,
+        "reads": 263,
+        "avg_read": 63792
+      }
+    },
+    {
+      "host": "wezterm-1.22",
+      "workload": "sgr",
+      "run": 2,
+      "workload_report": {
+        "kind": "sgr",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777294,
+        "seconds": 0.796888,
+        "mb_per_s": 21.0535,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 0,
+        "t_start": 81234138988,
+        "t_first": 81234416944,
+        "t_payload_start": 81234422863,
+        "t_payload_end": 81242391740,
+        "start_ms": -1.0,
+        "first_write_ms": -1.0,
+        "self_cpu_s": 0.0625,
+        "in_runner_job": null,
+        "pid": 16068,
+        "second_half_mb_per_s": 17.3384
+      },
+      "sink": {
+        "conpty": "%LOCALAPPDATA%\\tools\\wezterm",
+        "buf": 65536,
+        "bytes_read": 16777338,
+        "reads": 262,
+        "avg_read": 64036
+      }
+    },
+    {
+      "host": "ghostty-1.25",
+      "workload": "sgr",
+      "run": 2,
+      "workload_report": {
+        "kind": "sgr",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777294,
+        "seconds": 0.884336,
+        "mb_per_s": 18.9716,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 0,
+        "t_start": 81274632783,
+        "t_first": 81275067496,
+        "t_payload_start": 81275075063,
+        "t_payload_end": 81283918428,
+        "start_ms": -1.0,
+        "first_write_ms": -1.0,
+        "self_cpu_s": 0.0312,
+        "in_runner_job": null,
+        "pid": 6172,
+        "second_half_mb_per_s": 15.0698
+      },
+      "sink": {
+        "conpty": "%LOCALAPPDATA%\\tools\\ghostty\\bin",
+        "buf": 65536,
+        "bytes_read": 16777354,
+        "reads": 263,
+        "avg_read": 63792
+      }
+    },
+    {
+      "host": "inbox",
+      "workload": "sgr",
+      "run": 2,
+      "workload_report": {
+        "kind": "sgr",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777294,
+        "seconds": 2.287914,
+        "mb_per_s": 7.333,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 0,
+        "t_start": 81285422327,
+        "t_first": 81285765337,
+        "t_payload_start": 81285770686,
+        "t_payload_end": 81308649825,
+        "start_ms": -1.0,
+        "first_write_ms": -1.0,
+        "self_cpu_s": 0.0625,
+        "in_runner_job": null,
+        "pid": 24088,
+        "second_half_mb_per_s": 6.4429
+      },
+      "sink": {
+        "conpty": "system",
+        "buf": 65536,
+        "bytes_read": 16095060,
+        "reads": 400,
+        "avg_read": 40238
+      }
+    },
+    {
+      "host": "proteus-1.24",
+      "workload": "sgr",
+      "run": 3,
+      "workload_report": {
+        "kind": "sgr",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777294,
+        "seconds": 1.041662,
+        "mb_per_s": 16.1063,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 0,
+        "t_start": 81341796981,
+        "t_first": 81342127494,
+        "t_payload_start": 81342133581,
+        "t_payload_end": 81352550196,
+        "start_ms": -1.0,
+        "first_write_ms": -1.0,
+        "self_cpu_s": 0.0625,
+        "in_runner_job": null,
+        "pid": 41344,
+        "second_half_mb_per_s": 15.6972
+      },
+      "sink": {
+        "conpty": "%WORKTREE%\\vendor\\conpty",
+        "buf": 65536,
+        "bytes_read": 16777354,
+        "reads": 263,
+        "avg_read": 63792
+      }
+    },
+    {
+      "host": "wezterm-1.22",
+      "workload": "sgr",
+      "run": 3,
+      "workload_report": {
+        "kind": "sgr",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777294,
+        "seconds": 0.878857,
+        "mb_per_s": 19.0899,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 0,
+        "t_start": 81384546302,
+        "t_first": 81384824662,
+        "t_payload_start": 81384830822,
+        "t_payload_end": 81393619387,
+        "start_ms": -1.0,
+        "first_write_ms": -1.0,
+        "self_cpu_s": 0.0781,
+        "in_runner_job": null,
+        "pid": 34000,
+        "second_half_mb_per_s": 16.3738
+      },
+      "sink": {
+        "conpty": "%LOCALAPPDATA%\\tools\\wezterm",
+        "buf": 65536,
+        "bytes_read": 16777338,
+        "reads": 262,
+        "avg_read": 64036
+      }
+    },
+    {
+      "host": "ghostty-1.25",
+      "workload": "sgr",
+      "run": 3,
+      "workload_report": {
+        "kind": "sgr",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777294,
+        "seconds": 1.183735,
+        "mb_per_s": 14.1732,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 0,
+        "t_start": 81425496744,
+        "t_first": 81426116827,
+        "t_payload_start": 81426125984,
+        "t_payload_end": 81437963335,
+        "start_ms": -1.0,
+        "first_write_ms": -1.0,
+        "self_cpu_s": 0.0156,
+        "in_runner_job": null,
+        "pid": 41728,
+        "second_half_mb_per_s": 15.0233
+      },
+      "sink": {
+        "conpty": "%LOCALAPPDATA%\\tools\\ghostty\\bin",
+        "buf": 65536,
+        "bytes_read": 16777354,
+        "reads": 263,
+        "avg_read": 63792
+      }
+    },
+    {
+      "host": "inbox",
+      "workload": "sgr",
+      "run": 3,
+      "workload_report": {
+        "kind": "sgr",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777294,
+        "seconds": 2.805195,
+        "mb_per_s": 5.9808,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 0,
+        "t_start": 81439687395,
+        "t_first": 81439910445,
+        "t_payload_start": 81439917169,
+        "t_payload_end": 81467969123,
+        "start_ms": -1.0,
+        "first_write_ms": -1.0,
+        "self_cpu_s": 0.0469,
+        "in_runner_job": null,
+        "pid": 18076,
+        "second_half_mb_per_s": 4.9337
+      },
+      "sink": {
+        "conpty": "system",
+        "buf": 65536,
+        "bytes_read": 16095187,
+        "reads": 427,
+        "avg_read": 37694
+      }
+    },
+    {
+      "host": "proteus-1.24",
+      "workload": "unicode",
+      "run": 1,
+      "workload_report": {
+        "kind": "unicode",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777285,
+        "seconds": 0.575541,
+        "mb_per_s": 29.1505,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 0,
+        "t_start": 81500450026,
+        "t_first": 81500637897,
+        "t_payload_start": 81500644243,
+        "t_payload_end": 81506399654,
+        "start_ms": -1.0,
+        "first_write_ms": -1.0,
+        "self_cpu_s": 0.0,
+        "in_runner_job": null,
+        "pid": 30716,
+        "second_half_mb_per_s": 42.6434
+      },
+      "sink": {
+        "conpty": "%WORKTREE%\\vendor\\conpty",
+        "buf": 65536,
+        "bytes_read": 16777348,
+        "reads": 386,
+        "avg_read": 43465
+      }
+    },
+    {
+      "host": "wezterm-1.22",
+      "workload": "unicode",
+      "run": 1,
+      "workload_report": {
+        "kind": "unicode",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777285,
+        "seconds": 0.425173,
+        "mb_per_s": 39.4599,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 0,
+        "t_start": 81538445261,
+        "t_first": 81538618680,
+        "t_payload_start": 81538626071,
+        "t_payload_end": 81542877805,
+        "start_ms": -1.0,
+        "first_write_ms": -1.0,
+        "self_cpu_s": 0.0469,
+        "in_runner_job": null,
+        "pid": 40128,
+        "second_half_mb_per_s": 30.6374
+      },
+      "sink": {
+        "conpty": "%LOCALAPPDATA%\\tools\\wezterm",
+        "buf": 65536,
+        "bytes_read": 16777332,
+        "reads": 385,
+        "avg_read": 43577
+      }
+    },
+    {
+      "host": "ghostty-1.25",
+      "workload": "unicode",
+      "run": 1,
+      "workload_report": {
+        "kind": "unicode",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777285,
+        "seconds": 2.469971,
+        "mb_per_s": 6.7925,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 0,
+        "t_start": 81575427672,
+        "t_first": 81575877050,
+        "t_payload_start": 81575886135,
+        "t_payload_end": 81600585843,
+        "start_ms": -1.0,
+        "first_write_ms": -1.0,
+        "self_cpu_s": 0.0312,
+        "in_runner_job": null,
+        "pid": 38952,
+        "second_half_mb_per_s": 4.3735
+      },
+      "sink": {
+        "conpty": "%LOCALAPPDATA%\\tools\\ghostty\\bin",
+        "buf": 65536,
+        "bytes_read": 16777348,
+        "reads": 386,
+        "avg_read": 43465
+      }
+    },
+    {
+      "host": "inbox",
+      "workload": "unicode",
+      "run": 1,
+      "workload_report": {
+        "kind": "unicode",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777285,
+        "seconds": 5.486573,
+        "mb_per_s": 3.0579,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 0,
+        "t_start": 81605145145,
+        "t_first": 81606222555,
+        "t_payload_start": 81606298843,
+        "t_payload_end": 81661164575,
+        "start_ms": -1.0,
+        "first_write_ms": -1.0,
+        "self_cpu_s": 0.0312,
+        "in_runner_job": null,
+        "pid": 17788,
+        "second_half_mb_per_s": 3.1601
+      },
+      "sink": {
+        "conpty": "system",
+        "buf": 65536,
+        "bytes_read": 16777593,
+        "reads": 511,
+        "avg_read": 32833
+      }
+    },
+    {
+      "host": "proteus-1.24",
+      "workload": "unicode",
+      "run": 2,
+      "workload_report": {
+        "kind": "unicode",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777285,
+        "seconds": 1.240455,
+        "mb_per_s": 13.5251,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 0,
+        "t_start": 81694816526,
+        "t_first": 81695210187,
+        "t_payload_start": 81695217982,
+        "t_payload_end": 81707622532,
+        "start_ms": -1.0,
+        "first_write_ms": -1.0,
+        "self_cpu_s": 0.0156,
+        "in_runner_job": null,
+        "pid": 31380,
+        "second_half_mb_per_s": 15.212
+      },
+      "sink": {
+        "conpty": "%WORKTREE%\\vendor\\conpty",
+        "buf": 65536,
+        "bytes_read": 16777348,
+        "reads": 386,
+        "avg_read": 43465
+      }
+    },
+    {
+      "host": "wezterm-1.22",
+      "workload": "unicode",
+      "run": 2,
+      "workload_report": {
+        "kind": "unicode",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777285,
+        "seconds": 1.493008,
+        "mb_per_s": 11.2372,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 0,
+        "t_start": 81741416404,
+        "t_first": 81741844416,
+        "t_payload_start": 81741849430,
+        "t_payload_end": 81756779515,
+        "start_ms": -1.0,
+        "first_write_ms": -1.0,
+        "self_cpu_s": 0.0312,
+        "in_runner_job": null,
+        "pid": 41320,
+        "second_half_mb_per_s": 11.7216
+      },
+      "sink": {
+        "conpty": "%LOCALAPPDATA%\\tools\\wezterm",
+        "buf": 65536,
+        "bytes_read": 16777332,
+        "reads": 385,
+        "avg_read": 43577
+      }
+    },
+    {
+      "host": "ghostty-1.25",
+      "workload": "unicode",
+      "run": 2,
+      "workload_report": {
+        "kind": "unicode",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777285,
+        "seconds": 1.746977,
+        "mb_per_s": 9.6036,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 0,
+        "t_start": 81792209381,
+        "t_first": 81792851362,
+        "t_payload_start": 81792858458,
+        "t_payload_end": 81810328225,
+        "start_ms": -1.0,
+        "first_write_ms": -1.0,
+        "self_cpu_s": 0.0156,
+        "in_runner_job": null,
+        "pid": 41436,
+        "second_half_mb_per_s": 8.8158
+      },
+      "sink": {
+        "conpty": "%LOCALAPPDATA%\\tools\\ghostty\\bin",
+        "buf": 65536,
+        "bytes_read": 16777348,
+        "reads": 386,
+        "avg_read": 43465
+      }
+    },
+    {
+      "host": "inbox",
+      "workload": "unicode",
+      "run": 2,
+      "workload_report": {
+        "kind": "unicode",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777285,
+        "seconds": 2.647513,
+        "mb_per_s": 6.337,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 0,
+        "t_start": 81813469513,
+        "t_first": 81813934790,
+        "t_payload_start": 81813999243,
+        "t_payload_end": 81840474376,
+        "start_ms": -1.0,
+        "first_write_ms": -1.0,
+        "self_cpu_s": 0.0625,
+        "in_runner_job": null,
+        "pid": 42780,
+        "second_half_mb_per_s": 6.2638
+      },
+      "sink": {
+        "conpty": "system",
+        "buf": 65536,
+        "bytes_read": 16777545,
+        "reads": 499,
+        "avg_read": 33622
+      }
+    },
+    {
+      "host": "proteus-1.24",
+      "workload": "unicode",
+      "run": 3,
+      "workload_report": {
+        "kind": "unicode",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777285,
+        "seconds": 0.546179,
+        "mb_per_s": 30.7176,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 0,
+        "t_start": 81873104539,
+        "t_first": 81873271701,
+        "t_payload_start": 81873278121,
+        "t_payload_end": 81878739909,
+        "start_ms": -1.0,
+        "first_write_ms": -1.0,
+        "self_cpu_s": 0.0469,
+        "in_runner_job": null,
+        "pid": 36316,
+        "second_half_mb_per_s": 33.1991
+      },
+      "sink": {
+        "conpty": "%WORKTREE%\\vendor\\conpty",
+        "buf": 65536,
+        "bytes_read": 16777348,
+        "reads": 386,
+        "avg_read": 43465
+      }
+    },
+    {
+      "host": "wezterm-1.22",
+      "workload": "unicode",
+      "run": 3,
+      "workload_report": {
+        "kind": "unicode",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777285,
+        "seconds": 0.930408,
+        "mb_per_s": 18.0322,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 0,
+        "t_start": 81911927863,
+        "t_first": 81912524418,
+        "t_payload_start": 81912534795,
+        "t_payload_end": 81921838880,
+        "start_ms": -1.0,
+        "first_write_ms": -1.0,
+        "self_cpu_s": 0.0469,
+        "in_runner_job": null,
+        "pid": 31488,
+        "second_half_mb_per_s": 23.6466
+      },
+      "sink": {
+        "conpty": "%LOCALAPPDATA%\\tools\\wezterm",
+        "buf": 65536,
+        "bytes_read": 16777332,
+        "reads": 385,
+        "avg_read": 43577
+      }
+    },
+    {
+      "host": "ghostty-1.25",
+      "workload": "unicode",
+      "run": 3,
+      "workload_report": {
+        "kind": "unicode",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777285,
+        "seconds": 0.794208,
+        "mb_per_s": 21.1245,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 0,
+        "t_start": 81954440524,
+        "t_first": 81954918642,
+        "t_payload_start": 81954954171,
+        "t_payload_end": 81962896252,
+        "start_ms": -1.0,
+        "first_write_ms": -1.0,
+        "self_cpu_s": 0.0625,
+        "in_runner_job": null,
+        "pid": 13352,
+        "second_half_mb_per_s": 14.3442
+      },
+      "sink": {
+        "conpty": "%LOCALAPPDATA%\\tools\\ghostty\\bin",
+        "buf": 65536,
+        "bytes_read": 16777348,
+        "reads": 386,
+        "avg_read": 43465
+      }
+    },
+    {
+      "host": "inbox",
+      "workload": "unicode",
+      "run": 3,
+      "workload_report": {
+        "kind": "unicode",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777285,
+        "seconds": 1.878148,
+        "mb_per_s": 8.9329,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 0,
+        "t_start": 81964975597,
+        "t_first": 81965307262,
+        "t_payload_start": 81965314366,
+        "t_payload_end": 81984095843,
+        "start_ms": -1.0,
+        "first_write_ms": -1.0,
+        "self_cpu_s": 0.0469,
+        "in_runner_job": null,
+        "pid": 35384,
+        "second_half_mb_per_s": 8.6325
+      },
+      "sink": {
+        "conpty": "system",
+        "buf": 65536,
+        "bytes_read": 16777518,
+        "reads": 480,
+        "avg_read": 34953
+      }
+    }
+  ]
+}

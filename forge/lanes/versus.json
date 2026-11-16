@@ -1,0 +1,152 @@
+{
+  "lane": "versus",
+  "updated": "2026-11-16",
+  "done": [
+    {
+      "id": "versus.tool",
+      "what": "forge/versus: a separate forge crate, not part of the exe. Subcommands: emit runs self-timing workloads (ascii/sgr/unicode/cargo/tui/drip) and reports whole and second-half rates. run starts a terminal in a kill-on-close job object and records tree CPU including exited processes, payload-only CPU, peak summed working set, whether the terminal took the foreground, machine busy % and least free RAM. sink sends the workload through a chosen conpty.dll to a discarding reader. latency, echo and calib capture with WGC and post keys; their figures are withheld.",
+      "evidence": "cargo build --release --offline in forge/versus: no warnings; runs in all six terminals produced workload.json + run.json"
+    },
+    {
+      "id": "versus.harness",
+      "what": "forge/versus.ps1: runs terminals x workloads x N runs interleaved with rotation and a discarded warm-up. It has PROTEUS --local and --no-journal stage rows, idle at a cmd prompt, -Stages (ConPTY alone per bundled version) and -Summarize (rebuild results.json and table.md from run folders). Runs that took the foreground, or WT runs with no WindowsTerminal.exe in the job, are dropped.",
+      "evidence": "forge/out/versus/{stage-proteus,ascii-stage}/results.json and table.md; -Summarize on full1 reproduced the hand-derived table"
+    },
+    {
+      "id": "versus.report",
+      "what": "forge/versus.md covers the method, machine, exact versions, the provisional tables A-D, the losses with their causes, why latency is withheld, and caveats",
+      "evidence": "forge/versus.md"
+    },
+    {
+      "id": "versus.sample.cargo",
+      "what": "forge/samples/cargo-build.log: a real 'cargo build --release --color always' log of this repo with the progress bar forced (54 KB); the local path is replaced with C:\\src\\proteus",
+      "evidence": "CARGO_TERM_PROGRESS_WHEN=always CARGO_TERM_PROGRESS_WIDTH=120 cargo build --release --color always, exit 0"
+    }
+  ],
+  "measured": {
+    "status": "provisional: busy machine (69-88%), benchmarked windows covered, throughput shifted 4-10x across campaigns for unknown reasons; only figures inside one interleaved campaign are compared",
+    "A_ascii_16MiB_back_to_back": {
+      "command": "pwsh forge/versus.ps1 -Terminals proteus,ghostty,wt,wezterm -Workloads ascii -SkipIdle -Stages",
+      "second_half_mb_per_s": {
+        "proteus": "11.88 (9.37-13.10)",
+        "ghostty": "21.86 (5.36-42.85)",
+        "wt_1.25": "6.84 (4.71-7.97)",
+        "wezterm": "5.85 (4.81-12.06)"
+      },
+      "payload_cpu_s": {
+        "proteus": "0.67 (0.48-0.91)",
+        "ghostty": "0.22 (0.06-0.69)",
+        "wt_1.25": "0.33 (0.22-0.39)",
+        "wezterm": "1.20 (1.02-1.52)"
+      },
+      "peak_tree_ws_mb": {
+        "proteus": 361,
+        "ghostty": 228,
+        "wt_1.25": 154,
+        "wezterm": 294
+      },
+      "launch_to_first_write_ms": {
+        "proteus": 1318,
+        "ghostty": 774,
+        "wt_1.25": 1408,
+        "wezterm": 1095
+      },
+      "conpty_alone_second_half_ascii_mb_per_s": {
+        "proteus_1.24": "21.17 (17.88-49.69)",
+        "wezterm_1.22": "27.13 (15.98-36.86)",
+        "ghostty_1.25": "16.24 (15.70-27.71)",
+        "inbox": "8.05 (7.92-8.18)"
+      }
+    },
+    "B_proteus_by_stage_ascii_16MiB": {
+      "command": "pwsh forge/versus.ps1 -Terminals proteus,proteus-local,proteus-nojournal -Workloads ascii -SkipIdle",
+      "payload_cpu_s": {
+        "default": "0.42 (0.42-0.64)",
+        "local": "0.23 (0.17-0.38)",
+        "no_journal": "0.34 (0.31-0.48)"
+      },
+      "second_half_mb_per_s": {
+        "default": "21.30 (12.86-25.49)",
+        "local": "22.23 (9.14-52.42)",
+        "no_journal": "26.67 (9.32-27.45)"
+      },
+      "launch_to_first_write_ms": {
+        "default": 1186,
+        "local": 969,
+        "no_journal": 804
+      }
+    },
+    "C_pipe_read_size": "ConPTY 1.24 alone, 16 MiB ascii, synchronous ReadFile: 64 KiB 19.5/19.6/35.5 MB/s, 128 KiB 18.2/19.9/18.8 MB/s; average read 63,551 B vs 64,281 B. A larger buffer does not help.",
+    "memory": "window 199-212 MB after 1 MB of output, 312 MB after 16 MiB, with or without the daemon; scrollback is 50,000 lines (src/term.rs:169); estimated 50,000 x 123 x ~24 B = ~148 MB when full (cell size not measured); idle 197-200 MB vs WT 146, Ghostty 151-152",
+    "latency_method_floor_ms": "versus calib: p50 23.6, min 18.2, max 31.8 over 30 keys (the tool's own GDI window, repainting in WM_KEYDOWN)",
+    "E_ascii_16MiB_9_runs": {
+      "command": "pwsh forge/versus.ps1 -Runs 9 -Terminals proteus,proteus-local,wt,ghostty -Workloads ascii -SkipIdle",
+      "second_half_mb_per_s": {
+        "proteus": "90.7 (34.9-171.6)",
+        "proteus_local": "108.3 (16.3-207.7)",
+        "wt_1.25": "82.2 (21.1-217.3)",
+        "ghostty": "91.3 (45.3-251.8)"
+      },
+      "payload_cpu_s": {
+        "proteus": "0.25 (0.13-0.42)",
+        "proteus_local": "0.28 (0.16-0.61)",
+        "wt_1.25": "0.19 (0.11-0.31)",
+        "ghostty": "0.11 (0.03-0.20)"
+      },
+      "peak_tree_ws_mb": {
+        "proteus": 347,
+        "proteus_local": 353,
+        "wt_1.25": 156,
+        "ghostty": 226
+      },
+      "launch_to_first_write_ms": {
+        "proteus": 818,
+        "proteus_local": 681,
+        "wt_1.25": 744,
+        "ghostty": 309
+      }
+    },
+    "F_idle_20s": {
+      "command": "pwsh forge/versus.ps1 -SkipWorkloads -Terminals proteus,wt,wtp,wezterm,ghostty,conhost",
+      "job_cpu_s": {
+        "proteus": "0.000 (1 valid run)",
+        "wt_1.25": "0.016 (0.000-0.047)",
+        "wt_1.26": "0.000",
+        "wezterm": "0.000 (0.000-0.031)",
+        "ghostty": "0.062 (0.047-0.141)",
+        "conhost": "0.016 (1 valid run)"
+      },
+      "working_set_mb": {
+        "proteus": 200,
+        "wt_1.25": 146,
+        "wt_1.26": 149,
+        "wezterm": 248,
+        "ghostty": 152,
+        "conhost": 22
+      }
+    }
+  },
+  "known_issues": [
+    "BLOCKING for the person at the keyboard: test windows took the foreground in 5 of 18 idle runs, and in 4 of 18 after a guard that marks them WS_EX_NOACTIVATE within 200 ms; this includes PROTEUS with PROTEUS_NO_FOCUS=1 and conhost. A person's keys can land in a test window. Run VERSUS only when nobody is typing. Such runs are dropped from the medians.",
+    "The benchmarked windows were covered by other windows (uncovered share 0.0 in every idle run except while foreground); throughput runs predate the sampling. A covered window may draw differently.",
+    "Throughput is not reproducible across campaigns here: PROTEUS read 1.7-3.8 MB/s at 19:31, 14.4-26.0 at 19:45, and all terminals 4-10x higher again at 20:23. Cause unknown (not a locked session: checked). Two figures sent to other lanes earlier ('Ghostty 62 MB/s', 'PROTEUS 3.4 so the loss is after the read') were retracted.",
+    "The daemon-hop CPU cost is not shown: 0.42 vs 0.23 s in-process over 3 runs, 0.25 vs 0.28 s over 9 runs.",
+    "Latency withheld: SendInput is impossible while a person types; Ghostty 1.3.2-win.4 and WT Preview 1.26 ignore posted keys (0/15); the method's floor spreads 13.6 ms (more than one 8.3 ms refresh); terminal figures disagree with PROTEUS's own 6-8 ms key-to-present (untested suspects: the reveal fade crossing the pixel threshold late, and machine load).",
+    "Windows Terminal runs with the owner's settings (acrylic, opacity 88); there is no switch to ignore them.",
+    "Each PROTEUS run starts a cold daemon (fresh socket per run, so its CPU is counted); launch-to-first-write is therefore a cold-start figure.",
+    "Scrollback depth differs between terminals; PROTEUS keeps 50,000 lines, the others' defaults were not read here.",
+    "Not from this lane (no src change): on a machine ~70% busy, cargo test --release in parallel failed recall::tests::{a_full_screen_program_after_a_long_scroll_is_reached_from_a_keyframe, after_the_scrollback_is_erased_a_seek_still_starts_at_a_keyframe, a_moment_find_prints_is_the_moment_at_reads ('307 records', wants >1000)} and tests/mcp close() within 10 s. All pass serially: RUST_TEST_THREADS=1 pwsh forge/gate.ps1 -SkipBench -> GATE PASSED (219 unit, 9 integration)."
+  ],
+  "next": [
+    "Owner: run 'pwsh forge/versus.ps1 -Stages' when nobody is typing, with the test windows visible, on a quiet machine; then replace the provisional tables in forge/versus.md.",
+    "versus: stop the foreground takeover at its source. Record when it happens (spawn, or when the previous test window closes), and create windows unactivatable before they are shown where the terminal allows it.",
+    "versus: find out why throughput moved 4-10x between campaigns. Log DWM and display state per run, and run one terminal repeatedly over a long period.",
+    "speed lane, candidates to measure (not findings): on the daemon path, session.rs pty-read sends buf[..n].to_vec() per read; daemon.rs clones the merged buffer per client and proto::write_frame flushes per frame; remote.rs allocates per frame. Measure with 'versus.ps1 -Runs 9 -Terminals proteus,proteus-local -Workloads ascii' payload CPU before and after.",
+    "Do not enlarge the pty read buffer: ConPTY hands over at most ~64 KB per read (measurement C).",
+    "Owner decision: 50,000 lines of scrollback costs ~150 MB once full (estimate). Measure the cell size; the other terminals' defaults were not read here.",
+    "Launch to first write: stamp window create, GPU init, daemon spawn and session spawn in ms (proteus.log has 1 s resolution); measure with a warm daemon too."
+  ],
+  "user_notes": [
+    "VERSUS opens terminal windows while it runs (no focus taken, not minimised). Run it when the machine is otherwise quiet; figures under load are not comparable."
+  ]
+}

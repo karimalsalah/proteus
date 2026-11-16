@@ -1,0 +1,828 @@
+{
+  "machine": {
+    "cpu": "Intel(R) Core(TM) Ultra 9 285H",
+    "gpu": "Intel(R) Arc(TM) 140T GPU (16GB) driver 32.0.101.9175",
+    "os": "Microsoft Windows 11 Pro for Workstations Insider Preview build 26340",
+    "logical_cpus": 16,
+    "ram_gb": 31.4,
+    "started": "2026-11-16T19:45:15",
+    "other_processes": 529,
+    "finished": "2026-11-16T19:45:59"
+  },
+  "versions": {
+    "proteus": "proteus-versus-20261116-191139.exe",
+    "proteus-local": "proteus-versus-20261116-191139.exe",
+    "proteus-nojournal": "proteus-versus-20261116-191139.exe",
+    "wt": "1.25.3131.0",
+    "wtp": "1.26.3133.0",
+    "wezterm": "wezterm 20261112-061903-ce8e6b14",
+    "ghostty": "1.3.2-win.4",
+    "conhost": "10.0.26100.8951"
+  },
+  "cols": 123,
+  "rows": 30,
+  "runs": 3,
+  "summary": {
+    "proteus": {
+      "name": "PROTEUS",
+      "version": "proteus-versus-20261116-191139.exe",
+      "ascii": {
+        "mb_per_s": {
+          "median": 19.724,
+          "min": 14.3881,
+          "max": 25.9942,
+          "n": 3
+        },
+        "sustained_mb_per_s": {
+          "median": 21.299,
+          "min": 12.8574,
+          "max": 25.4875,
+          "n": 3
+        },
+        "machine_cpu_busy_pct": {
+          "median": 68.5,
+          "min": 67.9,
+          "max": 69.4,
+          "n": 3
+        },
+        "min_free_ram_mb": {
+          "median": 4099,
+          "min": 3861,
+          "max": 4176,
+          "n": 3
+        },
+        "seconds": {
+          "median": 0.850603,
+          "min": 0.645425,
+          "max": 1.166054,
+          "n": 3
+        },
+        "fps": null,
+        "first_write_ms": {
+          "median": 1185.523,
+          "min": 1097.207,
+          "max": 1317.09,
+          "n": 3
+        },
+        "tree_cpu_s": {
+          "median": 1.1406,
+          "min": 0.9688,
+          "max": 1.2032,
+          "n": 3
+        },
+        "payload_cpu_s": {
+          "median": 0.4219,
+          "min": 0.4219,
+          "max": 0.6407,
+          "n": 3
+        },
+        "invalid_runs": 0,
+        "peak_ws_mb": {
+          "median": 361.7,
+          "min": 361.5,
+          "max": 362.7,
+          "n": 3
+        },
+        "drip_write_p99_ms": null,
+        "drip_late_p99_ms": null,
+        "grid": "123x30",
+        "failures": 0
+      }
+    },
+    "proteus-local": {
+      "name": "PROTEUS --local",
+      "version": "proteus-versus-20261116-191139.exe",
+      "ascii": {
+        "mb_per_s": {
+          "median": 37.8541,
+          "min": 9.8913,
+          "max": 49.4703,
+          "n": 3
+        },
+        "sustained_mb_per_s": {
+          "median": 22.2325,
+          "min": 9.1382,
+          "max": 52.4204,
+          "n": 3
+        },
+        "machine_cpu_busy_pct": {
+          "median": 69.0,
+          "min": 66.0,
+          "max": 69.9,
+          "n": 3
+        },
+        "min_free_ram_mb": {
+          "median": 4086,
+          "min": 3913,
+          "max": 4204,
+          "n": 3
+        },
+        "seconds": {
+          "median": 0.443209,
+          "min": 0.339139,
+          "max": 1.696168,
+          "n": 3
+        },
+        "fps": null,
+        "first_write_ms": {
+          "median": 969.192,
+          "min": 730.824,
+          "max": 1360.143,
+          "n": 3
+        },
+        "tree_cpu_s": {
+          "median": 0.8126,
+          "min": 0.7344,
+          "max": 0.8593999999999999,
+          "n": 3
+        },
+        "payload_cpu_s": {
+          "median": 0.2344,
+          "min": 0.1719,
+          "max": 0.375,
+          "n": 3
+        },
+        "invalid_runs": 0,
+        "peak_ws_mb": {
+          "median": 351.7,
+          "min": 350.1,
+          "max": 358.4,
+          "n": 3
+        },
+        "drip_write_p99_ms": null,
+        "drip_late_p99_ms": null,
+        "grid": "123x30,150x32",
+        "failures": 0
+      }
+    },
+    "proteus-nojournal": {
+      "name": "PROTEUS --no-journal",
+      "version": "proteus-versus-20261116-191139.exe",
+      "ascii": {
+        "mb_per_s": {
+          "median": 22.513,
+          "min": 9.4855,
+          "max": 24.6665,
+          "n": 3
+        },
+        "sustained_mb_per_s": {
+          "median": 26.6706,
+          "min": 9.3248,
+          "max": 27.4528,
+          "n": 3
+        },
+        "machine_cpu_busy_pct": {
+          "median": 69.5,
+          "min": 67.4,
+          "max": 69.7,
+          "n": 3
+        },
+        "min_free_ram_mb": {
+          "median": 3990,
+          "min": 3845,
+          "max": 4131,
+          "n": 3
+        },
+        "seconds": {
+          "median": 0.745227,
+          "min": 0.680165,
+          "max": 1.768725,
+          "n": 3
+        },
+        "fps": null,
+        "first_write_ms": {
+          "median": 803.684,
+          "min": 793.781,
+          "max": 1085.341,
+          "n": 3
+        },
+        "tree_cpu_s": {
+          "median": 0.9532,
+          "min": 0.7811999999999999,
+          "max": 1.0156,
+          "n": 3
+        },
+        "payload_cpu_s": {
+          "median": 0.3438,
+          "min": 0.3125,
+          "max": 0.4843,
+          "n": 3
+        },
+        "invalid_runs": 0,
+        "peak_ws_mb": {
+          "median": 348.3,
+          "min": 347.5,
+          "max": 381.3,
+          "n": 3
+        },
+        "drip_write_p99_ms": null,
+        "drip_late_p99_ms": null,
+        "grid": "123x30,150x32",
+        "failures": 0
+      }
+    }
+  },
+  "records": [
+    {
+      "terminal": "proteus",
+      "workload": "ascii",
+      "run": 1,
+      "runner": {
+        "cmdline": "\"%WORKTREE%\\dist\\proteus-versus-20261116-191139.exe\" -e \"%WORKTREE%\\forge\\out\\versus-target\\release\\versus.exe\" emit --kind ascii --bytes 16777216 --report \"%WORKTREE%\\forge\\out\\versus\\stage-proteus\\proteus\\ascii\\1\\workload.json\" --t0 {T0}",
+        "pid": 18456,
+        "t0": 79341292741,
+        "wall_s": 5.214,
+        "report_after_s": 2.175,
+        "cpu_s": 1.0,
+        "user_s": 0.5,
+        "kernel_s": 0.5,
+        "total_processes": 4,
+        "active_at_end": 0,
+        "peak_ws_mb": 361.7,
+        "closed_by_harness": true,
+        "timed_out": false,
+        "payload_cpu_s": 0.4531,
+        "took_foreground": false,
+        "procs": [
+          {
+            "pid": 18456,
+            "name": "proteus-versus-20261116-191139.exe",
+            "peak_ws_mb": 310.3
+          },
+          {
+            "pid": 32528,
+            "name": "proteus-0.5.4-1794845076.exe",
+            "peak_ws_mb": 15.6
+          },
+          {
+            "pid": 36580,
+            "name": "OpenConsole.exe",
+            "peak_ws_mb": 13.3
+          },
+          {
+            "pid": 38212,
+            "name": "versus.exe",
+            "peak_ws_mb": 24.5
+          }
+        ],
+        "machine_cpu_busy_pct": 67.9,
+        "min_free_ram_mb": 4176
+      },
+      "workload_report": {
+        "kind": "ascii",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777306,
+        "seconds": 0.850603,
+        "mb_per_s": 19.724,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 79341292741,
+        "t_start": 79354313132,
+        "t_first": 79354463637,
+        "t_payload_start": 79354470832,
+        "t_payload_end": 79362976858,
+        "start_ms": 1302.039,
+        "first_write_ms": 1317.09,
+        "self_cpu_s": 0.0312,
+        "in_runner_job": true,
+        "pid": 38212,
+        "second_half_mb_per_s": 21.299
+      },
+      "invalid": []
+    },
+    {
+      "terminal": "proteus",
+      "workload": "ascii",
+      "run": 2,
+      "runner": {
+        "cmdline": "\"%WORKTREE%\\dist\\proteus-versus-20261116-191139.exe\" -e \"%WORKTREE%\\forge\\out\\versus-target\\release\\versus.exe\" emit --kind ascii --bytes 16777216 --report \"%WORKTREE%\\forge\\out\\versus\\stage-proteus\\proteus\\ascii\\2\\workload.json\" --t0 {T0}",
+        "pid": 41528,
+        "t0": 79513000206,
+        "wall_s": 4.876,
+        "report_after_s": 1.84,
+        "cpu_s": 1.2031,
+        "user_s": 0.6094,
+        "kernel_s": 0.5938,
+        "total_processes": 4,
+        "active_at_end": 0,
+        "peak_ws_mb": 362.7,
+        "closed_by_harness": true,
+        "timed_out": false,
+        "payload_cpu_s": 0.4844,
+        "took_foreground": false,
+        "procs": [
+          {
+            "pid": 1496,
+            "name": "versus.exe",
+            "peak_ws_mb": 24.5
+          },
+          {
+            "pid": 32916,
+            "name": "proteus-0.5.4-1794845076.exe",
+            "peak_ws_mb": 15.0
+          },
+          {
+            "pid": 38808,
+            "name": "OpenConsole.exe",
+            "peak_ws_mb": 13.3
+          },
+          {
+            "pid": 41528,
+            "name": "proteus-versus-20261116-191139.exe",
+            "peak_ws_mb": 311.2
+          }
+        ],
+        "machine_cpu_busy_pct": 69.4,
+        "min_free_ram_mb": 4099
+      },
+      "workload_report": {
+        "kind": "ascii",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777306,
+        "seconds": 0.645425,
+        "mb_per_s": 25.9942,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 79513000206,
+        "t_start": 79524592037,
+        "t_first": 79524855431,
+        "t_payload_start": 79524862556,
+        "t_payload_end": 79531316811,
+        "start_ms": 1159.183,
+        "first_write_ms": 1185.523,
+        "self_cpu_s": 0.0625,
+        "in_runner_job": true,
+        "pid": 1496,
+        "second_half_mb_per_s": 25.4875
+      },
+      "invalid": []
+    },
+    {
+      "terminal": "proteus",
+      "workload": "ascii",
+      "run": 3,
+      "runner": {
+        "cmdline": "\"%WORKTREE%\\dist\\proteus-versus-20261116-191139.exe\" -e \"%WORKTREE%\\forge\\out\\versus-target\\release\\versus.exe\" emit --kind ascii --bytes 16777216 --report \"%WORKTREE%\\forge\\out\\versus\\stage-proteus\\proteus\\ascii\\3\\workload.json\" --t0 {T0}",
+        "pid": 42848,
+        "t0": 79588674918,
+        "wall_s": 5.313,
+        "report_after_s": 2.277,
+        "cpu_s": 1.2344,
+        "user_s": 0.6562,
+        "kernel_s": 0.5781,
+        "total_processes": 4,
+        "active_at_end": 0,
+        "peak_ws_mb": 361.5,
+        "closed_by_harness": true,
+        "timed_out": false,
+        "payload_cpu_s": 0.6719,
+        "took_foreground": false,
+        "procs": [
+          {
+            "pid": 30424,
+            "name": "versus.exe",
+            "peak_ws_mb": 24.5
+          },
+          {
+            "pid": 36268,
+            "name": "proteus-0.5.4-1794845076.exe",
+            "peak_ws_mb": 14.5
+          },
+          {
+            "pid": 37960,
+            "name": "OpenConsole.exe",
+            "peak_ws_mb": 13.3
+          },
+          {
+            "pid": 42848,
+            "name": "proteus-versus-20261116-191139.exe",
+            "peak_ws_mb": 310.1
+          }
+        ],
+        "machine_cpu_busy_pct": 68.5,
+        "min_free_ram_mb": 3861
+      },
+      "workload_report": {
+        "kind": "ascii",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777306,
+        "seconds": 1.166054,
+        "mb_per_s": 14.3881,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 79588674918,
+        "t_start": 79599118252,
+        "t_first": 79599646992,
+        "t_payload_start": 79599653986,
+        "t_payload_end": 79611314529,
+        "start_ms": 1044.333,
+        "first_write_ms": 1097.207,
+        "self_cpu_s": 0.0312,
+        "in_runner_job": true,
+        "pid": 30424,
+        "second_half_mb_per_s": 12.8574
+      },
+      "invalid": []
+    },
+    {
+      "terminal": "proteus-local",
+      "workload": "ascii",
+      "run": 1,
+      "runner": {
+        "cmdline": "\"%WORKTREE%\\dist\\proteus-versus-20261116-191139.exe\" --local -e \"%WORKTREE%\\forge\\out\\versus-target\\release\\versus.exe\" emit --kind ascii --bytes 16777216 --report \"%WORKTREE%\\forge\\out\\versus\\stage-proteus\\proteus-local\\ascii\\1\\workload.json\" --t0 {T0}",
+        "pid": 40064,
+        "t0": 79395192067,
+        "wall_s": 3.709,
+        "report_after_s": 3.062,
+        "cpu_s": 0.8438,
+        "user_s": 0.4844,
+        "kernel_s": 0.3594,
+        "total_processes": 3,
+        "active_at_end": 0,
+        "peak_ws_mb": 350.1,
+        "closed_by_harness": false,
+        "timed_out": false,
+        "payload_cpu_s": 0.4062,
+        "took_foreground": false,
+        "procs": [
+          {
+            "pid": 40052,
+            "name": "OpenConsole.exe",
+            "peak_ws_mb": 13.3
+          },
+          {
+            "pid": 40064,
+            "name": "proteus-versus-20261116-191139.exe",
+            "peak_ws_mb": 312.5
+          },
+          {
+            "pid": 40416,
+            "name": "versus.exe",
+            "peak_ws_mb": 24.4
+          }
+        ],
+        "machine_cpu_busy_pct": 69.0,
+        "min_free_ram_mb": 4086
+      },
+      "workload_report": {
+        "kind": "ascii",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777306,
+        "seconds": 1.696168,
+        "mb_per_s": 9.8913,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 79395192067,
+        "t_start": 79408229653,
+        "t_first": 79408793499,
+        "t_payload_start": 79408799561,
+        "t_payload_end": 79425761236,
+        "start_ms": 1303.759,
+        "first_write_ms": 1360.143,
+        "self_cpu_s": 0.0312,
+        "in_runner_job": true,
+        "pid": 40416,
+        "second_half_mb_per_s": 9.1382
+      },
+      "invalid": []
+    },
+    {
+      "terminal": "proteus-local",
+      "workload": "ascii",
+      "run": 2,
+      "runner": {
+        "cmdline": "\"%WORKTREE%\\dist\\proteus-versus-20261116-191139.exe\" --local -e \"%WORKTREE%\\forge\\out\\versus-target\\release\\versus.exe\" emit --kind ascii --bytes 16777216 --report \"%WORKTREE%\\forge\\out\\versus\\stage-proteus\\proteus-local\\ascii\\2\\workload.json\" --t0 {T0}",
+        "pid": 11548,
+        "t0": 79470344933,
+        "wall_s": 2.019,
+        "report_after_s": 1.427,
+        "cpu_s": 0.7344,
+        "user_s": 0.4375,
+        "kernel_s": 0.2969,
+        "total_processes": 3,
+        "active_at_end": 0,
+        "peak_ws_mb": 358.4,
+        "closed_by_harness": false,
+        "timed_out": false,
+        "payload_cpu_s": 0.2344,
+        "took_foreground": false,
+        "procs": [
+          {
+            "pid": 11548,
+            "name": "proteus-versus-20261116-191139.exe",
+            "peak_ws_mb": 320.8
+          },
+          {
+            "pid": 32476,
+            "name": "versus.exe",
+            "peak_ws_mb": 24.4
+          },
+          {
+            "pid": 38104,
+            "name": "OpenConsole.exe",
+            "peak_ws_mb": 13.4
+          }
+        ],
+        "machine_cpu_busy_pct": 66.0,
+        "min_free_ram_mb": 4204
+      },
+      "workload_report": {
+        "kind": "ascii",
+        "console": true,
+        "cols": 150,
+        "rows": 32,
+        "bytes": 16777306,
+        "seconds": 0.443209,
+        "mb_per_s": 37.8541,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 79470344933,
+        "t_start": 79479788350,
+        "t_first": 79480036853,
+        "t_payload_start": 79480041814,
+        "t_payload_end": 79484473909,
+        "start_ms": 944.342,
+        "first_write_ms": 969.192,
+        "self_cpu_s": 0.0,
+        "in_runner_job": true,
+        "pid": 32476,
+        "second_half_mb_per_s": 22.2325
+      },
+      "invalid": []
+    },
+    {
+      "terminal": "proteus-local",
+      "workload": "ascii",
+      "run": 3,
+      "runner": {
+        "cmdline": "\"%WORKTREE%\\dist\\proteus-versus-20261116-191139.exe\" --local -e \"%WORKTREE%\\forge\\out\\versus-target\\release\\versus.exe\" emit --kind ascii --bytes 16777216 --report \"%WORKTREE%\\forge\\out\\versus\\stage-proteus\\proteus-local\\ascii\\3\\workload.json\" --t0 {T0}",
+        "pid": 30612,
+        "t0": 79642876447,
+        "wall_s": 1.932,
+        "report_after_s": 1.079,
+        "cpu_s": 0.8906,
+        "user_s": 0.4375,
+        "kernel_s": 0.4531,
+        "total_processes": 3,
+        "active_at_end": 0,
+        "peak_ws_mb": 351.7,
+        "closed_by_harness": false,
+        "timed_out": false,
+        "payload_cpu_s": 0.2031,
+        "took_foreground": false,
+        "procs": [
+          {
+            "pid": 30612,
+            "name": "proteus-versus-20261116-191139.exe",
+            "peak_ws_mb": 321.5
+          },
+          {
+            "pid": 35948,
+            "name": "versus.exe",
+            "peak_ws_mb": 24.5
+          },
+          {
+            "pid": 41196,
+            "name": "OpenConsole.exe",
+            "peak_ws_mb": 15.2
+          }
+        ],
+        "machine_cpu_busy_pct": 69.9,
+        "min_free_ram_mb": 3913
+      },
+      "workload_report": {
+        "kind": "ascii",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777306,
+        "seconds": 0.339139,
+        "mb_per_s": 49.4703,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 79642876447,
+        "t_start": 79649894814,
+        "t_first": 79650184686,
+        "t_payload_start": 79650190763,
+        "t_payload_end": 79653582153,
+        "start_ms": 701.837,
+        "first_write_ms": 730.824,
+        "self_cpu_s": 0.0312,
+        "in_runner_job": true,
+        "pid": 35948,
+        "second_half_mb_per_s": 52.4204
+      },
+      "invalid": []
+    },
+    {
+      "terminal": "proteus-nojournal",
+      "workload": "ascii",
+      "run": 1,
+      "runner": {
+        "cmdline": "\"%WORKTREE%\\dist\\proteus-versus-20261116-191139.exe\" --no-journal -e \"%WORKTREE%\\forge\\out\\versus-target\\release\\versus.exe\" emit --kind ascii --bytes 16777216 --report \"%WORKTREE%\\forge\\out\\versus\\stage-proteus\\proteus-nojournal\\ascii\\1\\workload.json\" --t0 {T0}",
+        "pid": 36928,
+        "t0": 79433616805,
+        "wall_s": 3.515,
+        "report_after_s": 2.872,
+        "cpu_s": 1.0625,
+        "user_s": 0.6094,
+        "kernel_s": 0.4531,
+        "total_processes": 3,
+        "active_at_end": 0,
+        "peak_ws_mb": 347.5,
+        "closed_by_harness": false,
+        "timed_out": false,
+        "payload_cpu_s": 0.5312,
+        "took_foreground": false,
+        "procs": [
+          {
+            "pid": 34728,
+            "name": "OpenConsole.exe",
+            "peak_ws_mb": 15.0
+          },
+          {
+            "pid": 36388,
+            "name": "versus.exe",
+            "peak_ws_mb": 24.4
+          },
+          {
+            "pid": 36928,
+            "name": "proteus-versus-20261116-191139.exe",
+            "peak_ws_mb": 310.0
+          }
+        ],
+        "machine_cpu_busy_pct": 69.7,
+        "min_free_ram_mb": 4131
+      },
+      "workload_report": {
+        "kind": "ascii",
+        "console": true,
+        "cols": 123,
+        "rows": 30,
+        "bytes": 16777306,
+        "seconds": 1.768725,
+        "mb_per_s": 9.4855,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 79433616805,
+        "t_start": 79443467267,
+        "t_first": 79444470210,
+        "t_payload_start": 79444475403,
+        "t_payload_end": 79462162651,
+        "start_ms": 985.046,
+        "first_write_ms": 1085.341,
+        "self_cpu_s": 0.0469,
+        "in_runner_job": true,
+        "pid": 36388,
+        "second_half_mb_per_s": 9.3248
+      },
+      "invalid": []
+    },
+    {
+      "terminal": "proteus-nojournal",
+      "workload": "ascii",
+      "run": 2,
+      "runner": {
+        "cmdline": "\"%WORKTREE%\\dist\\proteus-versus-20261116-191139.exe\" --no-journal -e \"%WORKTREE%\\forge\\out\\versus-target\\release\\versus.exe\" emit --kind ascii --bytes 16777216 --report \"%WORKTREE%\\forge\\out\\versus\\stage-proteus\\proteus-nojournal\\ascii\\2\\workload.json\" --t0 {T0}",
+        "pid": 42984,
+        "t0": 79491668632,
+        "wall_s": 1.956,
+        "report_after_s": 1.554,
+        "cpu_s": 0.8281,
+        "user_s": 0.4375,
+        "kernel_s": 0.3906,
+        "total_processes": 3,
+        "active_at_end": 0,
+        "peak_ws_mb": 348.3,
+        "closed_by_harness": false,
+        "timed_out": false,
+        "payload_cpu_s": 0.3594,
+        "took_foreground": false,
+        "procs": [
+          {
+            "pid": 5496,
+            "name": "versus.exe",
+            "peak_ws_mb": 24.5
+          },
+          {
+            "pid": 27156,
+            "name": "OpenConsole.exe",
+            "peak_ws_mb": 13.3
+          },
+          {
+            "pid": 42984,
+            "name": "proteus-versus-20261116-191139.exe",
+            "peak_ws_mb": 310.7
+          }
+        ],
+        "machine_cpu_busy_pct": 69.5,
+        "min_free_ram_mb": 3990
+      },
+      "workload_report": {
+        "kind": "ascii",
+        "console": true,
+        "cols": 150,
+        "rows": 32,
+        "bytes": 16777306,
+        "seconds": 0.745227,
+        "mb_per_s": 22.513,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 79491668632,
+        "t_start": 79499429646,
+        "t_first": 79499705470,
+        "t_payload_start": 79499712548,
+        "t_payload_end": 79507164817,
+        "start_ms": 776.101,
+        "first_write_ms": 803.684,
+        "self_cpu_s": 0.0469,
+        "in_runner_job": true,
+        "pid": 5496,
+        "second_half_mb_per_s": 27.4528
+      },
+      "invalid": []
+    },
+    {
+      "terminal": "proteus-nojournal",
+      "workload": "ascii",
+      "run": 3,
+      "runner": {
+        "cmdline": "\"%WORKTREE%\\dist\\proteus-versus-20261116-191139.exe\" --no-journal -e \"%WORKTREE%\\forge\\out\\versus-target\\release\\versus.exe\" emit --kind ascii --bytes 16777216 --report \"%WORKTREE%\\forge\\out\\versus\\stage-proteus\\proteus-nojournal\\ascii\\3\\workload.json\" --t0 {T0}",
+        "pid": 17788,
+        "t0": 79563176717,
+        "wall_s": 2.399,
+        "report_after_s": 1.491,
+        "cpu_s": 0.9844,
+        "user_s": 0.5469,
+        "kernel_s": 0.4375,
+        "total_processes": 3,
+        "active_at_end": 0,
+        "peak_ws_mb": 381.3,
+        "closed_by_harness": false,
+        "timed_out": false,
+        "payload_cpu_s": 0.375,
+        "took_foreground": false,
+        "procs": [
+          {
+            "pid": 17788,
+            "name": "proteus-versus-20261116-191139.exe",
+            "peak_ws_mb": 347.5
+          },
+          {
+            "pid": 34144,
+            "name": "OpenConsole.exe",
+            "peak_ws_mb": 13.3
+          },
+          {
+            "pid": 41428,
+            "name": "versus.exe",
+            "peak_ws_mb": 24.4
+          }
+        ],
+        "machine_cpu_busy_pct": 67.4,
+        "min_free_ram_mb": 3845
+      },
+      "workload_report": {
+        "kind": "ascii",
+        "console": true,
+        "cols": 150,
+        "rows": 32,
+        "bytes": 16777306,
+        "seconds": 0.680165,
+        "mb_per_s": 24.6665,
+        "frames": 0,
+        "fps": 0.0,
+        "qpf": 10000000,
+        "t0": 79563176717,
+        "t_start": 79570949190,
+        "t_first": 79571114523,
+        "t_payload_start": 79571123508,
+        "t_payload_end": 79577925159,
+        "start_ms": 777.247,
+        "first_write_ms": 793.781,
+        "self_cpu_s": 0.0312,
+        "in_runner_job": true,
+        "pid": 41428,
+        "second_half_mb_per_s": 26.6706
+      },
+      "invalid": []
+    }
+  ],
+  "stages": []
+}

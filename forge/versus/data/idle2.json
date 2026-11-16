@@ -1,0 +1,1286 @@
+{
+  "machine": {
+    "cpu": "Intel(R) Core(TM) Ultra 9 285H",
+    "gpu": "Intel(R) Arc(TM) 140T GPU (16GB) driver 32.0.101.9175",
+    "os": "Microsoft Windows 11 Pro for Workstations Insider Preview build 26340",
+    "logical_cpus": 16,
+    "ram_gb": 31.4,
+    "started": "2026-11-16T20:36:04",
+    "other_processes": 515,
+    "finished": "2026-11-16T20:45:21"
+  },
+  "versions": {
+    "proteus": "proteus-20261116-201918.exe",
+    "proteus-local": "proteus-20261116-201918.exe",
+    "proteus-nojournal": "proteus-20261116-201918.exe",
+    "wt": "1.25.3131.0",
+    "wtp": "1.26.3133.0",
+    "wezterm": "wezterm 20261112-061903-ce8e6b14",
+    "ghostty": "1.3.2-win.4",
+    "conhost": "10.0.26100.8951"
+  },
+  "cols": 123,
+  "rows": 30,
+  "runs": 3,
+  "summary": {
+    "proteus": {
+      "name": "PROTEUS",
+      "version": "proteus-20261116-201918.exe",
+      "idle": {
+        "cpu_pct": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0,
+          "n": 1
+        },
+        "cpu_s": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0,
+          "n": 1
+        },
+        "visible_share_min": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0,
+          "n": 1
+        },
+        "invalid_runs": 2,
+        "ws_mb": {
+          "median": 199.8,
+          "min": 199.8,
+          "max": 199.8,
+          "n": 1
+        }
+      }
+    },
+    "wt": {
+      "name": "Windows Terminal",
+      "version": "1.25.3131.0",
+      "idle": {
+        "cpu_pct": {
+          "median": 0.078,
+          "min": 0.0,
+          "max": 0.234,
+          "n": 3
+        },
+        "cpu_s": {
+          "median": 0.0156,
+          "min": 0.0,
+          "max": 0.0469,
+          "n": 3
+        },
+        "visible_share_min": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0,
+          "n": 3
+        },
+        "invalid_runs": 0,
+        "ws_mb": {
+          "median": 146.5,
+          "min": 146.2,
+          "max": 146.5,
+          "n": 3
+        }
+      }
+    },
+    "wtp": {
+      "name": "Windows Terminal Preview",
+      "version": "1.26.3133.0",
+      "idle": {
+        "cpu_pct": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0,
+          "n": 3
+        },
+        "cpu_s": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0,
+          "n": 3
+        },
+        "visible_share_min": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0,
+          "n": 3
+        },
+        "invalid_runs": 0,
+        "ws_mb": {
+          "median": 148.9,
+          "min": 148.9,
+          "max": 148.9,
+          "n": 3
+        }
+      }
+    },
+    "wezterm": {
+      "name": "WezTerm",
+      "version": "wezterm 20261112-061903-ce8e6b14",
+      "idle": {
+        "cpu_pct": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.156,
+          "n": 3
+        },
+        "cpu_s": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0312,
+          "n": 3
+        },
+        "visible_share_min": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0,
+          "n": 3
+        },
+        "invalid_runs": 0,
+        "ws_mb": {
+          "median": 248.5,
+          "min": 240.9,
+          "max": 255.3,
+          "n": 3
+        }
+      }
+    },
+    "ghostty": {
+      "name": "Ghostty",
+      "version": "1.3.2-win.4",
+      "idle": {
+        "cpu_pct": {
+          "median": 0.312,
+          "min": 0.234,
+          "max": 0.703,
+          "n": 3
+        },
+        "cpu_s": {
+          "median": 0.0625,
+          "min": 0.0469,
+          "max": 0.1406,
+          "n": 3
+        },
+        "visible_share_min": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0,
+          "n": 3
+        },
+        "invalid_runs": 0,
+        "ws_mb": {
+          "median": 152.5,
+          "min": 151.3,
+          "max": 153.2,
+          "n": 3
+        }
+      }
+    },
+    "conhost": {
+      "name": "conhost",
+      "version": "10.0.26100.8951",
+      "idle": {
+        "cpu_pct": {
+          "median": 0.078,
+          "min": 0.078,
+          "max": 0.078,
+          "n": 1
+        },
+        "cpu_s": {
+          "median": 0.0156,
+          "min": 0.0156,
+          "max": 0.0156,
+          "n": 1
+        },
+        "visible_share_min": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0,
+          "n": 1
+        },
+        "invalid_runs": 2,
+        "ws_mb": {
+          "median": 22.5,
+          "min": 22.5,
+          "max": 22.5,
+          "n": 1
+        }
+      }
+    }
+  },
+  "records": [
+    {
+      "terminal": "proteus",
+      "workload": "idle",
+      "run": 1,
+      "runner": {
+        "cmdline": "\"%WORKTREE%\\dist\\proteus-20261116-201918.exe\" -e C:\\WINDOWS\\System32\\cmd.exe",
+        "pid": 44992,
+        "t0": 109802644302,
+        "wall_s": 30.01,
+        "report_after_s": null,
+        "cpu_s": 0.7969,
+        "user_s": 0.3906,
+        "kernel_s": 0.4062,
+        "total_processes": 4,
+        "active_at_end": 0,
+        "peak_ws_mb": 202.3,
+        "closed_by_harness": true,
+        "timed_out": false,
+        "payload_cpu_s": null,
+        "took_foreground": true,
+        "windows_made_unactivatable": 1,
+        "session_locked_at_some_point": false,
+        "visible_share_min": 0.0,
+        "visible_share_max": 1.0,
+        "procs": [
+          {
+            "pid": 37344,
+            "name": "cmd.exe",
+            "peak_ws_mb": 9.2
+          },
+          {
+            "pid": 41608,
+            "name": "OpenConsole.exe",
+            "peak_ws_mb": 13.0
+          },
+          {
+            "pid": 44992,
+            "name": "proteus-20261116-201918.exe",
+            "peak_ws_mb": 170.4
+          },
+          {
+            "pid": 46036,
+            "name": "proteus-0.5.4-1794845076.exe",
+            "peak_ws_mb": 14.4
+          }
+        ],
+        "idle": {
+          "seconds": 20.0,
+          "cpu_s": 0.0469,
+          "cpu_pct_of_one_core": 0.234,
+          "ws_mb_avg": 202.4,
+          "ws_mb_max": 202.4,
+          "active_processes": 4
+        },
+        "machine_cpu_busy_pct": 64.6,
+        "min_free_ram_mb": 4962
+      },
+      "invalid": [
+        "took_foreground"
+      ]
+    },
+    {
+      "terminal": "proteus",
+      "workload": "idle",
+      "run": 2,
+      "runner": {
+        "cmdline": "\"%WORKTREE%\\dist\\proteus-20261116-201918.exe\" -e C:\\WINDOWS\\System32\\cmd.exe",
+        "pid": 45156,
+        "t0": 111611750084,
+        "wall_s": 30.008,
+        "report_after_s": null,
+        "cpu_s": 0.6094,
+        "user_s": 0.375,
+        "kernel_s": 0.2344,
+        "total_processes": 4,
+        "active_at_end": 0,
+        "peak_ws_mb": 199.8,
+        "closed_by_harness": true,
+        "timed_out": false,
+        "payload_cpu_s": null,
+        "took_foreground": false,
+        "windows_made_unactivatable": 1,
+        "session_locked_at_some_point": false,
+        "visible_share_min": 0.0,
+        "visible_share_max": 0.0,
+        "procs": [
+          {
+            "pid": 42216,
+            "name": "OpenConsole.exe",
+            "peak_ws_mb": 13.0
+          },
+          {
+            "pid": 42292,
+            "name": "cmd.exe",
+            "peak_ws_mb": 9.2
+          },
+          {
+            "pid": 43296,
+            "name": "proteus-0.5.4-1794845076.exe",
+            "peak_ws_mb": 14.4
+          },
+          {
+            "pid": 45156,
+            "name": "proteus-20261116-201918.exe",
+            "peak_ws_mb": 169.2
+          }
+        ],
+        "idle": {
+          "seconds": 20.004,
+          "cpu_s": 0.0,
+          "cpu_pct_of_one_core": 0.0,
+          "ws_mb_avg": 199.8,
+          "ws_mb_max": 199.8,
+          "active_processes": 4
+        },
+        "machine_cpu_busy_pct": 74.2,
+        "min_free_ram_mb": 2836
+      },
+      "invalid": []
+    },
+    {
+      "terminal": "proteus",
+      "workload": "idle",
+      "run": 3,
+      "runner": {
+        "cmdline": "\"%WORKTREE%\\dist\\proteus-20261116-201918.exe\" -e C:\\WINDOWS\\System32\\cmd.exe",
+        "pid": 32472,
+        "t0": 113457867221,
+        "wall_s": 30.025,
+        "report_after_s": null,
+        "cpu_s": 0.75,
+        "user_s": 0.2031,
+        "kernel_s": 0.5469,
+        "total_processes": 4,
+        "active_at_end": 0,
+        "peak_ws_mb": 202.6,
+        "closed_by_harness": true,
+        "timed_out": false,
+        "payload_cpu_s": null,
+        "took_foreground": true,
+        "windows_made_unactivatable": 1,
+        "session_locked_at_some_point": false,
+        "visible_share_min": 0.0,
+        "visible_share_max": 1.0,
+        "procs": [
+          {
+            "pid": 32472,
+            "name": "proteus-20261116-201918.exe",
+            "peak_ws_mb": 169.2
+          },
+          {
+            "pid": 42344,
+            "name": "cmd.exe",
+            "peak_ws_mb": 9.2
+          },
+          {
+            "pid": 43956,
+            "name": "proteus-0.5.4-1794845076.exe",
+            "peak_ws_mb": 14.5
+          },
+          {
+            "pid": 45080,
+            "name": "OpenConsole.exe",
+            "peak_ws_mb": 13.0
+          }
+        ],
+        "idle": {
+          "seconds": 20.014,
+          "cpu_s": 0.125,
+          "cpu_pct_of_one_core": 0.625,
+          "ws_mb_avg": 202.6,
+          "ws_mb_max": 202.6,
+          "active_processes": 4
+        },
+        "machine_cpu_busy_pct": 87.5,
+        "min_free_ram_mb": 981
+      },
+      "invalid": [
+        "took_foreground"
+      ]
+    },
+    {
+      "terminal": "wt",
+      "workload": "idle",
+      "run": 1,
+      "runner": {
+        "cmdline": "%LOCALAPPDATA%\\Microsoft\\WindowsApps\\Microsoft.WindowsTerminal_8wekyb3d8bbwe\\wt.exe -w new --size 123,30 new-tab -- C:\\WINDOWS\\System32\\cmd.exe",
+        "pid": 43788,
+        "t0": 110103960199,
+        "wall_s": 30.02,
+        "report_after_s": null,
+        "cpu_s": 0.75,
+        "user_s": 0.4062,
+        "kernel_s": 0.3438,
+        "total_processes": 3,
+        "active_at_end": 0,
+        "peak_ws_mb": 148.4,
+        "closed_by_harness": true,
+        "timed_out": false,
+        "payload_cpu_s": null,
+        "took_foreground": false,
+        "windows_made_unactivatable": 1,
+        "session_locked_at_some_point": false,
+        "visible_share_min": 0.0,
+        "visible_share_max": 0.0,
+        "procs": [
+          {
+            "pid": 35256,
+            "name": "WindowsTerminal.exe",
+            "peak_ws_mb": 140.7
+          },
+          {
+            "pid": 38668,
+            "name": "OpenConsole.exe",
+            "peak_ws_mb": 11.8
+          },
+          {
+            "pid": 43788,
+            "name": "wt.exe",
+            "peak_ws_mb": 7.4
+          }
+        ],
+        "idle": {
+          "seconds": 20.01,
+          "cpu_s": 0.0,
+          "cpu_pct_of_one_core": 0.0,
+          "ws_mb_avg": 146.5,
+          "ws_mb_max": 146.6,
+          "active_processes": 2
+        },
+        "machine_cpu_busy_pct": 71.1,
+        "min_free_ram_mb": 4327
+      },
+      "invalid": []
+    },
+    {
+      "terminal": "wt",
+      "workload": "idle",
+      "run": 2,
+      "runner": {
+        "cmdline": "%LOCALAPPDATA%\\Microsoft\\WindowsApps\\Microsoft.WindowsTerminal_8wekyb3d8bbwe\\wt.exe -w new --size 123,30 new-tab -- C:\\WINDOWS\\System32\\cmd.exe",
+        "pid": 44848,
+        "t0": 111913272169,
+        "wall_s": 30.028,
+        "report_after_s": null,
+        "cpu_s": 0.7656,
+        "user_s": 0.4062,
+        "kernel_s": 0.3594,
+        "total_processes": 3,
+        "active_at_end": 0,
+        "peak_ws_mb": 150.8,
+        "closed_by_harness": true,
+        "timed_out": false,
+        "payload_cpu_s": null,
+        "took_foreground": false,
+        "windows_made_unactivatable": 1,
+        "session_locked_at_some_point": false,
+        "visible_share_min": 0.0,
+        "visible_share_max": 0.0,
+        "procs": [
+          {
+            "pid": 8204,
+            "name": "OpenConsole.exe",
+            "peak_ws_mb": 11.8
+          },
+          {
+            "pid": 32364,
+            "name": "WindowsTerminal.exe",
+            "peak_ws_mb": 141.3
+          },
+          {
+            "pid": 44848,
+            "name": "wt.exe",
+            "peak_ws_mb": 7.3
+          }
+        ],
+        "idle": {
+          "seconds": 20.022,
+          "cpu_s": 0.0156,
+          "cpu_pct_of_one_core": 0.078,
+          "ws_mb_avg": 146.5,
+          "ws_mb_max": 146.5,
+          "active_processes": 2
+        },
+        "machine_cpu_busy_pct": 80.6,
+        "min_free_ram_mb": 3198
+      },
+      "invalid": []
+    },
+    {
+      "terminal": "wt",
+      "workload": "idle",
+      "run": 3,
+      "runner": {
+        "cmdline": "%LOCALAPPDATA%\\Microsoft\\WindowsApps\\Microsoft.WindowsTerminal_8wekyb3d8bbwe\\wt.exe -w new --size 123,30 new-tab -- C:\\WINDOWS\\System32\\cmd.exe",
+        "pid": 39588,
+        "t0": 113764803769,
+        "wall_s": 30.056,
+        "report_after_s": null,
+        "cpu_s": 0.7812,
+        "user_s": 0.25,
+        "kernel_s": 0.5312,
+        "total_processes": 3,
+        "active_at_end": 0,
+        "peak_ws_mb": 147.0,
+        "closed_by_harness": true,
+        "timed_out": false,
+        "payload_cpu_s": null,
+        "took_foreground": false,
+        "windows_made_unactivatable": 1,
+        "session_locked_at_some_point": false,
+        "visible_share_min": 0.0,
+        "visible_share_max": 0.0,
+        "procs": [
+          {
+            "pid": 39588,
+            "name": "wt.exe",
+            "peak_ws_mb": 7.3
+          },
+          {
+            "pid": 44652,
+            "name": "WindowsTerminal.exe",
+            "peak_ws_mb": 139.9
+          },
+          {
+            "pid": 45324,
+            "name": "OpenConsole.exe",
+            "peak_ws_mb": 11.8
+          }
+        ],
+        "idle": {
+          "seconds": 20.039,
+          "cpu_s": 0.0469,
+          "cpu_pct_of_one_core": 0.234,
+          "ws_mb_avg": 146.2,
+          "ws_mb_max": 146.2,
+          "active_processes": 2
+        },
+        "machine_cpu_busy_pct": 87.4,
+        "min_free_ram_mb": 2091
+      },
+      "invalid": []
+    },
+    {
+      "terminal": "wtp",
+      "workload": "idle",
+      "run": 1,
+      "runner": {
+        "cmdline": "%LOCALAPPDATA%\\Microsoft\\WindowsApps\\Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe\\wt.exe -w new --size 123,30 new-tab -- C:\\WINDOWS\\System32\\cmd.exe",
+        "pid": 40052,
+        "t0": 110405723740,
+        "wall_s": 30.009,
+        "report_after_s": null,
+        "cpu_s": 0.6406,
+        "user_s": 0.3906,
+        "kernel_s": 0.25,
+        "total_processes": 3,
+        "active_at_end": 0,
+        "peak_ws_mb": 152.5,
+        "closed_by_harness": true,
+        "timed_out": false,
+        "payload_cpu_s": null,
+        "took_foreground": false,
+        "windows_made_unactivatable": 1,
+        "session_locked_at_some_point": false,
+        "visible_share_min": 0.0,
+        "visible_share_max": 0.0,
+        "procs": [
+          {
+            "pid": 40052,
+            "name": "wt.exe",
+            "peak_ws_mb": 7.3
+          },
+          {
+            "pid": 44128,
+            "name": "WindowsTerminal.exe",
+            "peak_ws_mb": 144.3
+          },
+          {
+            "pid": 44500,
+            "name": "OpenConsole.exe",
+            "peak_ws_mb": 11.8
+          }
+        ],
+        "idle": {
+          "seconds": 20.0,
+          "cpu_s": 0.0,
+          "cpu_pct_of_one_core": 0.0,
+          "ws_mb_avg": 148.9,
+          "ws_mb_max": 148.9,
+          "active_processes": 2
+        },
+        "machine_cpu_busy_pct": 82.4,
+        "min_free_ram_mb": 3997
+      },
+      "invalid": []
+    },
+    {
+      "terminal": "wtp",
+      "workload": "idle",
+      "run": 2,
+      "runner": {
+        "cmdline": "%LOCALAPPDATA%\\Microsoft\\WindowsApps\\Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe\\wt.exe -w new --size 123,30 new-tab -- C:\\WINDOWS\\System32\\cmd.exe",
+        "pid": 40636,
+        "t0": 112218452698,
+        "wall_s": 30.013,
+        "report_after_s": null,
+        "cpu_s": 0.75,
+        "user_s": 0.2969,
+        "kernel_s": 0.4531,
+        "total_processes": 3,
+        "active_at_end": 0,
+        "peak_ws_mb": 150.1,
+        "closed_by_harness": true,
+        "timed_out": false,
+        "payload_cpu_s": null,
+        "took_foreground": false,
+        "windows_made_unactivatable": 1,
+        "session_locked_at_some_point": false,
+        "visible_share_min": 0.0,
+        "visible_share_max": 0.0,
+        "procs": [
+          {
+            "pid": 38176,
+            "name": "WindowsTerminal.exe",
+            "peak_ws_mb": 143.3
+          },
+          {
+            "pid": 40636,
+            "name": "wt.exe",
+            "peak_ws_mb": 8.6
+          },
+          {
+            "pid": 43016,
+            "name": "OpenConsole.exe",
+            "peak_ws_mb": 11.8
+          }
+        ],
+        "idle": {
+          "seconds": 20.0,
+          "cpu_s": 0.0,
+          "cpu_pct_of_one_core": 0.0,
+          "ws_mb_avg": 148.9,
+          "ws_mb_max": 148.9,
+          "active_processes": 2
+        },
+        "machine_cpu_busy_pct": 84.2,
+        "min_free_ram_mb": 3167
+      },
+      "invalid": []
+    },
+    {
+      "terminal": "wtp",
+      "workload": "idle",
+      "run": 3,
+      "runner": {
+        "cmdline": "%LOCALAPPDATA%\\Microsoft\\WindowsApps\\Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe\\wt.exe -w new --size 123,30 new-tab -- C:\\WINDOWS\\System32\\cmd.exe",
+        "pid": 43260,
+        "t0": 114070553785,
+        "wall_s": 30.03,
+        "report_after_s": null,
+        "cpu_s": 0.7656,
+        "user_s": 0.375,
+        "kernel_s": 0.3906,
+        "total_processes": 3,
+        "active_at_end": 0,
+        "peak_ws_mb": 149.9,
+        "closed_by_harness": true,
+        "timed_out": false,
+        "payload_cpu_s": null,
+        "took_foreground": false,
+        "windows_made_unactivatable": 1,
+        "session_locked_at_some_point": false,
+        "visible_share_min": 0.0,
+        "visible_share_max": 0.0,
+        "procs": [
+          {
+            "pid": 29816,
+            "name": "OpenConsole.exe",
+            "peak_ws_mb": 11.8
+          },
+          {
+            "pid": 43260,
+            "name": "wt.exe",
+            "peak_ws_mb": 2.0
+          },
+          {
+            "pid": 46004,
+            "name": "WindowsTerminal.exe",
+            "peak_ws_mb": 143.0
+          }
+        ],
+        "idle": {
+          "seconds": 20.021,
+          "cpu_s": 0.0,
+          "cpu_pct_of_one_core": 0.0,
+          "ws_mb_avg": 148.9,
+          "ws_mb_max": 148.9,
+          "active_processes": 2
+        },
+        "machine_cpu_busy_pct": 87.5,
+        "min_free_ram_mb": 1360
+      },
+      "invalid": []
+    },
+    {
+      "terminal": "wezterm",
+      "workload": "idle",
+      "run": 1,
+      "runner": {
+        "cmdline": "%LOCALAPPDATA%\\tools\\wezterm\\wezterm-gui.exe -n --config initial_cols=123 --config initial_rows=30 start --always-new-process -- C:\\WINDOWS\\System32\\cmd.exe",
+        "pid": 45592,
+        "t0": 110706712430,
+        "wall_s": 30.004,
+        "report_after_s": null,
+        "cpu_s": 0.5625,
+        "user_s": 0.2031,
+        "kernel_s": 0.3594,
+        "total_processes": 9,
+        "active_at_end": 0,
+        "peak_ws_mb": 255.3,
+        "closed_by_harness": true,
+        "timed_out": false,
+        "payload_cpu_s": null,
+        "took_foreground": false,
+        "windows_made_unactivatable": 1,
+        "session_locked_at_some_point": false,
+        "visible_share_min": 0.0,
+        "visible_share_max": 0.0,
+        "procs": [
+          {
+            "pid": 4380,
+            "name": "OpenConsole.exe",
+            "peak_ws_mb": 13.4
+          },
+          {
+            "pid": 8204,
+            "name": "conhost.exe",
+            "peak_ws_mb": 8.1
+          },
+          {
+            "pid": 15948,
+            "name": "conhost.exe",
+            "peak_ws_mb": 7.7
+          },
+          {
+            "pid": 31440,
+            "name": "wsl.exe",
+            "peak_ws_mb": 9.5
+          },
+          {
+            "pid": 41944,
+            "name": "wsl.exe",
+            "peak_ws_mb": 10.7
+          },
+          {
+            "pid": 43416,
+            "name": "wsl.exe",
+            "peak_ws_mb": 2.8
+          },
+          {
+            "pid": 44020,
+            "name": "conhost.exe",
+            "peak_ws_mb": 7.7
+          },
+          {
+            "pid": 44116,
+            "name": "cmd.exe",
+            "peak_ws_mb": 9.2
+          },
+          {
+            "pid": 45592,
+            "name": "wezterm-gui.exe",
+            "peak_ws_mb": 232.8
+          }
+        ],
+        "idle": {
+          "seconds": 20.001,
+          "cpu_s": 0.0312,
+          "cpu_pct_of_one_core": 0.156,
+          "ws_mb_avg": 255.3,
+          "ws_mb_max": 255.3,
+          "active_processes": 3
+        },
+        "machine_cpu_busy_pct": 70.9,
+        "min_free_ram_mb": 4842
+      },
+      "invalid": []
+    },
+    {
+      "terminal": "wezterm",
+      "workload": "idle",
+      "run": 2,
+      "runner": {
+        "cmdline": "%LOCALAPPDATA%\\tools\\wezterm\\wezterm-gui.exe -n --config initial_cols=123 --config initial_rows=30 start --always-new-process -- C:\\WINDOWS\\System32\\cmd.exe",
+        "pid": 41796,
+        "t0": 112520442611,
+        "wall_s": 30.074,
+        "report_after_s": null,
+        "cpu_s": 0.5,
+        "user_s": 0.1562,
+        "kernel_s": 0.3438,
+        "total_processes": 9,
+        "active_at_end": 0,
+        "peak_ws_mb": 240.9,
+        "closed_by_harness": true,
+        "timed_out": false,
+        "payload_cpu_s": null,
+        "took_foreground": false,
+        "windows_made_unactivatable": 1,
+        "session_locked_at_some_point": false,
+        "visible_share_min": 0.0,
+        "visible_share_max": 0.0,
+        "procs": [
+          {
+            "pid": 11568,
+            "name": "wsl.exe",
+            "peak_ws_mb": 10.6
+          },
+          {
+            "pid": 13612,
+            "name": "conhost.exe",
+            "peak_ws_mb": 7.7
+          },
+          {
+            "pid": 17424,
+            "name": "cmd.exe",
+            "peak_ws_mb": 9.2
+          },
+          {
+            "pid": 35944,
+            "name": "wsl.exe",
+            "peak_ws_mb": 7.3
+          },
+          {
+            "pid": 40292,
+            "name": "wsl.exe",
+            "peak_ws_mb": 10.5
+          },
+          {
+            "pid": 41796,
+            "name": "wezterm-gui.exe",
+            "peak_ws_mb": 233.4
+          },
+          {
+            "pid": 45212,
+            "name": "conhost.exe",
+            "peak_ws_mb": 7.7
+          },
+          {
+            "pid": 45412,
+            "name": "OpenConsole.exe",
+            "peak_ws_mb": 13.4
+          },
+          {
+            "pid": 45596,
+            "name": "conhost.exe",
+            "peak_ws_mb": 7.7
+          }
+        ],
+        "idle": {
+          "seconds": 20.054,
+          "cpu_s": 0.0,
+          "cpu_pct_of_one_core": 0.0,
+          "ws_mb_avg": 240.9,
+          "ws_mb_max": 240.9,
+          "active_processes": 3
+        },
+        "machine_cpu_busy_pct": 85.2,
+        "min_free_ram_mb": 1866
+      },
+      "invalid": []
+    },
+    {
+      "terminal": "wezterm",
+      "workload": "idle",
+      "run": 3,
+      "runner": {
+        "cmdline": "%LOCALAPPDATA%\\tools\\wezterm\\wezterm-gui.exe -n --config initial_cols=123 --config initial_rows=30 start --always-new-process -- C:\\WINDOWS\\System32\\cmd.exe",
+        "pid": 11124,
+        "t0": 114377849544,
+        "wall_s": 30.017,
+        "report_after_s": null,
+        "cpu_s": 0.4062,
+        "user_s": 0.125,
+        "kernel_s": 0.2812,
+        "total_processes": 9,
+        "active_at_end": 0,
+        "peak_ws_mb": 263.5,
+        "closed_by_harness": true,
+        "timed_out": false,
+        "payload_cpu_s": null,
+        "took_foreground": false,
+        "windows_made_unactivatable": 1,
+        "session_locked_at_some_point": false,
+        "visible_share_min": 0.0,
+        "visible_share_max": 0.0,
+        "procs": [
+          {
+            "pid": 3616,
+            "name": "conhost.exe",
+            "peak_ws_mb": 7.7
+          },
+          {
+            "pid": 7576,
+            "name": "wsl.exe",
+            "peak_ws_mb": 10.4
+          },
+          {
+            "pid": 11124,
+            "name": "wezterm-gui.exe",
+            "peak_ws_mb": 241.0
+          },
+          {
+            "pid": 22792,
+            "name": "wsl.exe",
+            "peak_ws_mb": 10.5
+          },
+          {
+            "pid": 30784,
+            "name": "OpenConsole.exe",
+            "peak_ws_mb": 13.4
+          },
+          {
+            "pid": 38356,
+            "name": "conhost.exe",
+            "peak_ws_mb": 7.7
+          },
+          {
+            "pid": 41104,
+            "name": "wsl.exe",
+            "peak_ws_mb": 10.5
+          },
+          {
+            "pid": 43652,
+            "name": "conhost.exe",
+            "peak_ws_mb": 7.7
+          },
+          {
+            "pid": 44532,
+            "name": "cmd.exe",
+            "peak_ws_mb": 9.2
+          }
+        ],
+        "idle": {
+          "seconds": 20.002,
+          "cpu_s": 0.0,
+          "cpu_pct_of_one_core": 0.0,
+          "ws_mb_avg": 248.5,
+          "ws_mb_max": 248.5,
+          "active_processes": 3
+        },
+        "machine_cpu_busy_pct": 87.6,
+        "min_free_ram_mb": 960
+      },
+      "invalid": []
+    },
+    {
+      "terminal": "ghostty",
+      "workload": "idle",
+      "run": 1,
+      "runner": {
+        "cmdline": "%LOCALAPPDATA%\\tools\\ghostty\\bin\\ghostty.exe --config-default-files=false --window-width=123 --window-height=30 -e C:\\WINDOWS\\System32\\cmd.exe",
+        "pid": 2152,
+        "t0": 111007275293,
+        "wall_s": 30.012,
+        "report_after_s": null,
+        "cpu_s": 0.3281,
+        "user_s": 0.1562,
+        "kernel_s": 0.1719,
+        "total_processes": 3,
+        "active_at_end": 0,
+        "peak_ws_mb": 163.1,
+        "closed_by_harness": true,
+        "timed_out": false,
+        "payload_cpu_s": null,
+        "took_foreground": false,
+        "windows_made_unactivatable": 1,
+        "session_locked_at_some_point": false,
+        "visible_share_min": 0.0,
+        "visible_share_max": 0.0,
+        "procs": [
+          {
+            "pid": 2152,
+            "name": "ghostty.exe",
+            "peak_ws_mb": 144.8
+          },
+          {
+            "pid": 36716,
+            "name": "cmd.exe",
+            "peak_ws_mb": 9.2
+          },
+          {
+            "pid": 40988,
+            "name": "OpenConsole.exe",
+            "peak_ws_mb": 13.0
+          }
+        ],
+        "idle": {
+          "seconds": 20.005,
+          "cpu_s": 0.0469,
+          "cpu_pct_of_one_core": 0.234,
+          "ws_mb_avg": 151.3,
+          "ws_mb_max": 163.1,
+          "active_processes": 3
+        },
+        "machine_cpu_busy_pct": 85.1,
+        "min_free_ram_mb": 3981
+      },
+      "invalid": []
+    },
+    {
+      "terminal": "ghostty",
+      "workload": "idle",
+      "run": 2,
+      "runner": {
+        "cmdline": "%LOCALAPPDATA%\\tools\\ghostty\\bin\\ghostty.exe --config-default-files=false --window-width=123 --window-height=30 -e C:\\WINDOWS\\System32\\cmd.exe",
+        "pid": 30928,
+        "t0": 112830794913,
+        "wall_s": 30.048,
+        "report_after_s": null,
+        "cpu_s": 0.4531,
+        "user_s": 0.1562,
+        "kernel_s": 0.2969,
+        "total_processes": 3,
+        "active_at_end": 0,
+        "peak_ws_mb": 163.0,
+        "closed_by_harness": true,
+        "timed_out": false,
+        "payload_cpu_s": null,
+        "took_foreground": false,
+        "windows_made_unactivatable": 1,
+        "session_locked_at_some_point": false,
+        "visible_share_min": 0.0,
+        "visible_share_max": 0.0,
+        "procs": [
+          {
+            "pid": 30928,
+            "name": "ghostty.exe",
+            "peak_ws_mb": 140.7
+          },
+          {
+            "pid": 44900,
+            "name": "OpenConsole.exe",
+            "peak_ws_mb": 13.0
+          },
+          {
+            "pid": 45204,
+            "name": "cmd.exe",
+            "peak_ws_mb": 9.2
+          }
+        ],
+        "idle": {
+          "seconds": 20.014,
+          "cpu_s": 0.0625,
+          "cpu_pct_of_one_core": 0.312,
+          "ws_mb_avg": 152.5,
+          "ws_mb_max": 162.9,
+          "active_processes": 3
+        },
+        "machine_cpu_busy_pct": 87.5,
+        "min_free_ram_mb": 1545
+      },
+      "invalid": []
+    },
+    {
+      "terminal": "ghostty",
+      "workload": "idle",
+      "run": 3,
+      "runner": {
+        "cmdline": "%LOCALAPPDATA%\\tools\\ghostty\\bin\\ghostty.exe --config-default-files=false --window-width=123 --window-height=30 -e C:\\WINDOWS\\System32\\cmd.exe",
+        "pid": 23916,
+        "t0": 114680742810,
+        "wall_s": 30.005,
+        "report_after_s": null,
+        "cpu_s": 0.4375,
+        "user_s": 0.1562,
+        "kernel_s": 0.2812,
+        "total_processes": 3,
+        "active_at_end": 0,
+        "peak_ws_mb": 163.0,
+        "closed_by_harness": true,
+        "timed_out": false,
+        "payload_cpu_s": null,
+        "took_foreground": false,
+        "windows_made_unactivatable": 1,
+        "session_locked_at_some_point": false,
+        "visible_share_min": 0.0,
+        "visible_share_max": 0.0,
+        "procs": [
+          {
+            "pid": 2160,
+            "name": "cmd.exe",
+            "peak_ws_mb": 9.2
+          },
+          {
+            "pid": 23916,
+            "name": "ghostty.exe",
+            "peak_ws_mb": 140.8
+          },
+          {
+            "pid": 37448,
+            "name": "OpenConsole.exe",
+            "peak_ws_mb": 13.0
+          }
+        ],
+        "idle": {
+          "seconds": 20.0,
+          "cpu_s": 0.1406,
+          "cpu_pct_of_one_core": 0.703,
+          "ws_mb_avg": 153.2,
+          "ws_mb_max": 163.0,
+          "active_processes": 3
+        },
+        "machine_cpu_busy_pct": 79.3,
+        "min_free_ram_mb": 3123
+      },
+      "invalid": []
+    },
+    {
+      "terminal": "conhost",
+      "workload": "idle",
+      "run": 1,
+      "runner": {
+        "cmdline": "C:\\WINDOWS\\System32\\conhost.exe C:\\WINDOWS\\System32\\cmd.exe",
+        "pid": 41944,
+        "t0": 111310226369,
+        "wall_s": 30.011,
+        "report_after_s": null,
+        "cpu_s": 0.125,
+        "user_s": 0.0312,
+        "kernel_s": 0.0938,
+        "total_processes": 2,
+        "active_at_end": 0,
+        "peak_ws_mb": 25.1,
+        "closed_by_harness": true,
+        "timed_out": false,
+        "payload_cpu_s": null,
+        "took_foreground": true,
+        "windows_made_unactivatable": 1,
+        "session_locked_at_some_point": false,
+        "visible_share_min": 0.0,
+        "visible_share_max": 1.0,
+        "procs": [
+          {
+            "pid": 41944,
+            "name": "conhost.exe",
+            "peak_ws_mb": 16.8
+          },
+          {
+            "pid": 43596,
+            "name": "cmd.exe",
+            "peak_ws_mb": 8.4
+          }
+        ],
+        "idle": {
+          "seconds": 20.001,
+          "cpu_s": 0.0,
+          "cpu_pct_of_one_core": 0.0,
+          "ws_mb_avg": 25.1,
+          "ws_mb_max": 25.2,
+          "active_processes": 2
+        },
+        "machine_cpu_busy_pct": 84.8,
+        "min_free_ram_mb": 3470
+      },
+      "invalid": [
+        "took_foreground"
+      ]
+    },
+    {
+      "terminal": "conhost",
+      "workload": "idle",
+      "run": 2,
+      "runner": {
+        "cmdline": "C:\\WINDOWS\\System32\\conhost.exe C:\\WINDOWS\\System32\\cmd.exe",
+        "pid": 43860,
+        "t0": 113143850978,
+        "wall_s": 30.016,
+        "report_after_s": null,
+        "cpu_s": 0.1406,
+        "user_s": 0.0469,
+        "kernel_s": 0.0938,
+        "total_processes": 2,
+        "active_at_end": 0,
+        "peak_ws_mb": 25.2,
+        "closed_by_harness": true,
+        "timed_out": false,
+        "payload_cpu_s": null,
+        "took_foreground": true,
+        "windows_made_unactivatable": 1,
+        "session_locked_at_some_point": false,
+        "visible_share_min": 0.0,
+        "visible_share_max": 1.0,
+        "procs": [
+          {
+            "pid": 31944,
+            "name": "cmd.exe",
+            "peak_ws_mb": 8.4
+          },
+          {
+            "pid": 43860,
+            "name": "conhost.exe",
+            "peak_ws_mb": 16.8
+          }
+        ],
+        "idle": {
+          "seconds": 20.013,
+          "cpu_s": 0.0,
+          "cpu_pct_of_one_core": 0.0,
+          "ws_mb_avg": 25.2,
+          "ws_mb_max": 25.2,
+          "active_processes": 2
+        },
+        "machine_cpu_busy_pct": 87.5,
+        "min_free_ram_mb": 870
+      },
+      "invalid": [
+        "took_foreground"
+      ]
+    },
+    {
+      "terminal": "conhost",
+      "workload": "idle",
+      "run": 3,
+      "runner": {
+        "cmdline": "C:\\WINDOWS\\System32\\conhost.exe C:\\WINDOWS\\System32\\cmd.exe",
+        "pid": 38792,
+        "t0": 114982744603,
+        "wall_s": 30.037,
+        "report_after_s": null,
+        "cpu_s": 0.0938,
+        "user_s": 0.0312,
+        "kernel_s": 0.0625,
+        "total_processes": 2,
+        "active_at_end": 0,
+        "peak_ws_mb": 22.9,
+        "closed_by_harness": true,
+        "timed_out": false,
+        "payload_cpu_s": null,
+        "took_foreground": false,
+        "windows_made_unactivatable": 1,
+        "session_locked_at_some_point": false,
+        "visible_share_min": 0.0,
+        "visible_share_max": 0.0,
+        "procs": [
+          {
+            "pid": 38792,
+            "name": "conhost.exe",
+            "peak_ws_mb": 14.5
+          },
+          {
+            "pid": 46272,
+            "name": "cmd.exe",
+            "peak_ws_mb": 8.4
+          }
+        ],
+        "idle": {
+          "seconds": 20.03,
+          "cpu_s": 0.0156,
+          "cpu_pct_of_one_core": 0.078,
+          "ws_mb_avg": 22.5,
+          "ws_mb_max": 22.9,
+          "active_processes": 2
+        },
+        "machine_cpu_busy_pct": 86.3,
+        "min_free_ram_mb": 15
+      },
+      "invalid": []
+    }
+  ],
+  "stages": []
+}
