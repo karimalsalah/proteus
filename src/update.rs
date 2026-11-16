@@ -27,8 +27,9 @@ use crate::paths;
 
 /// Releases are signed with the secret half of this key.
 pub const PUBLIC_KEY: &str = "aa7bddd684b32560e91fb1afc67aba2d9ec33b6741e475c338e0ee4c147a74ac";
-/// Where releases are published.
-pub const RELEASES: &str = "https://github.com/karimalsalah/proteus/releases/latest/download";
+/// Where releases are published. The newest is asked of the API, not of
+/// the "latest" download link, which GitHub caches for a while.
+pub const REPO: &str = "karimalsalah/proteus";
 const MAX_EXE: u64 = 256 << 20;
 
 #[derive(Debug, PartialEq)]
@@ -113,7 +114,10 @@ pub fn sha256_file(path: &Path) -> std::io::Result<(u64, String)> {
 /// Where the three release files come from.
 pub enum Source {
     Folder(PathBuf),
+    /// Files under this URL.
     Web(String),
+    /// The newest release of this GitHub repository (owner/name).
+    Latest(String),
 }
 
 impl Source {
@@ -122,6 +126,7 @@ impl Source {
     fn fetch(&self, name: &str, to: &Path) -> Result<(), String> {
         match self {
             Source::Folder(dir) => std::fs::copy(dir.join(name), to).map(|_| ()).map_err(|e| format!("{name}: {e}")),
+            Source::Latest(_) => Err("resolve the release first".into()),
             Source::Web(base) => {
                 use std::os::windows::process::CommandExt;
                 let curl = PathBuf::from(std::env::var_os("SystemRoot").unwrap_or_else(|| "C:\\Windows".into())).join("System32").join("curl.exe");
@@ -151,6 +156,19 @@ impl Source {
 pub fn update(target: &Path, have: &str, source: &Source, public_key_hex: &str, work: &Path, check_only: bool) -> Result<Outcome, String> {
     let (have_v, have_stamp) = parse_build(have).ok_or("this build has no readable version")?;
     std::fs::create_dir_all(work).map_err(|e| e.to_string())?;
+    let resolved;
+    let source = match source {
+        Source::Latest(repo) => {
+            let api = Source::Web(format!("https://api.github.com/repos/{repo}/releases"));
+            let file = work.join("latest.json");
+            api.fetch("latest", &file)?;
+            let v: serde_json::Value = serde_json::from_slice(&std::fs::read(&file).map_err(|e| e.to_string())?).map_err(|_| "the release list is not JSON")?;
+            let tag = v["tag_name"].as_str().filter(|t| !t.is_empty() && t.len() < 64 && t.bytes().all(|c| c.is_ascii_alphanumeric() || b"._-".contains(&c))).ok_or("no usable latest release")?;
+            resolved = Source::Web(format!("https://github.com/{repo}/releases/download/{tag}"));
+            &resolved
+        }
+        other => other,
+    };
     let (m_path, s_path) = (work.join("PROTEUS.manifest"), work.join("PROTEUS.manifest.sig"));
     source.fetch("PROTEUS.manifest", &m_path)?;
     source.fetch("PROTEUS.manifest.sig", &s_path)?;
@@ -226,7 +244,7 @@ pub fn background(mode: String) {
         // Scratch beside the exe's volume: the data folder's runtime directory.
         let work = paths::data_dir().join("runtime").join("update");
         let have = crate::runtime::build_id();
-        match update(&exe, &have, &Source::Web(RELEASES.into()), PUBLIC_KEY, &work, mode != "auto") {
+        match update(&exe, &have, &Source::Latest(REPO.into()), PUBLIC_KEY, &work, mode != "auto") {
             Ok(Outcome::Applied { from, to }) => paths::log(&format!("update: {from} -> {to}; the next window is the new build")),
             Ok(Outcome::Available { offered, .. }) => paths::log(&format!("update: {offered} is available; run `proteus update`")),
             Ok(Outcome::Current { .. }) => {}
@@ -266,7 +284,7 @@ pub fn cli(args: &[String]) -> crate::Res<()> {
         crate::runtime::build_id()
     };
     let work = target.parent().map(|p| p.join(".proteus-update")).filter(|_| explicit).unwrap_or_else(|| paths::data_dir().join("runtime").join("update"));
-    let source = source.unwrap_or_else(|| Source::Web(RELEASES.into()));
+    let source = source.unwrap_or_else(|| Source::Latest(REPO.into()));
     match update(&target, &have, &source, PUBLIC_KEY, &work, check)? {
         Outcome::Current { have, offered } => println!("up to date: this is {have}; the latest release is {offered}"),
         Outcome::Available { have, offered } => println!("available: {offered} (this is {have}); run `proteus update` to apply"),

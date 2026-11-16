@@ -4,7 +4,7 @@
 # The manifest states the build, size and SHA-256 of the exe and is signed
 # with the release key, which stays on this machine. -Publish uploads the
 # three files as a GitHub release of the repository this checkout pushes to.
-param([string]$Key = (Join-Path $env:USERPROFILE '.proteus-release\signing.key'), [switch]$Publish, [switch]$SkipGate, [string]$Notes = '')
+param([string]$Repo = 'karimalsalah/proteus', [string]$Key = (Join-Path $env:USERPROFILE '.proteus-release\signing.key'), [switch]$Publish, [switch]$SkipGate, [string]$Notes = '')
 $ErrorActionPreference = 'Stop'
 Set-Location (Split-Path $PSScriptRoot -Parent)
 if (-not (Test-Path $Key)) { throw "no release key at $Key (create one with: cargo run --release --manifest-path forge\sign\Cargo.toml -- keygen `"$Key`")" }
@@ -34,7 +34,7 @@ if ((& $sign verify $public "$out\PROTEUS.manifest" | Out-String).Trim() -ne 'ok
 if ($Publish) {
     $tag = 'v' + ($build -replace '-.*$', '')
     if (-not $Notes) { $Notes = "PROTEUS $build. Signed: verify with ``proteus update --check``. What is measured and what is not done: forge/ledger.json." }
-    gh release create $tag "$out\PROTEUS.exe" "$out\PROTEUS.manifest" "$out\PROTEUS.manifest.sig" --title "PROTEUS $($build -replace '-.*$', '')" --notes $Notes
+    gh release create $tag -R $Repo --target main --latest "$out\PROTEUS.exe" "$out\PROTEUS.manifest" "$out\PROTEUS.manifest.sig" --title "PROTEUS $($build -replace '-.*$', '')" --notes $Notes
     if ($LASTEXITCODE -ne 0) { throw 'upload failed' }
     "published $tag"
 }
