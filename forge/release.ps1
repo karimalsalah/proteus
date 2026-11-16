@@ -70,6 +70,7 @@ $scoop = (Get-Content packaging\scoop\proteus.json.in -Raw) -replace '@VERSION@'
 if ($Publish) {
     $tag = 'v' + ($build -replace '-.*$', '')
     if (-not $Notes) { $Notes = "PROTEUS $build. Signed: verify with ``proteus update --check``. What is measured and what is not done: forge/ledger.json." }
+    $Notes += "`n`n[Code signing policy](https://github.com/$Repo/blob/main/CODE_SIGNING_POLICY.md) · [Privacy](https://github.com/$Repo/blob/main/CODE_SIGNING_POLICY.md#privacy)"
     $target = if ($Ci) { $publicHead } else { 'main' }
     gh release create $tag -R $Repo --target $target --latest "$out\PROTEUS.exe" "$out\PROTEUS.manifest" "$out\PROTEUS.manifest.sig" "$out\proteus-mcp.mcpb" --title "PROTEUS $($build -replace '-.*$', '')" --notes $Notes
     if ($LASTEXITCODE -ne 0) { throw 'upload failed' }

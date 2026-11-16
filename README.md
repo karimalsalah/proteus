@@ -13,7 +13,7 @@ A GPU terminal for Windows that remembers every session, sees every process, und
 ![Windows 11](https://img.shields.io/badge/Windows-11-0078D4)
 ![Rust](https://img.shields.io/badge/Rust-wgpu-orange)
 
-**[Download PROTEUS.exe](https://github.com/karimalsalah/proteus/releases/latest/download/PROTEUS.exe)** · [What it does](#what-it-does) · [For agents](#for-ai-agents) · [What is not done](#what-is-not-done) · [Roadmap](forge/roadmap.md)
+**[Download PROTEUS.exe](https://github.com/karimalsalah/proteus/releases/latest/download/PROTEUS.exe)** · [Code signing policy](CODE_SIGNING_POLICY.md) · [What it does](#what-it-does) · [For agents](#for-ai-agents) · [What is not done](#what-is-not-done) · [Roadmap](forge/roadmap.md)
 
 ![A cargo build unfolding in the world view: every node is a real process the session started, every bar a real span, every colour a real exit code](docs/media/world.gif)
 
@@ -84,7 +84,7 @@ Every number on this page has a command that produced it in [`forge/ledger.json`
 scoop install https://raw.githubusercontent.com/karimalsalah/proteus/main/packaging/scoop/proteus.json
 ```
 
-> Windows SmartScreen will say "unknown publisher" on first run: the exe is not yet signed with a Windows code-signing certificate. Choose *More info → Run anyway*, or check the download against the signed `PROTEUS.manifest` in the release.
+> Windows SmartScreen will say "unknown publisher" on first run: the exe is not yet signed with a Windows code-signing certificate (an application to SignPath Foundation is in progress; see the [code signing policy](CODE_SIGNING_POLICY.md)). Choose *More info → Run anyway*, or check the download against the signed `PROTEUS.manifest` in the release.
 
 ## For AI agents
 
@@ -156,4 +156,4 @@ The [good first issues](https://github.com/karimalsalah/proteus/issues?q=is%3Aop
 
 ## Licence
 
-MIT ([LICENSE](LICENSE)). PROTEUS embeds Microsoft's ConPTY (MIT) and Maple Mono NF (SIL OFL 1.1). `proteus licenses` prints every bundled notice, including all 178 Rust dependencies.
+MIT ([LICENSE](LICENSE)). [Code signing policy](CODE_SIGNING_POLICY.md) · [Security](SECURITY.md) · [Privacy](CODE_SIGNING_POLICY.md#privacy). PROTEUS embeds Microsoft's ConPTY (MIT) and Maple Mono NF (SIL OFL 1.1). `proteus licenses` prints every bundled notice, including all 178 Rust dependencies.
