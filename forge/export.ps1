@@ -16,6 +16,8 @@ $ErrorActionPreference = 'Stop'
 $root = Split-Path $PSScriptRoot -Parent
 Set-Location $root
 if (git status --porcelain) { throw 'commit first: the export is made from HEAD' }
+# Public changes (merged pull requests, Dependabot) come back first.
+if (-not $DryRun) { pwsh -NoProfile -File (Join-Path $PSScriptRoot 'sync.ps1') -Repo $Repo; if ($LASTEXITCODE -ne 0) { throw 'sync from public failed' } }
 $cfg = Join-Path $root 'forge\export'
 $work = Join-Path $env:TEMP "proteus-export-$PID"
 Remove-Item $work -Recurse -Force -ErrorAction SilentlyContinue
@@ -98,5 +100,6 @@ git -C $repoDir log --oneline -1
 if ($DryRun) { "dry run: not pushed. Tree at $repoDir"; return }
 if (-not $exists) { git -C $repoDir remote add origin "https://github.com/$Repo.git" }
 git -C $repoDir push --quiet origin main
+Set-Content (Join-Path (git rev-parse --git-dir) 'proteus-public-head') (git -C $repoDir rev-parse HEAD)
 "pushed $Repo (from $src)"
 Remove-Item $work -Recurse -Force -ErrorAction SilentlyContinue

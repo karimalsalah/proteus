@@ -4,10 +4,15 @@ targets = ["x86_64-pc-windows-msvc"]
 
 [advisories]
 yanked = "deny"
+ignore = [
+    # ttf-parser (via ab_glyph) is unmaintained, not known vulnerable; it parses only the embedded font and
+    # system fonts. Replacing the rasteriser with skrifa is issue #6.
+    { id = "RUSTSEC-2026-0192", reason = "unmaintained only; rasteriser replacement tracked in issue #6" },
+]
 
 [licenses]
 # Everything bundled into the exe must allow redistribution in an MIT project.
-allow = ["MIT", "Apache-2.0", "Apache-2.0 WITH LLVM-exception", "BSD-2-Clause", "BSD-3-Clause", "ISC", "Zlib", "Unicode-3.0", "Unicode-DFS-2016", "BSL-1.0", "CC0-1.0", "MPL-2.0", "OFL-1.1", "Unlicense", "CDLA-Permissive-2.0"]
+allow = ["MIT", "Apache-2.0", "BSD-2-Clause", "BSD-3-Clause", "ISC", "Zlib", "Unicode-3.0", "BSL-1.0", "CC0-1.0", "MPL-2.0", "OFL-1.1", "Unlicense", "CDLA-Permissive-2.0"]
 confidence-threshold = 0.9
 
 [sources]
