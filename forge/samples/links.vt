@@ -1,0 +1,17 @@
+[1mPROTEUS links[0m  hover names the target; ctrl+click opens it
+
+1. Declared by the program (OSC 8), one id in two places:
+   see ]8;id=docs;https://example.com/docs\the manual]8;;\ for details, or go straight to ]8;id=docs;https://example.com/docs\its index]8;;\.
+   no id: [36m]8;;mailto:team@example.com\write to us]8;;\[0m or read ]8;;file://localhost/C:/Windows/win.ini\win.ini]8;;\
+   side by side: ]8;;https://example.com/one\one]8;;\]8;;https://example.com/two\two]8;;\   refused: [31m]8;;javascript:alert(1)\run this]8;;\[0m
+   wide: 終端 ]8;;https://example.com/wide\リンク]8;;\
+
+2. Plain text that names a real file, found in the working directory:
+[1;31merror[E0308][0;1m: mismatched types[0m
+[34m  --> [0msrc/app.rs:42:7
+   MSVC style: src\links.rs(12,5): note: here
+   not a link, no such file: src/nothere.rs:3 ; a time: 12:30:15
+
+3. A long declared link wraps; a plain address ends before the full stop:
+   ]8;;https://example.com/a/long/address/that/does/not/fit/on/one/row/of/the/screen/and/so/wraps/onto/the/next/row\https://example.com/a/long/address/that/does/not/fit/on/one/row/of/the/screen/and/so/wraps/onto/the/next/row]8;;\
+   see https://example.com/plain?q=1.

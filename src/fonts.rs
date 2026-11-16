@@ -48,8 +48,9 @@ pub struct FontSet {
 }
 
 /// Text sizes relative to the grid's, for views drawn outside the grid (the
-/// World view). Bits 2-3 of a glyph's `style` choose one; 0 is the grid's own.
-pub const SIZES: [f32; 4] = [1.0, 0.8, 1.7, 1.0];
+/// World view; 3 is the link strip below the grid). Bits 2-3 of a glyph's
+/// `style` choose one; 0 is the grid's own.
+pub const SIZES: [f32; 4] = [1.0, 0.8, 1.7, 0.62];
 
 fn scale_for(face: &FontArc, px: f32) -> PxScale {
     // ab_glyph scales by ascent-to-descent height, not by em; convert.

@@ -37,9 +37,13 @@ mod chronicle;
 mod config;
 #[cfg(test)]
 mod conform;
+#[cfg(windows)]
+mod conhost;
 mod daemon;
 mod deco;
 mod ears;
+mod endpoint;
+mod flash;
 mod fonts;
 mod gpu;
 mod icon;
@@ -48,7 +52,9 @@ mod journal;
 mod keys;
 mod marks;
 mod lean;
+mod links;
 mod mcp;
+mod motion;
 mod paths;
 mod probe;
 mod procs;
@@ -115,7 +121,9 @@ fn main() {
     // only through its pipes, and a borrowed console would hand it the
     // client's Ctrl+C.
     #[cfg(windows)]
-    if std::env::args().nth(1).as_deref() != Some("mcp") {
+    // Nor for the console-host bench's child: it must write into the
+    // pseudo-console it was given, or fail, never into a borrowed one.
+    if std::env::args().nth(1).as_deref() != Some("mcp") && std::env::args().nth(2).as_deref() != Some("emit") {
         unsafe {
             AttachConsole(u32::MAX);
         }
@@ -130,6 +138,8 @@ fn main() {
         Some("shot") => shot::run(&args[1..]),
         Some("ears") => ears::run(&args[1..]),
         Some("keys") => probe::run(&args[1..]),
+        #[cfg(windows)]
+        Some("conhost") => conhost::run(&args[1..]),
         Some("recall") => recall_cli::run(&args[1..]),
         Some("procs") => procs_cli::run(&args[1..]),
         Some("update") => update::cli(&args[1..]),

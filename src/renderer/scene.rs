@@ -55,6 +55,8 @@ impl Renderer {
             let s = (t - base) as f32;
             if s >= 0.0 { s } else { -1.0 }
         };
+        // Reduced motion: everything is shown as already arrived.
+        let still = self.still;
         let cells = [Size::Body, Size::Small, Size::Large].map(|s| self.fonts.metrics_at(s as u8).cell_w);
         let heights = [Size::Body, Size::Small, Size::Large].map(|s| self.fonts.metrics_at(s as u8).cell_h);
         for _attempt in 0..2 {
@@ -64,7 +66,7 @@ impl Renderer {
             if !block.empty {
                 // One texel in from each edge, so the stretched block has no soft rim.
                 let texel = (block.uv[2] - block.uv[0]) / block.size[0].max(1.0);
-                for e in &scene.emits {
+                for e in scene.emits.iter().filter(|_| !still) {
                     self.glyphs.push(GlyphInst {
                         pos: [e.x, e.y],
                         size: [e.w, e.h],
@@ -95,8 +97,8 @@ impl Renderer {
                     }
                     // Arriving text unfolds left to right, as it does on the grid.
                     let (birth, energy) = match t.born {
-                        Some(b) => (shader_t(b + (i as f32 * STAGGER).min(STAGGER_MAX) as f64), 0.75),
-                        None => (-1.0, 0.0),
+                        Some(b) if !still => (shader_t(b + (i as f32 * STAGGER).min(STAGGER_MAX) as f64), 0.75),
+                        _ => (-1.0, 0.0),
                     };
                     self.glyphs.push(GlyphInst {
                         pos: [x + slot.off[0], t.y + slot.off[1]],
@@ -116,7 +118,7 @@ impl Renderer {
         // Frames are owed only while the latest arrival is still settling.
         self.cursor = None;
         self.cursor_energy = 0.0;
-        match scene.last_birth.map(shader_t).filter(|b| *b >= 0.0) {
+        match scene.last_birth.map(shader_t).filter(|b| *b >= 0.0 && !still) {
             Some(b) => {
                 self.anim_until = b + 2.0 * STAGGER_MAX + REVEAL_DUR;
                 self.field_until = self.anim_until + FIELD_TAIL;

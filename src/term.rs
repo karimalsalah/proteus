@@ -230,6 +230,23 @@ pub struct Terminal {
     pub shared: Arc<Shared>,
     pub cols: usize,
     pub rows: usize,
+    /// The working directory the session's shell last reported (OSC 7 or
+    /// 9;9, read by `marks::Scanner` ahead of the parser): where plain
+    /// `path:line` text is looked up (links.rs).
+    pub cwd: Arc<Mutex<Option<String>>>,
+}
+
+/// Note the working directory if these bytes report one.
+fn note_cwd(scan: &mut crate::marks::Scanner, cwd: &Mutex<Option<String>>, bytes: &[u8]) {
+    let mut found = Vec::new();
+    scan.feed(bytes, &mut found);
+    for f in found {
+        if let crate::marks::Mark::Cwd(p) = f.mark {
+            if let Ok(mut c) = cwd.lock() {
+                *c = Some(p);
+            }
+        }
+    }
 }
 
 impl Terminal {
@@ -254,6 +271,7 @@ impl Terminal {
             shared,
             cols,
             rows,
+            cwd: Arc::new(Mutex::new(None)),
         }
     }
 
@@ -264,7 +282,9 @@ impl Terminal {
         let wake = self.wake.clone();
         let notify = self.notify.clone();
         let shared = self.shared.clone();
+        let cwd = self.cwd.clone();
         let _ = thread::Builder::new().name("vt".into()).spawn(move || {
+            let mut scan = crate::marks::Scanner::new(None);
             let signal = || {
                 if !wake.swap(true, Ordering::AcqRel) {
                     notify(UiEvent::Wake);
@@ -297,6 +317,7 @@ impl Terminal {
                 };
                 match ev {
                     SessionEvent::Output(bytes) => {
+                        note_cwd(&mut scan, &cwd, &bytes);
                         if let (Ok(mut p), Ok(mut t)) = (parser.lock(), term.lock()) {
                             advance(&mut p, &mut t, &shared, &bytes);
                             deadline = if p.sync_bytes_count() > 0 { p.sync_timeout().sync_timeout() } else { None };

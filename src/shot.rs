@@ -4,8 +4,12 @@
 //!   proteus shot --vt FILE | --journal FILE | --cmd "EXE ARGS..."
 //!                [--out PNG] [--size WxH] [--scale S] [--font PT]
 //!                [--wait SECS] [--reveal-ms N] [--until SECS] [--time-build N] [--scrub]
-//!                [--cwd DIR]
+//!                [--cwd DIR] [--link-at ROW,COL]
 //!   proteus shot --world ...   the World view instead (see world_shot.rs)
+//!   proteus shot --flash ...   a stream played over time, checked for flashes (flash.rs)
+//!
+//! `--link-at` draws the link under that cell as hovered, with its strip
+//! (plain `path:line` text is looked up from `--cwd`, else the current folder).
 //!
 //! `--until` shows a journal as it stood that many seconds in. It is a seek
 //! (recall.rs): the nearest keyframe and the records after it, at the sizes
@@ -37,6 +41,22 @@ pub fn write_png(path: &std::path::Path, w: u32, h: u32, rgba: &[u8]) -> Res<()>
 }
 
 pub fn run(args: &[String]) -> Res<()> {
+    // A stream played over time and checked for flashes (flash.rs).
+    if args.iter().any(|a| a == "--flash") {
+        return crate::flash::run(args);
+    }
+    // `--link-at ROW,COL`: hover the link at that cell (links.rs), as the window does.
+    let mut link_at: Option<(usize, usize)> = None;
+    let args: Vec<String> = match args.iter().position(|a| a == "--link-at") {
+        Some(i) => {
+            let v = args.get(i + 1).ok_or("--link-at needs ROW,COL")?;
+            let (r, c) = v.split_once(',').ok_or("--link-at needs ROW,COL")?;
+            link_at = Some((r.trim().parse()?, c.trim().parse()?));
+            args.iter().enumerate().filter(|(k, _)| *k != i && *k != i + 1).map(|(_, a)| a.clone()).collect()
+        }
+        None => args.to_vec(),
+    };
+    let args = &args[..];
     let mut vt: Option<PathBuf> = None;
     let mut jr: Option<PathBuf> = None;
     let mut cmd: Option<String> = None;
@@ -109,6 +129,8 @@ pub fn run(args: &[String]) -> Res<()> {
         let o = crate::world_shot::Opts { journal: jr, cmd, cwd, out, size: (w, h), scale, font_pt, wait, until, reveal_ms, hover, zoom, time };
         return crate::world_shot::run(&o);
     }
+    // Where plain `path:line` text is looked up for `--link-at`.
+    let link_dir = cwd.clone().unwrap_or_else(|| std::env::current_dir().unwrap_or_default());
 
     let gpu = gpu::init(gpu::instance(), None)?;
     let format = wgpu::TextureFormat::Rgba8UnormSrgb;
@@ -256,6 +278,21 @@ pub fn run(args: &[String]) -> Res<()> {
             cols,
             rows
         );
+    }
+    // The link under a cell, drawn the way the window draws a hovered one.
+    if let Some((row, col)) = link_at {
+        match crate::links::at(&t, row, col, &link_dir) {
+            Some(l) => {
+                let (target, hint, warn) = crate::links::describe(&l);
+                println!("link at {row},{col}: {target} | {hint} | {} cells in {} span(s)", l.spans.iter().map(|s| s.2 - s.1 + 1).sum::<usize>(), l.spans.len());
+                r.hover = l.spans.clone();
+                let pointer_x = r.pad[0] + col as f32 * r.fonts.metrics.cell_w;
+                r.set_strip(&gpu.device, &gpu.queue, Some(crate::renderer::Strip { target, hint, warn, pointer_x }));
+                r.suppress_reveal = true;
+                r.build(&gpu.device, &gpu.queue, &t, now, true);
+            }
+            None => println!("link at {row},{col}: none"),
+        }
     }
     if let Some((p, pos)) = &past {
         // The same bar the window draws while scrubbing, from the same data.

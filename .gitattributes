@@ -1,0 +1,5 @@
+# Byte-exact samples: a test compares links.vt with its generator, and the
+# flash samples are played chunk by chunk.
+forge/samples/links.vt -text
+forge/samples/red-flood.vt -text
+forge/samples/flash-4hz.vt -text

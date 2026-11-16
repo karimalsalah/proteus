@@ -2008,7 +2008,7 @@ checksum = "3d595e54a326bc53c1c197b32d295e14b169e3cfeaa8dc82b529f947fba6bcf5"
 
 [[package]]
 name = "proteus"
-version = "0.5.4"
+version = "0.5.5"
 dependencies = [
  "ab_glyph",
  "alacritty_terminal",
@@ -2027,6 +2027,8 @@ dependencies = [
  "sha2",
  "uds_windows",
  "wgpu",
+ "windows 0.58.0",
+ "windows-core 0.58.0",
  "windows-sys 0.61.2",
  "winit",
 ]

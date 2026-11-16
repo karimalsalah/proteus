@@ -18,6 +18,9 @@ use crate::theme::{lin, mix, Theme, C3};
 
 /// Drawing a `world::Scene` with these same pipelines.
 mod scene;
+/// Link underlines, the hover strip, and reduced motion's switch.
+mod link;
+pub use link::Strip;
 
 /// How long a glyph takes to settle after it appears, in seconds.
 const REVEAL_DUR: f32 = 0.24;
@@ -159,6 +162,15 @@ pub struct Renderer {
     pub arrivals: Arrivals,
     /// Drawn over the grid by the engine itself (see `Overlay`).
     overlay: OverlayGpu,
+    /// Links (`link.rs`): cells of declared links in the last build, the
+    /// cells of the link under the pointer, and the strip naming its target.
+    link_cells: Vec<link::LinkCell>,
+    pub hover: Vec<crate::links::Span>,
+    strip: OverlayGpu,
+    strip_src: Option<Strip>,
+    strip_gen: u64,
+    /// Reduced motion (`motion.rs`): nothing unfolds, glows, glides or pulses.
+    pub still: bool,
 }
 
 /// Shapes and text the engine draws over the grid, in physical pixels: the
@@ -599,6 +611,12 @@ impl Renderer {
             light: 1.0,
             arrivals: Arrivals::default(),
             overlay: OverlayGpu::default(),
+            link_cells: Vec::new(),
+            hover: Vec::new(),
+            strip: OverlayGpu::default(),
+            strip_src: None,
+            strip_gen: 0,
+            still: false,
         }
     }
 
@@ -685,7 +703,9 @@ impl Renderer {
 
     /// A keystroke happened: the cursor's light flares briefly.
     pub fn pulse(&mut self) {
-        self.cursor_energy = (self.cursor_energy + 0.55).min(1.4);
+        if !self.still {
+            self.cursor_energy = (self.cursor_energy + 0.55).min(1.4);
+        }
     }
 
     fn t32(&self, now: f64) -> f32 {
@@ -699,7 +719,7 @@ impl Renderer {
         t < self.anim_until
             || self.cursor_moving
             || (self.cursor.is_some() && self.cursor_energy > 0.02)
-            || (self.light > 0.0 && t < self.field_until)
+            || (self.light > 0.0 && !self.still && t < self.field_until)
     }
 
     /// Rebuild GPU instances from terminal state. Call only when content,
@@ -737,6 +757,7 @@ impl Renderer {
         self.keys.resize(n, 0);
         self.tint.clear();
         self.tint.resize(n, 0);
+        self.link_cells.clear();
 
         let cursor_vp = point_to_viewport(offset, cursor_point).filter(|p| p.line < rows && p.column.0 < cols);
         let block_cursor_idx = match (cursor_vp, cursor_shape, focused) {
@@ -842,8 +863,12 @@ impl Renderer {
                     line(&mut self.rects_over, x, y + m.ul_y, w, m.ul_h, ul, 1.0);
                 }
             }
+            if let Some(h) = cell.hyperlink() {
+                self.link_cells.push(link::LinkCell::new(r, c, span, fg, &h, flags));
+            }
         }
         flush(&mut self.rects_under, run.take());
+        self.link_lines();
 
         // ---- reveal: decide which cells are newly born ----
         if self.birth.len() != n {
@@ -912,7 +937,7 @@ impl Renderer {
                     red_n += (self.tint[i] < 0) as u32;
                     green_n += (self.tint[i] > 0) as u32;
                     col_sum += c as u64;
-                    if !self.reveal_enabled {
+                    if !self.reveal_enabled || self.still {
                         self.birth[i] = -1.0;
                         self.energy[i] = 0.0;
                         continue;
@@ -934,7 +959,7 @@ impl Renderer {
                 let mean = col_sum as f32 / born as f32;
                 self.arrivals = Arrivals { cells: born as u32, typed: typed_n, red: red_n, green: green_n, bulk, pan: if cols > 1 { mean / (cols - 1) as f32 * 2.0 - 1.0 } else { 0.0 } };
             }
-            if born > 0 && self.reveal_enabled {
+            if born > 0 && self.reveal_enabled && !self.still {
                 self.anim_until = self.anim_until.max(latest + REVEAL_DUR);
                 // The light those glyphs cast outlives their own reveal.
                 self.field_until = self.field_until.max(latest + REVEAL_DUR + FIELD_TAIL);
@@ -947,6 +972,7 @@ impl Renderer {
         self.suppress_reveal = false;
 
         // ---- glyph instances ----
+        self.refresh_strip(device, queue);
         let pending = std::mem::take(&mut self.pending);
         for _attempt in 0..2 {
             self.glyphs.clear();
@@ -971,6 +997,8 @@ impl Renderer {
             }
         }
         self.pending = pending;
+        // If the grid's glyphs wiped the atlas, the strip's are gone too.
+        self.refresh_strip(device, queue);
 
         // ---- cursor target ----
         self.cursor = match (cursor_vp, cursor_shape) {
@@ -1026,6 +1054,7 @@ impl Renderer {
         // Glide to the new position instead of teleporting.
         let pos = match self.cursor_pos {
             None => [target.x, target.y],
+            Some(_) if self.still => [target.x, target.y],
             Some(p) => {
                 let k = 1.0 - (-dt * 34.0).exp();
                 let np = [p[0] + (target.x - p[0]) * k, p[1] + (target.y - p[1]) * k];
@@ -1148,7 +1177,7 @@ impl Renderer {
 
     /// Advance the field for this frame, or leave it dark and untouched.
     fn step_field(&mut self, device: &wgpu::Device, queue: &wgpu::Queue, t: f32) {
-        if self.light <= 0.0 {
+        if self.light <= 0.0 || self.still {
             self.field_live = false;
             return;
         }
@@ -1173,7 +1202,7 @@ impl Renderer {
     /// input always produces the same picture.
     pub fn simulate_field(&mut self, device: &wgpu::Device, queue: &wgpu::Queue, from: f64, to: f64) {
         let (t0, t1) = (self.t32(from), self.t32(to));
-        if self.light <= 0.0 || t0 >= self.field_until || t1 <= t0 {
+        if self.light <= 0.0 || self.still || t0 >= self.field_until || t1 <= t0 {
             return;
         }
         self.clear_field(device, queue);
@@ -1248,6 +1277,7 @@ impl Renderer {
                 pass.set_vertex_buffer(0, b.slice(..));
                 pass.draw(0..4, 0..self.overlay.n_glyphs);
             }
+            self.draw_strip(&mut pass);
         }
         queue.submit([enc.finish()]);
     }

@@ -60,13 +60,29 @@ extern "system" {
     fn LoadLibraryW(name: *const u16) -> *mut std::ffi::c_void;
 }
 
+fn bundled_dir() -> PathBuf {
+    dir().join(format!("conpty-{:016x}", fnv(CONPTY_DLL) ^ fnv(OPENCONSOLE).rotate_left(1)))
+}
+
+/// The unpacked bundled console host's folder, without loading it (the
+/// console-host bench loads the one it is told to by full path).
+#[cfg(windows)]
+pub fn conpty_dir() -> Option<PathBuf> {
+    let d = bundled_dir();
+    std::fs::create_dir_all(&d).ok()?;
+    place(&d.join("OpenConsole.exe"), OPENCONSOLE).ok()?;
+    place(&d.join("conpty.dll"), CONPTY_DLL).ok()?;
+    let _ = std::fs::write(d.join("VERSION.txt"), include_str!("../vendor/conpty/VERSION.txt"));
+    Some(d)
+}
+
 /// Unpack the pseudo-console host and load it, before the first terminal is
 /// opened. Loading it by full path here means the later lookup by name finds
 /// this copy and never one that happens to be elsewhere on the machine.
 pub fn ensure_conpty() {
     static ONCE: Once = Once::new();
     ONCE.call_once(|| {
-        let d = dir().join(format!("conpty-{:016x}", fnv(CONPTY_DLL) ^ fnv(OPENCONSOLE).rotate_left(1)));
+        let d = bundled_dir();
         let result = std::fs::create_dir_all(&d)
             .and_then(|_| place(&d.join("OpenConsole.exe"), OPENCONSOLE))
             .and_then(|_| place(&d.join("conpty.dll"), CONPTY_DLL));

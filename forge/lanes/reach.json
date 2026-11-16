@@ -1,0 +1,115 @@
+{
+  "lane": "reach",
+  "updated": "2026-11-16",
+  "base": "8ab7c3c",
+  "done": [
+    {
+      "id": "links.osc8",
+      "what": "OSC 8 links drawn and opened (issue #7). A faint underline per link grouped by id; the hovered link gets an accent underline and wash and an engine-drawn strip below the last row naming the target and what Ctrl+click does. Ctrl+click opens http, https, mailto and files on this computer only (file URIs: empty host, localhost or this computer's name); programs, scripts, shortcuts and types Windows calls dangerous are shown in Explorer, never run. Nothing opens on a plain click. Ctrl+click on a link takes its press and its release.",
+      "evidence": "cargo test --release links:: (12 tests incl. hit_testing_is_right_for_every_cell_of_the_sample, only_web_mail_and_local_files_open_and_programs_never_run, file_uris_naming_a_share_are_refused_without_looking, a_program_is_not_opened_under_another_spelling, a_link_click_keeps_its_release_from_the_program, the_console_host_passes_on_links_and_the_working_directory); gate step 'links'; forge/out/link-*.png"
+    },
+    {
+      "id": "links.path",
+      "what": "Plain path:line[:col], path(line,col) and Python 'File \"x\", line N' text becomes a link only if the file exists, looked up from the shell's reported working directory (OSC 7 / 9;9, read ahead of the parser in term.rs) or else the session's start directory (journal header). Network paths are never looked up. Plain http(s) addresses too, ending before sentence punctuation.",
+      "evidence": "cargo test --release links::tests::plain_text_finds_files_that_exist_and_nothing_else; gate step 'links' (10,8 -> src\\app.rs:42:7)"
+    },
+    {
+      "id": "sound.device",
+      "what": "Sound follows the default output device at once (issue #8): IMMNotificationClient registered on the sound thread; the callback sets an atomic flag and on its rising edge try_sends one message (no polling); the sound thread reopens the new default paused. Bursts are coalesced by the default device id, so a spread-out burst costs one reopen.",
+      "evidence": "cargo test --release sound:: -- --nocapture (a_changed_default_output_is_followed_at_once_and_once, a_spread_out_burst_still_costs_one_reopen, a_held_device_and_the_watch_cost_nothing_while_silent)"
+    },
+    {
+      "id": "motion.reduced",
+      "what": "Reduced motion (issue #9): SPI_GETCLIENTAREAANIMATION read at start and on WM_SETTINGCHANGE (window procedure subclassed). With animations off the reveal is instant, the light field stays dark, the cursor neither glides nor flares and the World view does not unfold; switching it on mid-reveal settles on the next frame. PROTEUS_MOTION=still|full overrides.",
+      "evidence": "cargo test --release motion:: renderer::link (reduced_motion_draws_each_change_once_and_nothing_after, reduced_motion_switched_on_mid_reveal_settles_at_once, a_settings_message_is_seen_and_the_setting_read_again)"
+    },
+    {
+      "id": "flash.gate",
+      "what": "Flash-safety analyser, proteus shot --flash: plays a VT file into the real renderer at 60 frames a second, light stepped as the window steps it, every frame read back and checked against WCAG 2.3.1 (general and red flash, 25% of a 10-degree field, more than 6 transitions in any 1 s fails). Gate step at light 3.0 with a positive control.",
+      "evidence": "cargo test --release flash:: (6 tests incl. four_hertz_red_and_black_is_flagged); gate step 'flash safety'"
+    },
+    {
+      "id": "input.synthetic",
+      "what": "Keys held while the window gains focus are not typed: synthetic presses are dropped, synthetic releases still pass (compat lane known issue).",
+      "evidence": "cargo test --release app::tests::keys_held_while_focus_arrives_are_not_typed"
+    }
+  ],
+  "measured": {
+    "mouse_frames": {
+      "plain_cells": "370 pointer moves over non-link cells (two empty rows and the title row, every column) -> 0 frames",
+      "control": "17 moves in and out of a declared link (5 entries, 5 exits) -> 10 frames",
+      "how": "a dist copy started with PROTEUS_NO_FOCUS=1, isolated PROTEUS_DATA/PROTEUS_SOCKET, PROTEUS_SOUND=off, '-e cmd.exe /k type forge\\samples\\links.vt'; WM_MOUSEMOVE posted to that window by its PID (real cursor never moved); frames and pointer_moves from its stats-<pid>.json. Script: pwsh mouse-frames.ps1 (session scratchpad, not in the repo). Grid 123x30 at scale 1.5.",
+      "unit": "cargo test --release links::tests::moving_over_cells_that_are_not_links_owes_no_frames: every cell of the 80x24 sample walked, 0 frames between non-link cells"
+    },
+    "hit_test": {
+      "result": "1920 of 1920 cells of links.vt (80x24, 227 link cells) hit-test to the right target or none, on the live screen, pushed up 9 rows and scrolled back",
+      "command": "cargo test --release links::tests::hit_testing_is_right_for_every_cell_of_the_sample"
+    },
+    "device_switch_to_ready_ms": {
+      "result": "22.0-37.9 over 5 rounds (37.9, 27.1, 22.1, 22.0, 22.0)",
+      "what": "from the first callback to the new stream open and paused on the real default device; the callbacks are injected through the registered object's own COM interface and the thread is told it holds a different device. The default device was never changed (a person may be listening), so a real device change was not exercised.",
+      "command": "cargo test --release sound:: -- --nocapture"
+    },
+    "spread_burst": "six callbacks 40 ms apart: 1 reopen, 1 open, 5 coalesced (cargo test --release sound::tests::a_spread_out_burst_still_costs_one_reopen -- --nocapture)",
+    "idle_cpu": {
+      "window_sound_off": "0.0 ms CPU in 20 s (0.00% of a core), test window showing links.vt, unfocused; script idle.ps1 (scratchpad), same isolation as above",
+      "sound_thread_held_and_watched": "0.0 ms CPU in 10 s with the real default output open paused and the notification registered (cargo test --release sound::tests::a_held_device_and_the_watch_cost_nothing_while_silent -- --nocapture). Window idle with sound on was not measured: rule 2 keeps sound off for exe runs."
+    },
+    "flash": {
+      "command": "proteus shot --flash --vt <sample> --light 3.0 --seconds 4 --size 1100x650 --scale 1 [--every N --lines L --prefill 40]",
+      "flash-4hz.vt --every 7.5": "flagged: 8 general and 8 red transitions in 1 s (limit 6)",
+      "basic.vt --every 2": "pass: 4 general, 0 red",
+      "red-flood.vt": "pass at every 1/2/4/8 frames x 1/4 lines: worst 1 general, 0 red transitions in 1 s",
+      "red-flood.vt --still": "0 transitions, 0 frames owed for motion"
+    },
+    "reduced_motion_window": {
+      "result": "PROTEUS_MOTION=still: frames equal grid builds in every run where output arrived (8/8, 15/15, 3/3); motion on: 82 frames for 11 builds",
+      "how": "test window as for mouse_frames, '-e cmd.exe /k type forge\\samples\\links.vt', stats-<pid>.json read after 12 s; script still.ps1 (scratchpad). A live change of the Windows setting in a real window was not exercised (it would change the person's system setting); the subclass is tested with a hidden window and the renderer switch mid-reveal by a unit test."
+    },
+    "osc8_id_across_rows": "two rows sharing id=shared: 'proteus shot --vt twolines.vt --link-at 1,15' -> 18 cells in 2 spans (one link)",
+    "tests_and_gate": {
+      "full_suite_serial": "cargo test --release -- --test-threads=1: 244 passed (bin), integration mcp 8 of 9 (an_agent_drives_a_shell_from_start_to_exit missed its 10 s exit deadline under load; passes alone: cargo test --release --test mcp an_agent_drives_a_shell_from_start_to_exit)",
+      "gate_run_1": "pwsh forge/gate.ps1 -SkipBench: FAILED in recall:: (3 tests: cls/notepad/full-screen timing) under parallel load from ten agents; every lane step passed. cargo test --release recall:: -- --test-threads=1: 24 passed",
+      "gate_run_2": "pwsh forge/gate.ps1 -SkipBench: GATE PASSED (244 unit, 9 mcp, links, flash safety, all other steps)",
+      "compiler_warnings": "none"
+    }
+  },
+  "known_issues": [
+    "Tests written in this lane that were run against the old code and failed first: file-URI share refusal, go.bat. spelling, hover clip per cell. Not run against the old code: spread-out burst, click release pairing, .shb (AssocIsDangerous), mid-reveal switch (this one found no defect: set_still already settled the renderer).",
+    "path:line precision on a recorded compiler and test-output corpus (roadmap 14: >= 99%) is not measured: no corpus was recorded in this lane.",
+    "Link targets are not returned through lean reads (roadmap 14, last clause).",
+    "A Ctrl+click on a link while a program has mouse reporting on opens the link and the program sees neither press nor release; a program that wants Ctrl+click itself on a link cell does not get it (on plain text it does).",
+    "A plain path anywhere on this computer that exists becomes a link (absolute paths from compilers are the common case); files outside the working directory are not refused, only shown by full path in the strip. Programs are never run.",
+    "The device-follow callback also does a non-blocking try_send to wake the sound thread (more than 'set a flag and nothing else'); the alternative is polling.",
+    "A default-output change while a sound is playing cuts that sound: the stream is reopened paused at once. Not exercised by a test (it would need audible output).",
+    "proteus shot does not read PROTEUS_MOTION or the system setting (screenshots stay machine-independent); --flash has its own --still.",
+    "Hover rechecks the link under a resting pointer on every frame that rebuilt the grid (full-grid scan for OSC 8, one file lookup for plain paths); not measured under flood.",
+    "UI Automation, the sound/visual parity table and SPI_GETMESSAGEDURATION lingering (roadmap 13 parts 3-5) are not done.",
+    "Seen while measuring, not investigated (not this lane): in about one in three fresh test windows (new data folder, so the console host and daemon are unpacked first) no output reached the grid within 12 s while the machine was loaded.",
+    "recall:: timing tests fail when the whole suite runs in parallel on a loaded machine and pass serially; the gate runs the suite in parallel."
+  ],
+  "next": [
+    {
+      "id": "links.corpus",
+      "what": "Record compiler and test output (cargo, tsc, msbuild, pytest, go) as journals and measure path:line precision against hand-labelled targets; drop plain-path links if under 95%"
+    },
+    {
+      "id": "links.lean",
+      "what": "Return link targets through lean reads so an agent gets targets, not underlined text"
+    },
+    {
+      "id": "sound.real_switch",
+      "what": "With the person's consent, switch the default output once (e.g. to headphones) and read callback_to_ready_ms_last from the sound meter"
+    },
+    {
+      "id": "a11y.uia",
+      "what": "UI Automation notifications for new text, rate-limited (roadmap 13 stage 4)"
+    }
+  ],
+  "user_notes": [
+    "Ctrl+click opens links; hovering shows where they go in a strip below the last row. Plain text like src/app.rs:42:7 is a link when that file exists. Set \"editor\" in config.json (e.g. \"code --goto {path}:{line}:{col}\") to open files at the line.",
+    "With Windows animation effects off (Settings > Accessibility > Visual effects) PROTEUS shows text at once, with no light and no motion; it follows the setting live. PROTEUS_MOTION=still forces it.",
+    "Sound now moves to new headphones or speakers as soon as Windows switches the default.",
+    "The branch was rebased once onto 8ab7c3c at the start of this session, before the orchestrator asked lanes not to rebase; it is one commit behind main (94a2df3, 0.5.4) and was not rebased again."
+  ]
+}

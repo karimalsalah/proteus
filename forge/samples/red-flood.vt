@@ -1,0 +1,240 @@
+[1;31merror[E0300][0m[1m: mismatched types[0m
+[34m   --> [0msrc/module_1.rs:17:4
+[34m    |[0m
+[34m 31 |[0m     let value: u32 = compute_3(input, &config).await?;
+[34m    |[0m                      [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `u32`, found `Result<u64, Error>`[0m
+[38;2;255;0;0mFAILED tests::case_5 ... panicked at 'assertion failed: left == right' (left: 45, right: 46)[0m
+[38;5;196mthread 'worker-6' panicked at src/pool.rs:52:9: called `Option::unwrap()` on a `None` value[0m
+[41;97m FAIL [0m src/components/widget_7.test.tsx [31m(59 ms)[0m
+[31m  x expected 66 to equal 132; the snapshot differs in 4 places[0m
+[1;31merror[0m: could not compile `crate_0` (lib) due to 3 previous errors
+[91mERR! [0mcode ELIFECYCLE errno 80 at step 10
+   Compiling dependency_11 v0.2.87 ([31m2 warnings[0m)
+[1;31merror[E0312][0m[1m: mismatched types[0m
+[34m   --> [0msrc/module_13.rs:11:40
+[34m    |[0m
+[34m 25 |[0m     let value: u32 = compute_15(input, &config).await?;
+[34m    |[0m                      [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `u32`, found `Result<u64, Error>`[0m
+[38;2;255;0;0mFAILED tests::case_17 ... panicked at 'assertion failed: left == right' (left: 39, right: 40)[0m
+[38;5;196mthread 'worker-2' panicked at src/pool.rs:46:9: called `Option::unwrap()` on a `None` value[0m
+[41;97m FAIL [0m src/components/widget_19.test.tsx [31m(53 ms)[0m
+[31m  x expected 60 to equal 120; the snapshot differs in 1 places[0m
+[1;31merror[0m: could not compile `crate_3` (lib) due to 1 previous errors
+[91mERR! [0mcode ELIFECYCLE errno 74 at step 22
+   Compiling dependency_23 v0.5.81 ([31m2 warnings[0m)
+[1;31merror[E0324][0m[1m: mismatched types[0m
+[34m   --> [0msrc/module_8.rs:95:36
+[34m    |[0m
+[34m 19 |[0m     let value: u32 = compute_27(input, &config).await?;
+[34m    |[0m                      [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `u32`, found `Result<u64, Error>`[0m
+[38;2;255;0;0mFAILED tests::case_29 ... panicked at 'assertion failed: left == right' (left: 33, right: 34)[0m
+[38;5;196mthread 'worker-6' panicked at src/pool.rs:40:9: called `Option::unwrap()` on a `None` value[0m
+[41;97m FAIL [0m src/components/widget_31.test.tsx [31m(47 ms)[0m
+[31m  x expected 54 to equal 108; the snapshot differs in 3 places[0m
+[1;31merror[0m: could not compile `crate_6` (lib) due to 6 previous errors
+[91mERR! [0mcode ELIFECYCLE errno 68 at step 34
+   Compiling dependency_35 v0.8.75 ([31m2 warnings[0m)
+[1;31merror[E0336][0m[1m: mismatched types[0m
+[34m   --> [0msrc/module_3.rs:89:32
+[34m    |[0m
+[34m 13 |[0m     let value: u32 = compute_39(input, &config).await?;
+[34m    |[0m                      [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `u32`, found `Result<u64, Error>`[0m
+[38;2;255;0;0mFAILED tests::case_41 ... panicked at 'assertion failed: left == right' (left: 27, right: 28)[0m
+[38;5;196mthread 'worker-2' panicked at src/pool.rs:34:9: called `Option::unwrap()` on a `None` value[0m
+[41;97m FAIL [0m src/components/widget_43.test.tsx [31m(41 ms)[0m
+[31m  x expected 48 to equal 96; the snapshot differs in 5 places[0m
+[1;31merror[0m: could not compile `crate_0` (lib) due to 4 previous errors
+[91mERR! [0mcode ELIFECYCLE errno 62 at step 46
+   Compiling dependency_47 v0.2.69 ([31m2 warnings[0m)
+[1;31merror[E0348][0m[1m: mismatched types[0m
+[34m   --> [0msrc/module_15.rs:83:28
+[34m    |[0m
+[34m 97 |[0m     let value: u32 = compute_51(input, &config).await?;
+[34m    |[0m                      [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `u32`, found `Result<u64, Error>`[0m
+[38;2;255;0;0mFAILED tests::case_53 ... panicked at 'assertion failed: left == right' (left: 21, right: 22)[0m
+[38;5;196mthread 'worker-6' panicked at src/pool.rs:28:9: called `Option::unwrap()` on a `None` value[0m
+[41;97m FAIL [0m src/components/widget_55.test.tsx [31m(35 ms)[0m
+[31m  x expected 42 to equal 84; the snapshot differs in 2 places[0m
+[1;31merror[0m: could not compile `crate_3` (lib) due to 2 previous errors
+[91mERR! [0mcode ELIFECYCLE errno 56 at step 58
+   Compiling dependency_59 v0.5.63 ([31m2 warnings[0m)
+[1;31merror[E0360][0m[1m: mismatched types[0m
+[34m   --> [0msrc/module_10.rs:77:24
+[34m    |[0m
+[34m 91 |[0m     let value: u32 = compute_63(input, &config).await?;
+[34m    |[0m                      [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `u32`, found `Result<u64, Error>`[0m
+[38;2;255;0;0mFAILED tests::case_65 ... panicked at 'assertion failed: left == right' (left: 15, right: 16)[0m
+[38;5;196mthread 'worker-2' panicked at src/pool.rs:22:9: called `Option::unwrap()` on a `None` value[0m
+[41;97m FAIL [0m src/components/widget_67.test.tsx [31m(29 ms)[0m
+[31m  x expected 36 to equal 72; the snapshot differs in 4 places[0m
+[1;31merror[0m: could not compile `crate_6` (lib) due to 7 previous errors
+[91mERR! [0mcode ELIFECYCLE errno 50 at step 70
+   Compiling dependency_71 v0.8.57 ([31m2 warnings[0m)
+[1;31merror[E0372][0m[1m: mismatched types[0m
+[34m   --> [0msrc/module_5.rs:71:20
+[34m    |[0m
+[34m 85 |[0m     let value: u32 = compute_75(input, &config).await?;
+[34m    |[0m                      [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `u32`, found `Result<u64, Error>`[0m
+[38;2;255;0;0mFAILED tests::case_77 ... panicked at 'assertion failed: left == right' (left: 99, right: 100)[0m
+[38;5;196mthread 'worker-6' panicked at src/pool.rs:16:9: called `Option::unwrap()` on a `None` value[0m
+[41;97m FAIL [0m src/components/widget_79.test.tsx [31m(23 ms)[0m
+[31m  x expected 30 to equal 60; the snapshot differs in 1 places[0m
+[1;31merror[0m: could not compile `crate_0` (lib) due to 5 previous errors
+[91mERR! [0mcode ELIFECYCLE errno 44 at step 82
+   Compiling dependency_83 v0.2.51 ([31m2 warnings[0m)
+[1;31merror[E0384][0m[1m: mismatched types[0m
+[34m   --> [0msrc/module_0.rs:65:16
+[34m    |[0m
+[34m 79 |[0m     let value: u32 = compute_87(input, &config).await?;
+[34m    |[0m                      [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `u32`, found `Result<u64, Error>`[0m
+[38;2;255;0;0mFAILED tests::case_89 ... panicked at 'assertion failed: left == right' (left: 93, right: 94)[0m
+[38;5;196mthread 'worker-2' panicked at src/pool.rs:10:9: called `Option::unwrap()` on a `None` value[0m
+[41;97m FAIL [0m src/components/widget_91.test.tsx [31m(17 ms)[0m
+[31m  x expected 24 to equal 48; the snapshot differs in 3 places[0m
+[1;31merror[0m: could not compile `crate_3` (lib) due to 3 previous errors
+[91mERR! [0mcode ELIFECYCLE errno 38 at step 94
+   Compiling dependency_95 v0.5.45 ([31m2 warnings[0m)
+[1;31merror[E0306][0m[1m: mismatched types[0m
+[34m   --> [0msrc/module_12.rs:59:12
+[34m    |[0m
+[34m 73 |[0m     let value: u32 = compute_99(input, &config).await?;
+[34m    |[0m                      [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `u32`, found `Result<u64, Error>`[0m
+[38;2;255;0;0mFAILED tests::case_101 ... panicked at 'assertion failed: left == right' (left: 87, right: 88)[0m
+[38;5;196mthread 'worker-6' panicked at src/pool.rs:94:9: called `Option::unwrap()` on a `None` value[0m
+[41;97m FAIL [0m src/components/widget_103.test.tsx [31m(11 ms)[0m
+[31m  x expected 18 to equal 36; the snapshot differs in 5 places[0m
+[1;31merror[0m: could not compile `crate_6` (lib) due to 1 previous errors
+[91mERR! [0mcode ELIFECYCLE errno 32 at step 106
+   Compiling dependency_107 v0.8.39 ([31m2 warnings[0m)
+[1;31merror[E0318][0m[1m: mismatched types[0m
+[34m   --> [0msrc/module_7.rs:53:8
+[34m    |[0m
+[34m 67 |[0m     let value: u32 = compute_111(input, &config).await?;
+[34m    |[0m                      [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `u32`, found `Result<u64, Error>`[0m
+[38;2;255;0;0mFAILED tests::case_113 ... panicked at 'assertion failed: left == right' (left: 81, right: 82)[0m
+[38;5;196mthread 'worker-2' panicked at src/pool.rs:88:9: called `Option::unwrap()` on a `None` value[0m
+[41;97m FAIL [0m src/components/widget_115.test.tsx [31m(95 ms)[0m
+[31m  x expected 12 to equal 24; the snapshot differs in 2 places[0m
+[1;31merror[0m: could not compile `crate_0` (lib) due to 6 previous errors
+[91mERR! [0mcode ELIFECYCLE errno 26 at step 118
+   Compiling dependency_119 v0.2.33 ([31m2 warnings[0m)
+[1;31merror[E0330][0m[1m: mismatched types[0m
+[34m   --> [0msrc/module_2.rs:47:4
+[34m    |[0m
+[34m 61 |[0m     let value: u32 = compute_123(input, &config).await?;
+[34m    |[0m                      [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `u32`, found `Result<u64, Error>`[0m
+[38;2;255;0;0mFAILED tests::case_125 ... panicked at 'assertion failed: left == right' (left: 75, right: 76)[0m
+[38;5;196mthread 'worker-6' panicked at src/pool.rs:82:9: called `Option::unwrap()` on a `None` value[0m
+[41;97m FAIL [0m src/components/widget_127.test.tsx [31m(89 ms)[0m
+[31m  x expected 96 to equal 192; the snapshot differs in 4 places[0m
+[1;31merror[0m: could not compile `crate_3` (lib) due to 4 previous errors
+[91mERR! [0mcode ELIFECYCLE errno 20 at step 130
+   Compiling dependency_131 v0.5.27 ([31m2 warnings[0m)
+[1;31merror[E0342][0m[1m: mismatched types[0m
+[34m   --> [0msrc/module_14.rs:41:40
+[34m    |[0m
+[34m 55 |[0m     let value: u32 = compute_135(input, &config).await?;
+[34m    |[0m                      [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `u32`, found `Result<u64, Error>`[0m
+[38;2;255;0;0mFAILED tests::case_137 ... panicked at 'assertion failed: left == right' (left: 69, right: 70)[0m
+[38;5;196mthread 'worker-2' panicked at src/pool.rs:76:9: called `Option::unwrap()` on a `None` value[0m
+[41;97m FAIL [0m src/components/widget_139.test.tsx [31m(83 ms)[0m
+[31m  x expected 90 to equal 180; the snapshot differs in 1 places[0m
+[1;31merror[0m: could not compile `crate_6` (lib) due to 2 previous errors
+[91mERR! [0mcode ELIFECYCLE errno 14 at step 142
+   Compiling dependency_143 v0.8.21 ([31m2 warnings[0m)
+[1;31merror[E0354][0m[1m: mismatched types[0m
+[34m   --> [0msrc/module_9.rs:35:36
+[34m    |[0m
+[34m 49 |[0m     let value: u32 = compute_147(input, &config).await?;
+[34m    |[0m                      [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `u32`, found `Result<u64, Error>`[0m
+[38;2;255;0;0mFAILED tests::case_149 ... panicked at 'assertion failed: left == right' (left: 63, right: 64)[0m
+[38;5;196mthread 'worker-6' panicked at src/pool.rs:70:9: called `Option::unwrap()` on a `None` value[0m
+[41;97m FAIL [0m src/components/widget_151.test.tsx [31m(77 ms)[0m
+[31m  x expected 84 to equal 168; the snapshot differs in 3 places[0m
+[1;31merror[0m: could not compile `crate_0` (lib) due to 7 previous errors
+[91mERR! [0mcode ELIFECYCLE errno 98 at step 154
+   Compiling dependency_155 v0.2.15 ([31m2 warnings[0m)
+[1;31merror[E0366][0m[1m: mismatched types[0m
+[34m   --> [0msrc/module_4.rs:29:32
+[34m    |[0m
+[34m 43 |[0m     let value: u32 = compute_159(input, &config).await?;
+[34m    |[0m                      [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `u32`, found `Result<u64, Error>`[0m
+[38;2;255;0;0mFAILED tests::case_161 ... panicked at 'assertion failed: left == right' (left: 57, right: 58)[0m
+[38;5;196mthread 'worker-2' panicked at src/pool.rs:64:9: called `Option::unwrap()` on a `None` value[0m
+[41;97m FAIL [0m src/components/widget_163.test.tsx [31m(71 ms)[0m
+[31m  x expected 78 to equal 156; the snapshot differs in 5 places[0m
+[1;31merror[0m: could not compile `crate_3` (lib) due to 5 previous errors
+[91mERR! [0mcode ELIFECYCLE errno 92 at step 166
+   Compiling dependency_167 v0.5.99 ([31m2 warnings[0m)
+[1;31merror[E0378][0m[1m: mismatched types[0m
+[34m   --> [0msrc/module_16.rs:23:28
+[34m    |[0m
+[34m 37 |[0m     let value: u32 = compute_171(input, &config).await?;
+[34m    |[0m                      [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `u32`, found `Result<u64, Error>`[0m
+[38;2;255;0;0mFAILED tests::case_173 ... panicked at 'assertion failed: left == right' (left: 51, right: 52)[0m
+[38;5;196mthread 'worker-6' panicked at src/pool.rs:58:9: called `Option::unwrap()` on a `None` value[0m
+[41;97m FAIL [0m src/components/widget_175.test.tsx [31m(65 ms)[0m
+[31m  x expected 72 to equal 144; the snapshot differs in 2 places[0m
+[1;31merror[0m: could not compile `crate_6` (lib) due to 3 previous errors
+[91mERR! [0mcode ELIFECYCLE errno 86 at step 178
+   Compiling dependency_179 v0.8.93 ([31m2 warnings[0m)
+[1;31merror[E0300][0m[1m: mismatched types[0m
+[34m   --> [0msrc/module_11.rs:17:24
+[34m    |[0m
+[34m 31 |[0m     let value: u32 = compute_183(input, &config).await?;
+[34m    |[0m                      [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `u32`, found `Result<u64, Error>`[0m
+[38;2;255;0;0mFAILED tests::case_185 ... panicked at 'assertion failed: left == right' (left: 45, right: 46)[0m
+[38;5;196mthread 'worker-2' panicked at src/pool.rs:52:9: called `Option::unwrap()` on a `None` value[0m
+[41;97m FAIL [0m src/components/widget_187.test.tsx [31m(59 ms)[0m
+[31m  x expected 66 to equal 132; the snapshot differs in 4 places[0m
+[1;31merror[0m: could not compile `crate_0` (lib) due to 1 previous errors
+[91mERR! [0mcode ELIFECYCLE errno 80 at step 190
+   Compiling dependency_191 v0.2.87 ([31m2 warnings[0m)
+[1;31merror[E0312][0m[1m: mismatched types[0m
+[34m   --> [0msrc/module_6.rs:11:20
+[34m    |[0m
+[34m 25 |[0m     let value: u32 = compute_195(input, &config).await?;
+[34m    |[0m                      [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `u32`, found `Result<u64, Error>`[0m
+[38;2;255;0;0mFAILED tests::case_197 ... panicked at 'assertion failed: left == right' (left: 39, right: 40)[0m
+[38;5;196mthread 'worker-6' panicked at src/pool.rs:46:9: called `Option::unwrap()` on a `None` value[0m
+[41;97m FAIL [0m src/components/widget_199.test.tsx [31m(53 ms)[0m
+[31m  x expected 60 to equal 120; the snapshot differs in 1 places[0m
+[1;31merror[0m: could not compile `crate_3` (lib) due to 6 previous errors
+[91mERR! [0mcode ELIFECYCLE errno 74 at step 202
+   Compiling dependency_203 v0.5.81 ([31m2 warnings[0m)
+[1;31merror[E0324][0m[1m: mismatched types[0m
+[34m   --> [0msrc/module_1.rs:95:16
+[34m    |[0m
+[34m 19 |[0m     let value: u32 = compute_207(input, &config).await?;
+[34m    |[0m                      [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `u32`, found `Result<u64, Error>`[0m
+[38;2;255;0;0mFAILED tests::case_209 ... panicked at 'assertion failed: left == right' (left: 33, right: 34)[0m
+[38;5;196mthread 'worker-2' panicked at src/pool.rs:40:9: called `Option::unwrap()` on a `None` value[0m
+[41;97m FAIL [0m src/components/widget_211.test.tsx [31m(47 ms)[0m
+[31m  x expected 54 to equal 108; the snapshot differs in 3 places[0m
+[1;31merror[0m: could not compile `crate_6` (lib) due to 4 previous errors
+[91mERR! [0mcode ELIFECYCLE errno 68 at step 214
+   Compiling dependency_215 v0.8.75 ([31m2 warnings[0m)
+[1;31merror[E0336][0m[1m: mismatched types[0m
+[34m   --> [0msrc/module_13.rs:89:12
+[34m    |[0m
+[34m 13 |[0m     let value: u32 = compute_219(input, &config).await?;
+[34m    |[0m                      [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `u32`, found `Result<u64, Error>`[0m
+[38;2;255;0;0mFAILED tests::case_221 ... panicked at 'assertion failed: left == right' (left: 27, right: 28)[0m
+[38;5;196mthread 'worker-6' panicked at src/pool.rs:34:9: called `Option::unwrap()` on a `None` value[0m
+[41;97m FAIL [0m src/components/widget_223.test.tsx [31m(41 ms)[0m
+[31m  x expected 48 to equal 96; the snapshot differs in 5 places[0m
+[1;31merror[0m: could not compile `crate_0` (lib) due to 2 previous errors
+[91mERR! [0mcode ELIFECYCLE errno 62 at step 226
+   Compiling dependency_227 v0.2.69 ([31m2 warnings[0m)
+[1;31merror[E0348][0m[1m: mismatched types[0m
+[34m   --> [0msrc/module_8.rs:83:8
+[34m    |[0m
+[34m 97 |[0m     let value: u32 = compute_231(input, &config).await?;
+[34m    |[0m                      [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `u32`, found `Result<u64, Error>`[0m
+[38;2;255;0;0mFAILED tests::case_233 ... panicked at 'assertion failed: left == right' (left: 21, right: 22)[0m
+[38;5;196mthread 'worker-2' panicked at src/pool.rs:28:9: called `Option::unwrap()` on a `None` value[0m
+[41;97m FAIL [0m src/components/widget_235.test.tsx [31m(35 ms)[0m
+[31m  x expected 42 to equal 84; the snapshot differs in 2 places[0m
+[1;31merror[0m: could not compile `crate_3` (lib) due to 7 previous errors
+[91mERR! [0mcode ELIFECYCLE errno 56 at step 238
+   Compiling dependency_239 v0.5.63 ([31m2 warnings[0m)

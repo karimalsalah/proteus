@@ -2,6 +2,17 @@
 
 Numbers and how each was measured: `forge/ledger.json`. Signed builds: [Releases](https://github.com/karimalsalah/proteus/releases).
 
+## 0.5.5
+
+- Security (from the adversarial audit): a program may write the clipboard (OSC 52) only while its window has focus, at most 8 KB, and each write is logged; a paste into a program that does not mark pastes never presses Enter by itself.
+- Durability (audit): a journal still open in a running session is never pruned, however old.
+- Links: Ctrl+click opens OSC 8 links and plain path:line text; hover shows the target.
+- Sound follows the default output device the moment it changes.
+- Reduced motion honoured from Windows; a flash-safety analyser and gate step (WCAG 2.3.1).
+- A key held while the window gains focus is no longer typed.
+- `proteus conhost flood|echo|idle`: console-host bench; finding: line-at-a-time output is bounded by the console host's per-call cost.
+- The export's privacy search now covers file names, UTF-16BE, URL and base64 encodings, compressed streams and the release key in every form.
+
 ## 0.5.4
 
 - `proteus send --raw` types text exactly; Windows paths are no longer turned into control keys (#20).

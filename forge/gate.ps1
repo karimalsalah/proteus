@@ -122,6 +122,45 @@ Step 'recall' {
     "{0} of {1} seeks identical to a replay from the start; p50 {2} ms with the index, {3} ms without; find saw the text {4}x in {5} ms; rendered scrub.png" -f $b.identical, $b.instants, $b.after_ms.p50, $b.before_ms.p50, @($f.hits).Count, $f.ms
 }
 
+Step 'links' {
+    # The three shapes of link in the sample, hovered the way the window
+    # hovers them (cell-by-cell hit-testing is a unit test). Read the PNGs.
+    $root = (Get-Location).Path
+    $cases = @(
+        @{ at = '3,8'; want = 'https://example.com/docs | ctrl+click to open | 19 cells in 2 span'; png = 'link-osc8' },
+        @{ at = '10,8'; want = "$root\src\app.rs:42:7 | ctrl+click to open"; png = 'link-path' },
+        @{ at = '16,10'; want = 'https://example.com/plain?q=1 | ctrl+click to open'; png = 'link-web' },
+        @{ at = '5,36'; want = 'javascript:alert(1) | not opened: javascript: links are not opened'; png = 'link-refused' },
+        @{ at = '1,5'; want = 'none'; png = $null }
+    )
+    foreach ($c in $cases) {
+        $out = Join-Path 'forge\out' "$($c.png ?? 'link-none').png"
+        $said = (& $exe shot --vt forge\samples\links.vt --cwd $root --link-at $c.at --out $out --size 2200x1100 | Out-String)
+        if (-not $said.Contains("link at $($c.at): $($c.want)")) { throw "at $($c.at) expected '$($c.want)', got: $said" }
+        if ($c.png -and (-not (Test-Path $out) -or (Get-Item $out).Length -lt 50kb)) { throw "$out missing or empty" }
+    }
+    'osc 8 (one id in two places), path:line from the working directory, plain address, refused javascript:, plain text: all as expected; rendered link-*.png'
+}
+
+Step 'flash safety' {
+    # WCAG 2.3.1 at the brightest light the config allows. The analyser must
+    # catch the positive control and pass the plain sample, or it is not trusted.
+    $run = { param($vt, $extra) (& $exe shot --flash --vt $vt --light 3.0 --seconds 4 --size 1100x650 --scale 1 @extra | Out-String) | ConvertFrom-Json }
+    $ctl = & $run forge\samples\flash-4hz.vt @('--every', '7.5')
+    if ($ctl.pass) { throw "the analyser did not flag a 4 Hz red/black alternation: $($ctl | ConvertTo-Json -Compress)" }
+    $plain = & $run forge\samples\basic.vt @('--every', '2')
+    if (-not $plain.pass) { throw "the analyser flagged basic.vt: $($plain | ConvertTo-Json -Compress)" }
+    $worst = 0
+    foreach ($every in 1, 2, 4, 8) {
+        foreach ($lines in 1, 4) {
+            $r = & $run forge\samples\red-flood.vt @('--every', $every, '--lines', $lines, '--prefill', 40)
+            if (-not $r.pass) { throw "red flood flashes (every $every frames, $lines lines): $($r | ConvertTo-Json -Compress)" }
+            $worst = [math]::Max($worst, [math]::Max($r.general.max_transitions_in_1s, $r.red.max_transitions_in_1s))
+        }
+    }
+    "4 Hz control flagged ({0} general, {1} red transitions in 1 s); basic.vt {2}; red flood at 8 rates: at most {3} transitions in any 1 s (limit 6)" -f $ctl.general.max_transitions_in_1s, $ctl.red.max_transitions_in_1s, $plain.general.max_transitions_in_1s, $worst
+}
+
 if (-not $SkipBench) {
     Step 'real keys through a real window' {
         # Key messages are posted to an unfocused test window and a program

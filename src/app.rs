@@ -48,6 +48,8 @@ pub struct Options {
     light: f32,
     /// Loudness of event sounds, 0 to 1 (0 = off, and no audio device is ever opened).
     volume: f32,
+    /// Command that opens a file link at its line (config `editor`).
+    editor: String,
 }
 
 impl Options {
@@ -71,6 +73,7 @@ impl Options {
             attach: None,
             light: cfg.light,
             volume: if cfg.sound { cfg.volume } else { 0.0 },
+            editor: cfg.editor.clone(),
         };
         let mut i = 0;
         while i < args.len() {
@@ -131,6 +134,8 @@ struct Stats {
     key_ms: Vec<f32>,
     backend: String,
     adapter: String,
+    /// Pointer moves seen (links: moving over plain cells must draw nothing).
+    moves: u64,
 }
 
 impl Stats {
@@ -158,6 +163,7 @@ impl Stats {
             "backend": self.backend,
             "adapter": self.adapter,
             "grid": [cols, rows],
+            "pointer_moves": self.moves,
         });
         // One file per window, so several windows do not overwrite each other.
         let name = format!("stats-{}.json", std::process::id());
@@ -280,6 +286,13 @@ struct State {
     /// The World view (`world.rs`), Ctrl+Shift+W; its hooks are together at
     /// the end of this file.
     world: crate::world::Live,
+    /// The link under the pointer (`links.rs`), where plain `path:line`
+    /// text is looked up when the shell has not said, and the editor
+    /// command; wiring in the last `impl State` block.
+    hover: crate::links::Hover,
+    link_click: crate::links::Click,
+    start_dir: PathBuf,
+    editor: String,
 }
 
 impl State {
@@ -319,6 +332,16 @@ impl State {
         let mut renderer = Renderer::new(&gpu.device, format, opts.font_pt * scale, theme.clone());
         renderer.reveal_enabled = opts.reveal;
         renderer.light = opts.light;
+        // Reduced motion: read now, and followed while the window lives (motion.rs).
+        {
+            use winit::raw_window_handle::{HasWindowHandle, RawWindowHandle};
+            if let Ok(RawWindowHandle::Win32(h)) = window.window_handle().map(|h| h.as_raw()) {
+                if !crate::motion::watch(h.hwnd.get()) {
+                    paths::log("motion: the window could not be watched for setting changes");
+                }
+            }
+            renderer.set_still(crate::motion::still());
+        }
         renderer.resize(&gpu.device, config.width, config.height, PAD * scale);
         let (cols, rows) = renderer.grid();
 
@@ -432,6 +455,7 @@ impl State {
                 key_ms: Vec::new(),
                 backend: format!("{:?} {:?}", info.backend, present_mode),
                 adapter: info.name.clone(),
+                moves: 0,
             },
             sound: Sound::start(opts.volume),
             journal_path: session.journal_path.clone(),
@@ -442,6 +466,10 @@ impl State {
             notice: None,
             procs: crate::procs::Ledger::bounded(20_000),
             world: crate::world::Live::new(&world_name),
+            hover: crate::links::Hover::default(),
+            link_click: crate::links::Click::default(),
+            start_dir: crate::links::start_dir(session.journal_path.as_deref(), opts.cwd.as_deref()),
+            editor: opts.editor.clone(),
         };
         st.sound.warm();
         st.publish_metrics();
@@ -465,6 +493,8 @@ impl State {
         self.terminal.resize(cols, rows);
         self.publish_metrics();
         self.scrub_refit();
+        // The text under the pointer has moved; the next move looks again.
+        self.link_unhover();
         self.dirty = true;
         self.window.request_redraw();
     }
@@ -669,9 +699,18 @@ impl State {
             self.scrub_drag = button == MouseButton::Left && state == ElementState::Pressed && self.scrub_to_mouse();
             return;
         }
+        let pressed = state == ElementState::Pressed;
+        // Ctrl+click on a link opens it; its press and release go nowhere else.
+        if button == MouseButton::Left {
+            let (mut click, ctrl) = (std::mem::take(&mut self.link_click), self.mods.control_key());
+            let taken = click.route(pressed, ctrl, || self.link_open());
+            self.link_click = click;
+            if taken {
+                return;
+            }
+        }
         let mode = self.mode();
         let (col, row, right) = self.cell();
-        let pressed = state == ElementState::Pressed;
         // Programs that asked for the mouse get it; Shift overrides for selection.
         if mode.intersects(TermMode::MOUSE_MODE) && !self.mods.shift_key() {
             let b = match button {
@@ -720,6 +759,11 @@ impl State {
 
     fn on_mouse_move(&mut self, x: f32, y: f32) {
         self.mouse = (x, y);
+        self.stats.moves += 1;
+        if self.stats.last_write.elapsed() > Duration::from_secs(2) {
+            self.stats.write(self.terminal.cols, self.terminal.rows);
+        }
+        self.link_hover(false);
         if self.world_mouse(x, y) {
             return;
         }
@@ -892,11 +936,20 @@ impl State {
             return Ok(());
         }
         self.next_frame_at = None;
+        // Animations switched off or on in Windows since the last frame.
+        if crate::motion::still() != self.renderer.still {
+            self.renderer.set_still(crate::motion::still());
+            self.dirty = true;
+        }
         let now = self.start.elapsed().as_secs_f64();
         // While the past is on screen the live grid is left alone: its
         // pending output stays pending and is drawn on the way back.
         let scrubbed = self.scrub_frame(now);
         let woke = !scrubbed && self.terminal.take_wake();
+        // The screen changed under a pointer resting on a link: look again.
+        if (woke || self.dirty) && self.hover.link.is_some() {
+            self.link_hover(true);
+        }
         if woke {
             self.last_wake = Instant::now();
         }
@@ -1224,6 +1277,77 @@ impl State {
     }
 }
 
+/// Links (`links.rs`) in the window: only the wiring. A frame is asked for
+/// only when the link under the pointer changes.
+impl State {
+    /// Where plain `path:line` text is looked up: the directory the shell
+    /// last reported, else where the session started.
+    fn link_dir(&self) -> PathBuf {
+        let said = self.terminal.cwd.lock().ok().and_then(|c| c.clone()).map(PathBuf::from);
+        said.filter(|p| p.is_absolute()).unwrap_or_else(|| self.start_dir.clone())
+    }
+
+    /// The viewport cell under the pointer, or None when it is in the margin.
+    fn pointer_cell(&self) -> Option<(usize, usize)> {
+        let (m, pad) = (self.renderer.fonts.metrics, self.renderer.pad);
+        let (x, y) = ((self.mouse.0 - pad[0]) / m.cell_w, (self.mouse.1 - pad[1]) / m.cell_h);
+        (x >= 0.0 && y >= 0.0 && (x as usize) < self.terminal.cols && (y as usize) < self.terminal.rows).then_some((y as usize, x as usize))
+    }
+
+    /// The pointer moved (`again` false), or the screen changed under it
+    /// during a frame (`again` true).
+    fn link_hover(&mut self, again: bool) {
+        if self.world.shown || self.scrub.is_some() {
+            return self.link_unhover();
+        }
+        if self.selecting {
+            return;
+        }
+        let (cell, dir, term) = (self.pointer_cell(), self.link_dir(), self.terminal.term.clone());
+        let changed = match term.lock() {
+            Ok(t) if again => self.hover.recheck(&t, &dir),
+            Ok(t) => self.hover.point(&t, cell, &dir),
+            Err(_) => false,
+        };
+        if changed {
+            self.link_show(!again);
+        }
+    }
+
+    fn link_unhover(&mut self) {
+        if self.hover.clear() {
+            self.link_show(true);
+        }
+    }
+
+    /// Draw what is hovered now: underline, strip and pointer shape.
+    fn link_show(&mut self, ask_frame: bool) {
+        let strip = self.hover.link.as_ref().map(|l| {
+            let (target, hint, warn) = crate::links::describe(l);
+            crate::renderer::Strip { target, hint, warn, pointer_x: self.mouse.0 }
+        });
+        let on = strip.is_some();
+        self.renderer.hover = self.hover.link.as_ref().map(|l| l.spans.clone()).unwrap_or_default();
+        self.renderer.set_strip(&self.gpu.device, &self.gpu.queue, strip);
+        self.window.set_cursor(if on { winit::window::CursorIcon::Pointer } else { winit::window::CursorIcon::Default });
+        self.dirty = true;
+        if ask_frame {
+            self.window.request_redraw();
+        }
+    }
+
+    /// Ctrl+click: open the link under the pointer. True if there was one.
+    fn link_open(&mut self) -> bool {
+        self.link_hover(false);
+        let Some(l) = self.hover.link.as_ref() else { return false };
+        match crate::links::action(&l.target) {
+            crate::links::Action::Refuse(why) => self.say(format!("link not opened: {why}")),
+            a => crate::links::open(a, self.editor.clone()),
+        }
+        true
+    }
+}
+
 struct App {
     proxy: EventLoopProxy<UiEvent>,
     opts: Options,
@@ -1400,7 +1524,11 @@ impl ApplicationHandler<UiEvent> for App {
                 st.window.request_redraw();
             }
             WindowEvent::ModifiersChanged(m) => st.mods = m.state(),
-            WindowEvent::KeyboardInput { event, .. } => st.on_key(event),
+            WindowEvent::KeyboardInput { event, is_synthetic, .. } => {
+                if reaches_program(event.state, is_synthetic) {
+                    st.on_key(event)
+                }
+            }
             WindowEvent::Ime(Ime::Commit(text)) => {
                 if !text.is_empty() && !st.world.shown {
                     let bytes = input::encode_text(&text, st.mode());
@@ -1408,11 +1536,21 @@ impl ApplicationHandler<UiEvent> for App {
                 }
             }
             WindowEvent::CursorMoved { position, .. } => st.on_mouse_move(position.x as f32, position.y as f32),
+            WindowEvent::CursorLeft { .. } => st.link_unhover(),
             WindowEvent::MouseInput { state, button, .. } => st.on_mouse_button(button, state),
             WindowEvent::MouseWheel { delta, .. } => st.on_wheel(delta),
             _ => {}
         }
     }
+}
+
+/// Is this key event typing? When the window gains focus the window library
+/// invents a press for every key that is already down (the Enter still held
+/// from launching it, say); those are not the person typing into this
+/// window, so they never reach the program. Invented releases (focus lost
+/// with a key down) still go through: they only end a press the program saw.
+fn reaches_program(state: ElementState, is_synthetic: bool) -> bool {
+    !(is_synthetic && state == ElementState::Pressed)
 }
 
 /// Remove measurement files left by windows that closed more than a day ago.
@@ -1465,5 +1603,17 @@ mod tests {
         }
         // After -e the words are the program's own.
         assert_eq!(a(&["-e", "tool.exe", "--attach"]), Ok(None));
+    }
+
+    /// The Enter that launched the window, still held as it gains focus,
+    /// must not run an empty line: invented presses are dropped, and
+    /// everything else (real presses, real and invented releases) passes.
+    #[test]
+    fn keys_held_while_focus_arrives_are_not_typed() {
+        use winit::event::ElementState::{Pressed, Released};
+        assert!(!super::reaches_program(Pressed, true), "an invented press reached the program");
+        assert!(super::reaches_program(Pressed, false));
+        assert!(super::reaches_program(Released, false));
+        assert!(super::reaches_program(Released, true), "an invented release must still end the press");
     }
 }

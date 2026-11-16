@@ -23,11 +23,15 @@ pub struct Config {
     /// Journals older than this, or beyond the size cap (oldest first), are deleted.
     pub journal_days: u64,
     pub journal_max_mb: u64,
+    /// Ctrl+click on a file link opens it with this command, {path}, {line}
+    /// and {col} filled in (e.g. `code --goto {path}:{line}:{col}`); empty
+    /// means the system's own choice for the file, at its start.
+    pub editor: String,
 }
 
 impl Default for Config {
     fn default() -> Self {
-        Self { font_pt: 15.0, reveal: true, light: 1.0, sound: true, volume: 0.5, update: "auto".into(), shell: String::new(), shell_args: Vec::new(), journal_days: 14, journal_max_mb: 2048 }
+        Self { font_pt: 15.0, reveal: true, light: 1.0, sound: true, volume: 0.5, update: "auto".into(), shell: String::new(), shell_args: Vec::new(), journal_days: 14, journal_max_mb: 2048, editor: String::new() }
     }
 }
 
@@ -52,6 +56,7 @@ impl Config {
                 .unwrap_or_default(),
             journal_days: v["journal_days"].as_u64().unwrap_or(d.journal_days).clamp(1, 3650),
             journal_max_mb: v["journal_max_mb"].as_u64().unwrap_or(d.journal_max_mb).clamp(16, 1 << 20),
+            editor: v["editor"].as_str().unwrap_or("").trim().to_string(),
         }
     }
 
@@ -68,6 +73,7 @@ impl Config {
             "shell_args": self.shell_args,
             "journal_days": self.journal_days,
             "journal_max_mb": self.journal_max_mb,
+            "editor": self.editor,
         });
         serde_json::to_string_pretty(&v).unwrap_or_default()
     }
