@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "If you use PROTEUS in research or writing, please cite it."
+title: "PROTEUS: a GPU terminal that is the system of record for people and AI agents"
+type: software
+authors:
+  - alias: karimalsalah
+repository-code: "https://github.com/karimalsalah/proteus"
+license: MIT
+keywords: [terminal, gpu, windows, ai-agents, mcp, conpty]
