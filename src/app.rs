@@ -473,6 +473,18 @@ impl State {
         self.renderer.cell_at(self.mouse.0, self.mouse.1, self.terminal.cols, self.terminal.rows)
     }
 
+    /// A program asked to write the clipboard (OSC 52). Any printed text can
+    /// ask (a fetched page, a hostile git log), so only a window the person is
+    /// looking at may, and only a sensible amount; each write is logged (audit T1).
+    fn program_copy(&mut self, text: String) {
+        if !self.focused || text.len() > 8 << 10 {
+            paths::log(&format!("clipboard: refused a program's copy of {} bytes (focused: {})", text.len(), self.focused));
+            return;
+        }
+        paths::log(&format!("clipboard: a program copied {} characters", text.chars().count()));
+        self.set_clipboard(text);
+    }
+
     fn set_clipboard(&mut self, text: String) {
         if let Some(c) = self.clipboard.as_mut() {
             let _ = c.set_text(text);
@@ -504,6 +516,12 @@ impl State {
             return;
         }
         let bracketed = self.mode().contains(TermMode::BRACKETED_PASTE);
+        // A program that does not mark pastes (cmd.exe) runs a pasted line the
+        // moment its newline arrives; a paste never presses Enter by itself (audit T1).
+        let text = if bracketed { text } else { text.trim_end_matches(['\r', '\n']).to_string() };
+        if text.is_empty() {
+            return;
+        }
         self.send(input::encode_paste(&text, bracketed));
     }
 
@@ -1301,7 +1319,7 @@ impl ApplicationHandler<UiEvent> for App {
             }
             UiEvent::Title(t) => st.window.set_title(&format!("{t} - PROTEUS")),
             UiEvent::Bell => st.sound.play(Heard::Bell),
-            UiEvent::Clipboard(s) => st.set_clipboard(s),
+            UiEvent::Clipboard(s) => st.program_copy(s),
             // A frame is asked for only while the World view is up: on the
             // grid nothing changes because a process started.
             UiEvent::Proc { event, live } => {

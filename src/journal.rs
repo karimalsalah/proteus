@@ -109,6 +109,19 @@ pub fn prune_plan(files: &[(std::path::PathBuf, u64, u64)], max_age: u64, max_to
     out
 }
 
+/// Is this file open in any process? An exclusive open fails while another
+/// handle exists, which is how a journal still being written is recognised.
+#[cfg(windows)]
+fn in_use(p: &Path) -> bool {
+    use std::os::windows::fs::OpenOptionsExt;
+    std::fs::OpenOptions::new().read(true).share_mode(0).open(p).is_err()
+}
+
+#[cfg(not(windows))]
+fn in_use(_p: &Path) -> bool {
+    false
+}
+
 /// Apply the retention policy to a journal directory. Returns how many files went.
 pub fn prune(dir: &Path, max_age_days: u64, max_total_mb: u64) -> usize {
     let Ok(entries) = std::fs::read_dir(dir) else { return 0 };
@@ -123,6 +136,9 @@ pub fn prune(dir: &Path, max_age_days: u64, max_total_mb: u64) -> usize {
         .collect();
     prune_plan(&files, max_age_days * 86_400, max_total_mb << 20, 3600)
         .iter()
+        // A journal some daemon still has open belongs to a live session, however
+        // long it has been quiet: never delete it (audit S1).
+        .filter(|p| !in_use(p))
         .filter(|p| {
             // A journal's keyframe index (recall.rs) is only a cache of it and goes with it.
             let _ = std::fs::remove_file(p.with_extension("prtk"));
@@ -144,6 +160,7 @@ mod tests {
         assert_eq!(prune_plan(&files, 14 * day, u64::MAX, 3600), vec![std::path::PathBuf::from("ancient")]);
         // Size cap: newest are kept first; the live file is safe even though it alone exceeds the cap.
         let gone = prune_plan(&files, 14 * day, 950, 3600);
+        let _ = &gone;
         assert_eq!(gone, vec![std::path::PathBuf::from("recent"), "big".into(), "ancient".into()]);
         assert!(prune_plan(&files, 0, 0, u64::MAX).is_empty());
     }
@@ -170,5 +187,30 @@ mod tests {
         let (_, recs) = read(&p).unwrap();
         assert_eq!(recs.len(), 2);
         let _ = std::fs::remove_file(&p);
+    }
+
+    /// A journal still open in a running session is never pruned, however old
+    /// or large (audit S1); one that is closed is.
+    #[test]
+    fn a_journal_that_is_still_open_is_never_pruned() {
+        let dir = std::env::temp_dir().join(format!("proteus-prune-live-{}", std::process::id()));
+        let _ = std::fs::remove_dir_all(&dir);
+        std::fs::create_dir_all(&dir).unwrap();
+        let live = dir.join("live.prtj");
+        let closed = dir.join("closed.prtj");
+        let mut w = JournalWriter::create(&live, &serde_json::json!({})).unwrap();
+        w.record(K_OUTPUT, b"still running").unwrap();
+        w.flush().unwrap();
+        drop(JournalWriter::create(&closed, &serde_json::json!({})).unwrap());
+        // Both look ancient: a maximum age of zero days and no size budget.
+        let old = std::time::SystemTime::now() - std::time::Duration::from_secs(30 * 86_400);
+        for p in [&live, &closed] {
+            std::fs::File::options().write(true).open(p).unwrap().set_modified(old).unwrap();
+        }
+        assert_eq!(prune(&dir, 0, 0), 1, "only the closed journal goes");
+        assert!(live.exists() && !closed.exists());
+        drop(w);
+        assert_eq!(prune(&dir, 0, 0), 1, "once its session has ended, it can go");
+        let _ = std::fs::remove_dir_all(&dir);
     }
 }
