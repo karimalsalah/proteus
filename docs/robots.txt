@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://karimalsalah.github.io/proteus/sitemap.xml

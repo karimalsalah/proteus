@@ -1,0 +1,778 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PROTEUS — The terminal as system of record for people and AI agents</title>
+  <meta name="description" content="A GPU terminal for Windows (Rust, wgpu) that journals every session, sees every process through a Windows job object, undoes shell commands, renders any past instant, and serves AI agents over MCP. MIT.">
+  <meta name="theme-color" content="#05070d">
+  <link rel="canonical" href="https://karimalsalah.github.io/proteus/">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='2' y='2' width='60' height='60' rx='14' fill='%23070e18' stroke='%235ee6ff' stroke-opacity='0.45' stroke-width='2'/%3E%3Cpath d='M18 20L32 32L18 44' fill='none' stroke='%23dfe6f0' stroke-width='5.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Crect x='40' y='19' width='6' height='26' rx='3' fill='%235ee6ff'/%3E%3C/svg%3E">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="PROTEUS">
+  <meta property="og:title" content="PROTEUS — The terminal as system of record for people and AI agents">
+  <meta property="og:description" content="A GPU terminal for Windows that remembers every session, sees every process, undoes shell commands, and gives AI agents a real terminal to drive over MCP. One self-contained exe. MIT.">
+  <meta property="og:url" content="https://karimalsalah.github.io/proteus/">
+  <meta property="og:image" content="https://karimalsalah.github.io/proteus/media/world.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1600">
+  <meta property="og:image:height" content="900">
+  <meta property="og:image:alt" content="A real cargo build and failing build replayed from a PROTEUS session journal in the world view, showing the process tree, timeline spans, and output rate bars.">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PROTEUS — The terminal as system of record">
+  <meta name="twitter:description" content="A GPU terminal for Windows that journals every session, sees every process, undoes shell commands, and gives AI agents a real terminal over MCP.">
+  <meta name="twitter:image" content="https://karimalsalah.github.io/proteus/media/world.png">
+  <meta name="twitter:image:alt" content="A real cargo build and failing build replayed from a PROTEUS session journal in the world view.">
+
+  <link rel="preload" href="fonts/MapleMono-NF-Regular.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="fonts/MapleMono-NF-Bold.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "@id": "https://karimalsalah.github.io/proteus/#software",
+    "name": "PROTEUS",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Windows 11",
+    "softwareVersion": "0.5.3",
+    "description": "A GPU terminal for Windows that remembers every session, sees every process, undoes shell commands, and gives AI agents a real terminal to drive over MCP. One self-contained exe. No install.",
+    "url": "https://karimalsalah.github.io/proteus/",
+    "downloadUrl": "https://github.com/karimalsalah/proteus/releases/latest/download/PROTEUS.exe",
+    "codeRepository": "https://github.com/karimalsalah/proteus",
+    "releaseNotes": "https://github.com/karimalsalah/proteus/blob/main/CHANGELOG.md",
+    "license": "https://github.com/karimalsalah/proteus/blob/main/LICENSE",
+    "image": "https://karimalsalah.github.io/proteus/media/world.png",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="#top" aria-label="PROTEUS home">
+        <span class="brand-mark" aria-hidden="true">
+          <span class="brand-chevron">&gt;</span><span class="brand-cursor">|</span>
+        </span>
+        <span>PROTEUS</span>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#why">Why</a>
+        <a href="#capabilities">Capabilities</a>
+        <a href="#agents">For agents</a>
+        <a href="#install">Install</a>
+        <a href="#not-done">What is not done</a>
+        <a href="https://github.com/karimalsalah/proteus">GitHub</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="btn btn-primary btn-sm" href="https://github.com/karimalsalah/proteus/releases/latest/download/PROTEUS.exe">Download .exe</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Hero -->
+    <section id="top" class="hero" aria-labelledby="hero-title">
+      <div class="wrap">
+        <p class="eyebrow">
+          <span class="eyebrow-dot" aria-hidden="true"></span>
+          <span>Windows 11 · Rust + wgpu · MIT</span>
+        </p>
+
+        <h1 id="hero-title">The terminal is where every command passes. So make it the system of record.</h1>
+
+        <p class="hero-lead">
+          A GPU terminal for Windows that remembers every session, sees every process, undoes shell commands, and gives AI agents a real terminal to drive over MCP. One self-contained exe. No install.
+        </p>
+
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="https://github.com/karimalsalah/proteus/releases/latest/download/PROTEUS.exe">Download PROTEUS.exe</a>
+          <a class="btn btn-secondary" href="#install">Install &amp; MCP setup</a>
+          <a class="btn btn-secondary" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json">Read the ledger</a>
+        </div>
+
+        <div class="hero-metrics" aria-label="Measured numbers from forge/ledger.json">
+          <div class="metric-chip">
+            <span class="metric-val">
+              <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L22" aria-label="0.00% CPU idle in ledger line 22">0.00%</a>
+              CPU ·
+              <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L23" aria-label="0 frames when idle in ledger line 23">0</a>
+              frames
+            </span>
+            <span class="metric-label">Idle cost when nothing changes, checked by the gate on every build</span>
+          </div>
+          <div class="metric-chip">
+            <span class="metric-val">
+              <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L16" aria-label="6.1 to 7.8 ms median typing latency in ledger line 16">6.1–7.8 ms</a>
+              p50
+            </span>
+            <span class="metric-label">Key-to-present echo latency through the daemon (includes shell echo)</span>
+          </div>
+          <div class="metric-chip">
+            <span class="metric-val">
+              <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L52" aria-label="16.9 MB executable size in ledger line 52">16.9 MB</a>
+            </span>
+            <span class="metric-label">One standalone exe: bundled ConPTY, Maple Mono NF, icon, updater</span>
+          </div>
+          <div class="metric-chip">
+            <span class="metric-val">
+              <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L77" aria-label="219 plus 9 passing tests in ledger line 77">219 + 9</a>
+              tests
+            </span>
+            <span class="metric-label">Full gate passing with real processes, temp files, and session journals</span>
+          </div>
+        </div>
+
+        <figure class="stage-frame">
+          <div class="stage-bar">
+            <span class="stage-title">
+              <span class="stage-glyph" aria-hidden="true">&gt;_</span>
+              <span>proteus shot --world --journal ... · Ctrl+Shift+W</span>
+            </span>
+            <button type="button" class="motion-toggle" data-toggle-media="hero-world-img" aria-pressed="false">Still frame</button>
+          </div>
+          <div class="stage-body">
+            <picture>
+              <source srcset="media/world.png" media="(prefers-reduced-motion: reduce)">
+              <img
+                id="hero-world-img"
+                src="media/world.gif"
+                data-animated-src="media/world.gif"
+                data-static-src="media/world.png"
+                alt="A cargo build unfolding in the world view: every node is a real process the session started, every bar a real span, every colour a real exit code"
+                width="1200"
+                height="675"
+                fetchpriority="high">
+            </picture>
+          </div>
+        </figure>
+        <p class="stage-caption">
+          A real <code>cargo build</code> (and one that fails), replayed from its journal in the world view. Every node is a process the session started, with its command line and exit code, reported by Windows itself. Nothing in this picture is drawn for decoration. Tested headless through <code>proteus shot</code> (<a href="https://github.com/karimalsalah/proteus/issues/5">issue #5</a> asks for the first live run in a window).
+        </p>
+      </div>
+    </section>
+
+    <!-- Why -->
+    <section id="why" class="section" aria-labelledby="why-title">
+      <div class="wrap">
+        <div class="section-header">
+          <p class="section-kicker">Why</p>
+          <h2 id="why-title">Today the terminal forgets everything the moment it scrolls away.</h2>
+          <p>
+            Every command you run, and every command your AI agents run, goes through a terminal. Yet a normal terminal cannot tell you what a build spawned, which process failed, what the screen said ten minutes ago, or how to put the files back. PROTEUS keeps all of that.
+          </p>
+        </div>
+
+        <div class="why-grid">
+          <article class="card card-accent">
+            <span class="card-tag">&gt; Remember</span>
+            <h3>It remembers.</h3>
+            <p>
+              Every session is journaled with timestamps. Any past instant renders cleanly (<a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L77">12 of 12</a> seeks identical to full replay in the gate; live <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L77">8.4 MB</a> session re-rendered at <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L77">128x30</a>).
+            </p>
+          </article>
+
+          <article class="card">
+            <span class="card-tag">&gt; Sense</span>
+            <h3>It senses.</h3>
+            <p>
+              Windows reports every process a session starts — command line, parent, exit code, CPU time — through a job object. No shell hooks required.
+            </p>
+          </article>
+
+          <article class="card">
+            <span class="card-tag">&gt; Undo</span>
+            <h3>It undoes.</h3>
+            <p>
+              <code>proteus run -- &lt;cmd&gt;</code> snapshots the working tree before and after. <code>proteus chronicle undo</code> puts it back as a dry run until you pass <code>--apply</code>.
+            </p>
+          </article>
+
+          <article class="card">
+            <span class="card-tag">&gt; Serve agents</span>
+            <h3>It serves agents.</h3>
+            <p>
+              <code>proteus mcp</code> gives any MCP client real sessions it can spawn, type into, wait on without polling, read without escape-code noise, and inspect as PNG images.
+            </p>
+          </article>
+
+          <article class="card card-accent">
+            <span class="card-tag">&gt; Zero idle tax</span>
+            <h3>It costs nothing when idle.</h3>
+            <p>
+              <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L13">0.0%</a> GPU, <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L22">0.00%</a> CPU, and <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L23">0</a> frames drawn while nothing changes, verified on every gate run.
+            </p>
+          </article>
+
+          <article class="card">
+            <span class="card-tag">&gt; Self-contained</span>
+            <h3>One file, no installer.</h3>
+            <p>
+              Fonts, application icon, and Microsoft ConPTY (<a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L72">1.24</a>) live inside the <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L52">16.9 MB</a> executable and unpack at run time into <code>%LOCALAPPDATA%\proteus</code>.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- What it does: visual renders + system tiles -->
+    <section id="capabilities" class="section" aria-labelledby="cap-title">
+      <div class="wrap">
+        <div class="section-header">
+          <p class="section-kicker">What it does</p>
+          <h2 id="cap-title">Real renders from PROTEUS, driven only by real events.</h2>
+          <p>
+            Every image below was rendered headless by <code>proteus shot</code> from real sessions and samples — never mocked in an illustration tool.
+          </p>
+        </div>
+
+        <div class="feature-stack">
+          <!-- Time travel -->
+          <article class="feature-row">
+            <div class="feature-copy">
+              <h3>Time travel</h3>
+              <p>
+                <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>←</kbd> steps back through a session, output event by output event. The bar is the session's real output rate over its whole life.
+              </p>
+              <p>
+                Keyframes make past moments reachable directly; <code>proteus recall find TEXT</code> reports when text was on screen, and <code>proteus shot --journal F --until SECS</code> renders the screen as it stood at that moment.
+              </p>
+              <p class="feature-meta">
+                Gate check: <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L77">12 of 12</a> seeks identical to full replay; replayed history never answers queries (<a href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L49">ledger#L49</a>).
+              </p>
+            </div>
+            <div class="feature-media">
+              <figure class="stage-frame stage-frame--subtle">
+                <div class="stage-bar">
+                  <span class="stage-title"><span class="stage-glyph" aria-hidden="true">&gt;_</span><span>proteus shot --journal ... --scrub</span></span>
+                </div>
+                <div class="stage-body">
+                  <img
+                    src="media/scrub.png"
+                    alt="A session shown as it stood in the past, with the scrub bar showing timestamps, output event count, and output rate bars"
+                    width="1600"
+                    height="900"
+                    loading="lazy"
+                    decoding="async">
+                </div>
+              </figure>
+            </div>
+          </article>
+
+          <!-- Light from real events -->
+          <article class="feature-row feature-row--flip">
+            <div class="feature-copy">
+              <h3>Light from real events</h3>
+              <p>
+                Text that lands in an empty cell unfolds left to right in the shader (<a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L38">--reveal-ms 110</a>) and casts light in its own colour through a quarter-resolution buffer. Bulk output is calmed, and scroll does not re-animate.
+              </p>
+              <p>
+                Spinners and in-place edits swap instantly. With one cell changing every <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L59">100 ms</a>, rendering drops from <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L59">103 frames/s</a> (<a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L59">5.65%</a> CPU, <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L59">13.2%</a> GPU) to <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L59">9 frames/s</a> (<a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L59">0.50%</a> CPU, <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L59">1.05%</a> GPU). Nothing animates when nothing happens.
+              </p>
+              <p class="feature-meta">
+                Light field costs <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L58">~0.5–0.9 s</a> CPU over an <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L58">11 s</a> bench (~<a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L58">5%</a> of a core while text arrives); idle stays <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L58">0.00%</a>.
+              </p>
+            </div>
+            <div class="feature-media">
+              <figure class="stage-frame stage-frame--subtle">
+                <div class="stage-bar">
+                  <span class="stage-title"><span class="stage-glyph" aria-hidden="true">&gt;_</span><span>proteus shot --vt forge/samples/basic.vt --reveal-ms 110</span></span>
+                  <button type="button" class="motion-toggle" data-toggle-media="reveal-img" aria-pressed="false">Still frame</button>
+                </div>
+                <div class="stage-body">
+                  <picture>
+                    <source srcset="media/basic.png" media="(prefers-reduced-motion: reduce)">
+                    <img
+                      id="reveal-img"
+                      src="media/reveal.gif"
+                      data-animated-src="media/reveal.gif"
+                      data-static-src="media/basic.png"
+                      alt="Text arriving: each glyph unfolds and casts light as it lands"
+                      width="1200"
+                      height="600"
+                      loading="lazy"
+                      decoding="async">
+                  </picture>
+                </div>
+              </figure>
+            </div>
+          </article>
+
+          <!-- Drawn by the engine -->
+          <article class="feature-row">
+            <div class="feature-copy">
+              <h3>Drawn by the engine</h3>
+              <p>
+                Box drawing (light, heavy, rounded, double, mixed junctions), blocks, braille, and powerline are drawn by the GPU rather than the font, so lines join cleanly at any size.
+              </p>
+              <p>
+                Undercurl is a real wave; dotted and dashed underlines carry their own SGR colour. Unmodified Maple Mono NF (<a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L78">v8.0-beta.3</a>) handles text, paired with <a href="fonts/OFL.txt">SIL OFL 1.1</a> licensing inside the binary.
+              </p>
+              <p class="feature-meta">
+                Honest caveat: double-line boxes and undercurl are approximations; colour emoji render monochrome and ligatures are not shaped yet (<a href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L88">ledger#L88</a>).
+              </p>
+            </div>
+            <div class="feature-media">
+              <figure class="stage-frame stage-frame--subtle">
+                <div class="stage-bar">
+                  <span class="stage-title"><span class="stage-glyph" aria-hidden="true">&gt;_</span><span>proteus shot --vt forge/samples/draw.vt</span></span>
+                </div>
+                <div class="stage-body">
+                  <img
+                    src="media/draw.png"
+                    alt="Engine-drawn boxes, junctions, diagonals, and underline styles including plain, double, undercurl wave, dotted, and dashed underlines"
+                    width="1600"
+                    height="733"
+                    loading="lazy"
+                    decoding="async">
+                </div>
+              </figure>
+            </div>
+          </article>
+
+          <!-- Instanced GPU grid & first light -->
+          <article class="feature-row feature-row--flip">
+            <div class="feature-copy">
+              <h3>Instanced GPU grid &amp; theme queries</h3>
+              <p>
+                Backgrounds, glyphs, underlines, and the cursor render as one instanced GPU grid rebuilt only on change (<a href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L37">ledger#L37</a>). PROTEUS answers colour queries (OSC <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L46">4/10/11</a>) from its theme so agents can adopt it.
+              </p>
+              <p class="feature-meta">
+                Measured grid build: <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L25">100–220 us</a> average, <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L25">1532 us</a> max (<a href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L25">ledger#L25</a>).
+              </p>
+            </div>
+            <div class="feature-media">
+              <figure class="stage-frame stage-frame--subtle">
+                <div class="stage-bar">
+                  <span class="stage-title"><span class="stage-glyph" aria-hidden="true">&gt;_</span><span>proteus shot --vt forge/samples/basic.vt</span></span>
+                </div>
+                <div class="stage-body">
+                  <img
+                    src="media/basic.png"
+                    alt="PROTEUS first light specimen showing ANSI colours, rounded and heavy boxes, blocks, braille, powerline, wide CJK glyphs, monochrome emoji, and the cyan cursor glow"
+                    width="1600"
+                    height="733"
+                    loading="lazy"
+                    decoding="async">
+                </div>
+              </figure>
+            </div>
+          </article>
+        </div>
+
+        <!-- Secondary Capabilities -->
+        <div class="systems-grid">
+          <article class="card">
+            <h3>Sessions outlive windows</h3>
+            <p>
+              A daemon inside the same exe holds sessions (<code>proteusd-2.sock</code>). Close the window, open another, and reattach cleanly from the journal with no gap. <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd> detaches (<a href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L48">ledger#L48</a>, <a href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L62">ledger#L62</a>).
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Undo for the shell</h3>
+            <p>
+              Content-addressed history of the working tree. Restore is a dry run until you pass <code>--apply</code>, never follows links out of the tree, and snapshots first.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Sound from events</h3>
+            <p>
+              Computed, not sampled: key ticks, text grains (capped at <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L66">400 ms</a> in a flood, max <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L66">12</a> voices), bell chime, exit status. Device stays paused at <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L32">0.0 ms</a> CPU over <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L32">50 s</a> between sounds.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Protocols</h3>
+            <p>
+              Kitty keyboard protocol (all <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L70">5</a> flags, push/pop/query), synchronized updates (mode <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L42">2026</a>), colour queries, OSC <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L71">7501</a> draft <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L71">0.4</a> replies, and a nonce-verified mark scanner (<a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L71">0 of 10,000</a> forged marks trusted).
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Signed self-update</h3>
+            <p>
+              Checks once a day for a newer release, verifies its Ed25519 signature, size, and SHA-256 (<a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L79">0.5.0</a> to <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L79">0.5.1</a> verified live; tampered bytes refused). No downgrades; <code>"update": "off"</code> disables it. Scoop and Claude Desktop copies leave updates to their manager.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Eyes and ears</h3>
+            <p>
+              <code>proteus shot</code> renders any session, journal, or moment to PNG with no window. <code>proteus ears</code> renders every sound to WAV (<a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L28">0.199</a> peak, <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L28">0.0146</a> rms, <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L28">31</a> notes over <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L28">9.5 s</a>, silent afterwards).
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Measured Ledger -->
+    <section id="measured" class="section" aria-labelledby="measured-title">
+      <div class="wrap">
+        <div class="section-header">
+          <p class="section-kicker">Measured in forge/ledger.json</p>
+          <h2 id="measured-title">Every number links to the ledger and the command that made it.</h2>
+          <p>
+            Measured on Core Ultra 9 <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L12">285H</a>, Arc <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L12">140T</a>, <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L12">2880x1800</a> @<a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L12">120 Hz</a>, <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L12">DX12</a> (<a href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L12">ledger#L12</a>).
+          </p>
+        </div>
+
+        <div class="measured-grid">
+          <div class="measured-card">
+            <h3>Idle cost</h3>
+            <p class="measured-big">
+              <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L22">0.00%</a> CPU ·
+              <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L13">0.0%</a> GPU
+            </p>
+            <p>
+              Window <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L22">0.00%</a> (<a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L22">166 MB</a>) + daemon <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L22">0.00%</a> (<a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L22">14 MB</a>) over <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L22">12 s</a>; <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L14">0.2 s</a> CPU over <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L14">240 s</a>; <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L33">0.00%</a> with sound over <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L33">10 s</a>.
+            </p>
+          </div>
+
+          <div class="measured-card">
+            <h3>Typing key-to-present</h3>
+            <p class="measured-big">
+              <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L16">6.1–7.8 ms</a> p50
+            </p>
+            <p>
+              Through daemon (<a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L16">10.3–15.4 ms</a> p95, <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L16">19.0–19.5 ms</a> max, <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L18">67</a> keys/run). Full gate: <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L77">8.8 ms</a> p50, <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L77">14.5 ms</a> p95.
+            </p>
+          </div>
+
+          <div class="measured-card">
+            <h3>Flood &amp; grid build</h3>
+            <p class="measured-big">
+              <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L24">115–128 fps</a> ·
+              <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L25">100–220 us</a>
+            </p>
+            <p>
+              <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L24">2.7–3.0 MB/s</a> in-process and <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L24">2.07–2.10 MB/s</a> through daemon (~<a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L91">25%</a> hop cost). Grid build max <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L25">1532 us</a>.
+            </p>
+          </div>
+        </div>
+
+        <p class="measured-note">
+          Produced by <code>proteus --bench</code> and <code>pwsh forge\gate.ps1</code>. Typing numbers measure from sending the key to the frame's <code>present</code> call and include PSReadLine's own echo time (<a href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L20">ledger#L20</a>); PROTEUS does not quote speed against other terminals.
+        </p>
+      </div>
+    </section>
+
+    <!-- For AI Agents -->
+    <section id="agents" class="section" aria-labelledby="agents-title">
+      <div class="wrap">
+        <div class="section-header">
+          <p class="section-kicker">For AI agents</p>
+          <h2 id="agents-title">A real pseudo-console, a screen to look at, and patience.</h2>
+          <p>
+            <code>proteus mcp</code> speaks MCP over stdio and is listed in the <a href="https://registry.modelcontextprotocol.io/">MCP Registry</a> as <code>io.github.karimalsalah/proteus</code>.
+          </p>
+        </div>
+
+        <div class="table-shell">
+          <table class="tools-table">
+            <thead>
+              <tr>
+                <th scope="col">Tool</th>
+                <th scope="col">What it does</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>spawn</code></td>
+                <td>Start a program on a real terminal; a person can watch it live with <code>proteus --attach N</code>.</td>
+              </tr>
+              <tr>
+                <td><code>send</code></td>
+                <td>Type text and named keys; returns a cursor into the output.</td>
+              </tr>
+              <tr>
+                <td><code>wait</code></td>
+                <td>Block until a regex matches, output goes quiet, or the program exits. Event-driven, not polling.</td>
+              </tr>
+              <tr>
+                <td><code>read</code></td>
+                <td>Output since a cursor, <strong>lean</strong>: escape codes stripped, progress bars collapsed to their final state, repeats folded, errors never dropped, with raw and lean byte counts.</td>
+              </tr>
+              <tr>
+                <td><code>screen</code> / <code>shot</code></td>
+                <td>The screen as text or as a PNG, now or as it stood at any earlier moment.</td>
+              </tr>
+              <tr>
+                <td><code>sessions</code> / <code>kill</code></td>
+                <td>List and end sessions. By default an agent drives only sessions it started.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="agents-foot">
+          <span>Also available for crawlers and coding agents: <a href="llms-full.txt">llms-full.txt</a> (README + AGENTS.md + agent tools) and <a href="https://github.com/karimalsalah/proteus/blob/main/AGENTS.md">AGENTS.md</a>.</span>
+          <span>Replayed history never answers queries (<a href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L49">ledger#L49</a>).</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Install & Use -->
+    <section id="install" class="section" aria-labelledby="install-title">
+      <div class="wrap">
+        <div class="section-header">
+          <p class="section-kicker">Install &amp; use</p>
+          <h2 id="install-title">One executable on Windows 11. Zero installer.</h2>
+          <p>
+            Run it directly, install through Scoop, or connect it to Claude Desktop or Claude Code over MCP.
+          </p>
+        </div>
+
+        <div class="install-grid">
+          <article class="install-card">
+            <div>
+              <h3>Direct download</h3>
+              <p>
+                Download <code>PROTEUS.exe</code> and run it. On first run it unpacks its bundled console host and fonts into <code>%LOCALAPPDATA%\proteus</code> and self-updates after that.
+              </p>
+            </div>
+            <div>
+              <a class="btn btn-primary btn-sm" href="https://github.com/karimalsalah/proteus/releases/latest/download/PROTEUS.exe">Download PROTEUS.exe</a>
+            </div>
+          </article>
+
+          <article class="install-card">
+            <div>
+              <h3>Scoop</h3>
+              <p>
+                Install and track releases with the Scoop manifest in the repository.
+              </p>
+            </div>
+            <div class="code-block code-block--copy">
+              <pre id="cmd-scoop">scoop install https://raw.githubusercontent.com/karimalsalah/proteus/main/packaging/scoop/proteus.json</pre>
+              <button type="button" class="copy-btn" data-copy-target="cmd-scoop" data-label="Copy">Copy</button>
+            </div>
+          </article>
+
+          <article class="install-card">
+            <div>
+              <h3>Claude Desktop (<code>.mcpb</code>)</h3>
+              <p>
+                Download <code>proteus-mcp.mcpb</code> from the latest GitHub release and open it to register the MCP server in Claude Desktop.
+              </p>
+            </div>
+            <div>
+              <a class="btn btn-secondary btn-sm" href="https://github.com/karimalsalah/proteus/releases/latest">Open latest release</a>
+            </div>
+          </article>
+
+          <article class="install-card">
+            <div>
+              <h3>Claude Code (or any MCP client)</h3>
+              <p>
+                Register <code>proteus mcp</code> over stdio with your path to <code>PROTEUS.exe</code>.
+              </p>
+            </div>
+            <div class="code-block code-block--copy">
+              <pre id="cmd-mcp">claude mcp add --scope user --transport stdio proteus -- "C:\path\to\PROTEUS.exe" mcp</pre>
+              <button type="button" class="copy-btn" data-copy-target="cmd-mcp" data-label="Copy">Copy</button>
+            </div>
+          </article>
+        </div>
+
+        <div class="callout" role="note">
+          <strong>Windows SmartScreen:</strong> SmartScreen will say "unknown publisher" on first run because the exe is not yet signed with a Windows code-signing certificate. Choose <em>More info → Run anyway</em>, or check the download against the signed <code>PROTEUS.manifest</code> in the <a href="https://github.com/karimalsalah/proteus/releases/latest">release</a>.
+        </div>
+
+        <div class="cli-grid">
+          <div class="code-block">
+            <pre>proteus                          # window on a new session, or the one you left
+proteus sessions                 # what the daemon is running
+proteus run -- cargo test        # one undoable step
+proteus chronicle undo           # dry run; add --apply to perform it
+proteus procs --journal F --tree # every process a session started
+proteus recall find "error[E"    # when it was on screen
+proteus shot --journal F --until SECS --out then.png
+proteus update --check           # is there a newer signed release</pre>
+          </div>
+
+          <div class="card">
+            <h3>Window keys &amp; config</h3>
+            <ul class="shortcut-list">
+              <li><span>World view</span> <kbd>Ctrl+Shift+W</kbd></li>
+              <li><span>Step through time</span> <kbd>Ctrl+Shift+← / →</kbd></li>
+              <li><span>Jump to start / now</span> <kbd>Home / End</kbd></li>
+              <li><span>Detach (keep session alive)</span> <kbd>Ctrl+Shift+D</kbd></li>
+              <li><span>Reset keyboard protocol</span> <kbd>Ctrl+Shift+Delete</kbd></li>
+            </ul>
+            <p class="stage-caption">
+              Settings live in <code>%LOCALAPPDATA%\proteus\config.json</code>: <code>font_pt</code>, <code>reveal</code>, <code>light</code>, <code>sound</code>, <code>volume</code>, <code>update</code>, <code>shell</code>, <code>journal_days</code>, <code>journal_max_mb</code>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What is not done (prominent, honest) + Roadmap + Changelog -->
+    <section id="not-done" class="section" aria-labelledby="not-done-title">
+      <div class="wrap">
+        <div class="honest-panel">
+          <div class="honest-head">
+            <div>
+              <p class="section-kicker">Honest limits</p>
+              <h2 id="not-done-title">What is not done</h2>
+            </div>
+            <span class="honest-badge">EARLY · TESTED HEADLESS · WINDOWS ONLY</span>
+          </div>
+
+          <p>
+            PROTEUS is early: one person's daily terminal, built in the open. Please read this before trusting it with anything. Full known issues live in <a href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L83">forge/ledger.json</a>.
+          </p>
+
+          <div class="not-done-grid">
+            <article class="not-done-item">
+              <h3>Three views not yet driven live</h3>
+              <p>
+                The world view, time scrubbing, and <code>--attach</code> are tested headless through <code>proteus shot</code> (that is how the images on this page were made). <a href="https://github.com/karimalsalah/proteus/issues/5">Issue #5</a> asks for the first real try.
+              </p>
+            </article>
+
+            <article class="not-done-item">
+              <h3>Agent tool commands seen only as processes</h3>
+              <p>
+                Harnesses run each tool command in a separate process, so a pane running an agent journals its UI rather than tool output. Routing them into PROTEUS sessions is <a href="https://github.com/karimalsalah/proteus/issues/3">issue #3</a>.
+              </p>
+            </article>
+
+            <article class="not-done-item">
+              <h3>Command boundaries &amp; OSC 7501 status</h3>
+              <p>
+                Command boundaries are built but not switched on by default (<a href="https://github.com/karimalsalah/proteus/issues/1">issue #1</a>). Agent status (OSC <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L104">7501</a>) is answered at the source, not yet journaled or shown (<a href="https://github.com/karimalsalah/proteus/issues/2">issue #2</a>).
+              </p>
+            </article>
+
+            <article class="not-done-item">
+              <h3>Undo scope &amp; plaintext journals</h3>
+              <p>
+                Undo covers files in the tracked tree only — not network, registry, databases, or anything in <code>.gitignore</code>. Journals are plaintext and uncompressed, holding everything printed (<a href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L86">ledger#L86</a>, <a href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L92">ledger#L92</a>).
+              </p>
+            </article>
+
+            <article class="not-done-item">
+              <h3>Windows only · no sandbox</h3>
+              <p>
+                PROTEUS observes; it does not contain. Sessions inherit the launching process's token without lowering privileges (<a href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L103">ledger#L103</a>).
+              </p>
+            </article>
+
+            <article class="not-done-item">
+              <h3>Untuned sound, light, and rendering gaps</h3>
+              <p>
+                Nobody has tuned sound or the light field by ear and eye (<a href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L95">ledger#L95</a>, <a href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L97">ledger#L97</a>). No colour emoji, ligatures, or images yet; OSC <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L104">8</a> links are parsed but not drawn; attach replays the whole journal; <code>vim</code> is untested.
+              </p>
+            </article>
+          </div>
+        </div>
+
+        <div id="roadmap" class="roadmap-strip">
+          <div class="section-header">
+            <p class="section-kicker">What comes next</p>
+            <h2>Ranked roadmap, each item with success and kill criteria.</h2>
+            <p>
+              The full research-backed ranking lives in <a href="https://github.com/karimalsalah/proteus/blob/main/forge/roadmap.md">forge/roadmap.md</a>. Every item states the measurement that proves it worked and the reading that means drop it.
+            </p>
+          </div>
+
+          <div class="roadmap-grid">
+            <article class="card">
+              <h3>Command boundaries as journal records</h3>
+              <p>
+                Switch on the pre-parser OSC scanner and injected shell marks so command text, exit status, and exact journal byte ranges become one record.
+              </p>
+            </article>
+            <article class="card">
+              <h3>Agent state &amp; attention queue</h3>
+              <p>
+                Surface OSC <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L71">7501</a> (draft <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L71">0.4</a>) and OSC <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L71">9;4</a> progress through one attention queue, with one key jumping to the oldest blocked session.
+              </p>
+            </article>
+            <article class="card">
+              <h3>Staged instruments &amp; real-program gate</h3>
+              <p>
+                Native staged flood emitter, swap-chain acquire wait, key-to-vblank timing, recorded agent sessions in the gate, and a differential VT check.
+              </p>
+            </article>
+            <article class="card">
+              <h3>Routed agent commands &amp; de-elevation</h3>
+              <p>
+                Route agent shell calls through one consented hook addressed by command id, assign job lists at process creation, and default sessions to Medium integrity.
+              </p>
+            </article>
+          </div>
+        </div>
+
+        <div id="changelog" class="roadmap-strip">
+          <div class="section-header">
+            <p class="section-kicker">Releases</p>
+            <h2>Changelog</h2>
+            <p>
+              Signed builds and SHA-256 manifests live in <a href="https://github.com/karimalsalah/proteus/releases">Releases</a> and <a href="https://github.com/karimalsalah/proteus/blob/main/CHANGELOG.md">CHANGELOG.md</a>.
+            </p>
+          </div>
+
+          <ul class="changelog-list">
+            <li>
+              <a class="changelog-ver" href="https://github.com/karimalsalah/proteus/blob/main/CHANGELOG.md#L5">0.5.3</a>
+              <p>Claude Desktop bundle (<code>proteus-mcp.mcpb</code>), MCP Registry listing (<code>io.github.karimalsalah/proteus</code>), Scoop manifest, and sample journals in the repo.</p>
+            </li>
+            <li>
+              <a class="changelog-ver" href="https://github.com/karimalsalah/proteus/blob/main/CHANGELOG.md#L12">0.5.2</a>
+              <p>Updater asks GitHub's API for the newest tag rather than relying on the latest-download link (<a href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L79">ledger#L79</a>).</p>
+            </li>
+            <li>
+              <a class="changelog-ver" href="https://github.com/karimalsalah/proteus/blob/main/CHANGELOG.md#L16">0.5.1</a>
+              <p>First live update delivered and verified byte-identical through the Ed25519 signed channel (<a href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L79">ledger#L79</a>).</p>
+            </li>
+            <li>
+              <a class="changelog-ver" href="https://github.com/karimalsalah/proteus/blob/main/CHANGELOG.md#L20">0.5.0</a>
+              <p>First public build: signed self-update, job-object process senses, world view, time travel, tree history and undo, MCP server, kitty keyboard, sound from events.</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div>
+        <nav class="footer-links" aria-label="Project links">
+          <a href="https://github.com/karimalsalah/proteus">Repository</a>
+          <a href="https://github.com/karimalsalah/proteus/releases">Releases</a>
+          <a href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json">Ledger</a>
+          <a href="https://github.com/karimalsalah/proteus/blob/main/forge/roadmap.md">Roadmap</a>
+          <a href="https://github.com/karimalsalah/proteus/blob/main/CHANGELOG.md">Changelog</a>
+          <a href="https://github.com/karimalsalah/proteus/issues?q=is%3Aopen+label%3A%22good+first+issue%22">Good first issues</a>
+          <a href="https://github.com/karimalsalah/proteus/discussions">Discussions</a>
+          <a href="llms-full.txt">llms-full.txt</a>
+          <a href="sitemap.xml">sitemap.xml</a>
+        </nav>
+      </div>
+      <p class="footer-legal">
+        <a href="https://github.com/karimalsalah/proteus/blob/main/LICENSE">MIT License</a>. PROTEUS embeds Microsoft ConPTY (MIT) and unmodified Maple Mono NF (<a href="fonts/OFL.txt">SIL OFL 1.1</a>, <a href="fonts/NOTICE.txt">notice</a>). <code>proteus licenses</code> prints every bundled notice, including all <a class="ledger-num" href="https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json#L78">178</a> Rust dependencies.
+      </p>
+    </div>
+  </footer>
+
+  <script src="site.js" defer></script>
+</body>
+</html>

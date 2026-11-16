@@ -1,0 +1,75 @@
+{
+  "lane": "site",
+  "updated": "2026-11-16",
+  "done": [
+    {
+      "id": "site.pages",
+      "what": "Static GitHub Pages site in docs/ (docs/index.html, docs/styles.css, docs/site.js) with zero build step, zero external trackers, zero analytics, near-black ground (#05070d), single cyan accent (#5ee6ff), and unmodified Maple Mono NF fonts copied from assets/fonts/ with OFL.txt and NOTICE.txt beside them",
+      "evidence": "Python html.parser + asset + font SHA-256 + contrast + forbidden-string audit after final edits: 0 HTML errors, 0 unclosed tags, 21 local HTML refs verified, 4 CSS font url() refs verified, 5 imgs verified, 39 unique forge/ledger.json line anchors verified, 6/6 font file SHA-256 hashes match assets/fonts/, 0 forbidden hits"
+    },
+    {
+      "id": "site.content",
+      "what": "Hero with docs/media/world.gif (swapping to docs/media/world.png under prefers-reduced-motion or the Still frame toggle), Why section, Time travel (scrub.png), Light from real events (reveal.gif / basic.png), Drawn by the engine (draw.png), Instanced GPU grid (basic.png), measured ledger cards, MCP agent tools table, 4-path Install (direct exe, Scoop, Claude Desktop .mcpb, claude mcp add), prominent What is not done section, Roadmap summary, Changelog, and repo/releases/roadmap/ledger links; every number sourced from forge/ledger.json / CHANGELOG.md and linked",
+      "evidence": "docs/index.html and docs/styles.css verified against README.md, CHANGELOG.md, forge/ledger.json, and forge/roadmap.md; every media asset comes from docs/media/; mobile layout and flex code-block wrapping guarded against horizontal overflow"
+    },
+    {
+      "id": "site.metadata_and_crawlers",
+      "what": "Open Graph (including og:image:type image/png, 1600x900) and Twitter summary_large_image metadata pointing to https://karimalsalah.github.io/proteus/media/world.png, JSON-LD SoftwareApplication metadata, docs/llms-full.txt (README + AGENTS.md + agent tools section in plain text), docs/robots.txt allowing all, and docs/sitemap.xml for https://karimalsalah.github.io/proteus/",
+      "evidence": "Python json.loads verified JSON-LD SoftwareApplication; xml.etree.ElementTree parsed docs/sitemap.xml; docs/robots.txt and docs/llms-full.txt verified clean against forge/export/forbidden.txt"
+    }
+  ],
+  "measured": {
+    "html_and_asset_audit": {
+      "command": "python html.parser + asset + ledger-anchor + xml + font-sha256 + forbidden-string audit on docs/",
+      "result": "html_errors=0, unclosed=0, local_html_refs=21, missing_refs=[], css_urls=4, missing_css=[], imgs=5, unique_ledger_anchors=39, bad_anchors=[], forbidden_hits=0, fonts_sha256_match=true"
+    },
+    "contrast_ratios_on_bg": {
+      "command": "python WCAG relative luminance contrast check against #05070d, #0b1019, and #101826",
+      "fg_on_bg": "16.03:1 (#dfe6f0 on #05070d)",
+      "muted_on_bg": "11.39:1 (#b7c4d6 on #05070d)",
+      "dim_on_surface": "6.84:1 (#8d9cb3 on #0b1019)",
+      "accent_on_bg": "13.66:1 (#5ee6ff on #05070d)",
+      "btn_primary": "13.66:1 (#05070d on #5ee6ff)"
+    },
+    "file_sizes_bytes": {
+      "docs_index_html": 48925,
+      "docs_styles_css": 19745,
+      "docs_site_js": 1992,
+      "docs_llms_full_txt": 12942,
+      "docs_robots_txt": 84,
+      "docs_sitemap_xml": 335
+    },
+    "cargo_build_release": {
+      "command": "$env:CARGO_BUILD_JOBS = 3; $env:PROTEUS_SOUND = 'off'; cargo build --release",
+      "result": "0 compiler warnings (no Rust/test/build files were modified on lane/site)"
+    },
+    "cargo_test_release_serial": {
+      "command": "$env:CARGO_BUILD_JOBS = 3; $env:PROTEUS_SOUND = 'off'; cargo test --release -- --test-threads=1",
+      "result": "219 passed, 0 failed, 9 ignored (unit, 220.84s); 9 passed, 0 failed, 4 ignored (tests/mcp.rs, 70.61s)"
+    },
+    "gate_skip_bench": {
+      "command": "$env:CARGO_BUILD_JOBS = 3; $env:PROTEUS_SOUND = 'off'; $env:RUST_TEST_THREADS = '1'; pwsh forge/gate.ps1 -SkipBench",
+      "result": "GATE PASSED (dist/proteus-20261116-200002.exe, 21 MB): 219+9 unit/mcp tests ok, standalone run ok, ears peak 0.199 rms 0.0141 38 notes silent afterwards, screenshots ok, chronicle run/undo/restore ok, recall 12 of 12 seeks identical (p50 5.99 ms with index, 6.72 ms without) scrub.png ok"
+    }
+  },
+  "known_issues": [
+    "No browser window was opened to render or run Lighthouse directly on docs/index.html; HTML parsing, asset paths, contrast ratios, JSON-LD, XML, and reduced-motion markup were verified programmatically.",
+    "The self-hosted Maple Mono NF TTF files copied into docs/fonts/ are 2.41-2.44 MB each (~9.7 MB across 4 files), kept unmodified from assets/fonts/ beside OFL.txt and NOTICE.txt without a build step.",
+    "main (8ab7c3c) added 4 lines at lines 81-84 of forge/ledger.json after lane/site branched from 46fd9ca, so the 9 links to forge/ledger.json#L83..#L104 in docs/index.html match lane/site's forge/ledger.json and sit 4 lines above their current positions on main.",
+    "Under concurrent rustc build load across parallel lanes on this host, unserialized cargo test --release (and once gate.ps1's recall cmd /c dir step) flaked on ConPTY timing/byte-count assertions in recall::tests and mcp::tests; with $env:RUST_TEST_THREADS = '1' (matching main CI) the full gate passed cleanly, and an unserialized cargo test --release run also passed 219+9 earlier when host load dipped."
+  ],
+  "next": [
+    {
+      "id": "site.live_lighthouse",
+      "what": "Run Lighthouse and visual inspection in a real browser against GitHub Pages after deployment, and check phone/desktop layout visually"
+    },
+    {
+      "id": "site.ledger_anchors_main",
+      "what": "After merging lane/site into main, verify #L83..#L104 ledger anchors against main's forge/ledger.json (or adjust by +4 if main retains its 4 extra entries)"
+    },
+    {
+      "id": "site.woff2",
+      "what": "If page transfer budget matters once published, optionally subset or compress Maple Mono NF into WOFF2 alongside OFL.txt"
+    }
+  ]
+}

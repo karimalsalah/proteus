@@ -1,0 +1,4 @@
+The embedded font is Maple Mono NF, unmodified, from the v8.0-beta.3 release of
+https://github.com/subframe7536/maple-font (MapleMono-NF-unhinted.zip, SHA-256
+93758a6e6d3969832ddd2189d0eee73b3062f2dc7ec5e329de61e66ce8c5eda3).
+Copyright 2022 The Maple Mono Project Authors. SIL Open Font License 1.1:
