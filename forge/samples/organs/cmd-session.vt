@@ -1,0 +1,18 @@
+[1t[6n[c[?1004h[?9001h[?7l[?7hMicrosoft Windows [Version 10.0.26340.9882]
+(c) Microsoft Corporation. All rights reserved.
+]0;Administrator: C:\WINDOWS\system32\cmd.exe\
+C:\Users\devusr\AppData\Local\Temp\proteus-spike-fix-29912\leanfix>[4;68Hecho hello & dir /b[4;87H[4;87H
+]0;Administrator: C:\WINDOWS\system32\cmd.exe - echo  hello \hello 
+]0;Administrator: C:\WINDOWS\system32\cmd.exe\]0;Administrator: C:\WINDOWS\system32\cmd.exe - dir  /b\Cargo.lock
+Cargo.toml
+src
+target
+]0;Administrator: C:\WINDOWS\system32\cmd.exe\
+C:\Users\devusr\AppData\Local\Temp\proteus-spike-fix-29912\leanfix>[11;68Htype nosuchfile.txt[11;87H[11;87H
+]0;Administrator: C:\WINDOWS\system32\cmd.exe - type  nosuchfile.txt\The system cannot find the file specified.
+]0;Administrator: C:\WINDOWS\system32\cmd.exe\
+C:\Users\devusr\AppData\Local\Temp\proteus-spike-fix-29912\leanfix>[14;68Hver[14;71H[14;71H
+]0;Administrator: C:\WINDOWS\system32\cmd.exe - ver\
+Microsoft Windows [Version 10.0.26340.9882]
+]0;Administrator: C:\WINDOWS\system32\cmd.exe\
+C:\Users\devusr\AppData\Local\Temp\proteus-spike-fix-29912\leanfix>

@@ -1,0 +1,57 @@
+[1t[6n[c[?1004h[?9001h[33mcommit 6511ce791386e73e49d9a4708c3da693c61be8ee[m
+Author: devusr <devusr@localhost>
+Date:   Mon Nov 16 01:36:28 2026 +0300
+
+    Agent-friendly rendering cost, fresh session environment, daemon generations
+    
+    - in-place changes swap instantly: a ticking spinner costs 9 frames/s and
+      0.5% CPU instead of 103 frames/s and 5.7%
+    - rows keep their history when only part of the screen scrolls
+    - sessions get the launching window's environment, scrubbed
+    - socket name carries a generation so incompatible builds never share a daemon
+    
+    Co-Authored-By: Claude Fable 5.2 <noreply@anthropic.com>
+
+[1mdiff --git a/src/proto.rs b/src/proto.rs[m
+[1mindex 0148fb2..64a2289 100644[m
+[1m--- a/src/proto.rs[m
+[1m+++ b/src/proto.rs[m
+[36m@@ -50,7 +50,9 @@[m [mpub fn read_frame<R: Read>(r: &mut R) -> io::Result<Frame> {[m
+ pub fn socket_path() -> PathBuf {[m
+     match std::env::var_os("PROTEUS_SOCKET") {[m
+         Some(p) if !p.is_empty() => PathBuf::from(p),[m
+[31m-        _ => crate::paths::data_dir().join("proteusd.sock"),[m
+[32m+[m[32m        // The number is the daemon generation. Builds that cannot hand over to[m
+[32m+[m[32m        // each other get different sockets and so never share a daemon.[m
+[32m+[m[32m        _ => crate::paths::data_dir().join("proteusd-2.sock"),[m
+     }[m
+ }[m
+ [m
+
+[33mcommit 167634719601ffb9636e83509f214176174230b9[m
+Author: devusr <devusr@localhost>
+Date:   Mon Nov 16 01:20:07 2026 +0300
+
+    One self-contained executable: embedded icon, console host and settings
+    
+    - conpty.dll + OpenConsole.exe are inside the exe, unpacked and loaded on first use
+    - daemon runs from a private copy so the launched file is never locked
+    - a newer build takes over an idle daemon automatically
+    - config.json created on first run; old journals and leftovers pruned by the daemon
+    - forge/ship.ps1 puts PROTEUS.exe on the Desktop after the gate passes
+    
+    Co-Authored-By: Claude Fable 5.2 <noreply@anthropic.com>
+
+[1mdiff --git a/src/proto.rs b/src/proto.rs[m
+[1mindex dc16fc0..0148fb2 100644[m
+[1m--- a/src/proto.rs[m
+[1m+++ b/src/proto.rs[m
+[36m@@ -11,6 +11,7 @@[m [mpub const C_INPUT: u8 = 3;[m
+ pub const C_RESIZE: u8 = 4; // u16 cols, u16 rows[m
+ pub const C_KILL: u8 = 5;[m
+ pub const C_LIST: u8 = 6;[m
+[32m+[m[32mpub const C_QUIT: u8 = 7; // leave now if no sessions are running (a newer build wants to take over)[m
+ [m
+ // Daemon -> window.[m
+ pub const D_OUTPUT: u8 = 10;[m
+[?1004l[?9001l

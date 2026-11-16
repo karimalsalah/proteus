@@ -1,0 +1,46 @@
+[package]
+name = "proteus"
+version = "0.5.0"
+edition = "2021"
+description = "PROTEUS - GPU-native terminal engine for humans and agents"
+license = "MIT"
+
+[dependencies]
+wgpu = "27"
+winit = "0.30"
+alacritty_terminal = "0.25"
+portable-pty = "0.9"
+ab_glyph = "0.2"
+bytemuck = { version = "1", features = ["derive"] }
+pollster = "0.4"
+crossbeam-channel = "0.5"
+png = "0.18"
+arboard = { version = "3", default-features = false }
+serde_json = "1"
+uds_windows = "1"
+cpal = "0.16"
+# chronicle (src/chronicle.rs, src/watch.rs): content hashes, ignore rules,
+# deflate (already here through png), and the Windows calls for watching a folder.
+sha2 = "0.10"
+# update (src/update.rs): checks the release signature.
+ed25519-dalek = "2"
+ignore = "0.4"
+flate2 = "1"
+# Process sensing (src/procs_win.rs): job objects, completion ports, process queries.
+windows-sys = { version = "0.61", features = ["Win32_Foundation", "Win32_Security", "Win32_Storage_FileSystem", "Win32_System_Console", "Win32_System_IO", "Win32_System_Threading", "Win32_System_JobObjects", "Win32_System_SystemInformation", "Win32_System_Diagnostics_ToolHelp", "Wdk_System_Threading"] }
+regex = "1"
+
+[build-dependencies]
+png = "0.18"
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 16
+panic = "abort"
+
+[profile.dev]
+opt-level = 1
+
+[profile.dev.package."*"]
+opt-level = 3

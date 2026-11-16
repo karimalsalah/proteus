@@ -1,0 +1,14 @@
+name: Something is wrong
+description: A bug, a wrong picture, a wrong sound, a wrong number
+labels: [bug]
+body:
+  - type: input
+    attributes: { label: Build, description: "Output of `proteus --version`" }
+    validations: { required: true }
+  - type: textarea
+    attributes: { label: What happened, description: "What you did, what you expected, what you got. A `proteus shot` PNG or a journal helps (journals hold everything the session printed: check it first)." }
+    validations: { required: true }
+  - type: textarea
+    attributes: { label: How to see it again, description: "The smallest steps or the command. If it is a rendering problem, a VT file that shows it is ideal." }
+  - type: input
+    attributes: { label: Shell and program, description: "For example pwsh 7.5 running Claude Code 2.1" }

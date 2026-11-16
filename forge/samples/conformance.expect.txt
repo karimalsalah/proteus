@@ -1,0 +1,24 @@
+PROTEUS conformance sample (80x24): compare with conformance.expect.txt
+bold dim italic inverse hidden strike plain
+U1 U2 U3 U4 U5 D xyzwv
+abcdefghijklmnopqrstuv
+H1AC4B6D8F I K M
+G       E  JLN
+a       b       c   F   g
+日本語 한 😀 é ạ̈ .
+                                                                              x
+日  X本  Y
+a   XYcdeij        ta
+      6789ABCDE
+om
+   X
+r2
+il
+Z3
+guard: this row sits just below the scroll region and must not move
+alt:back
+                                                                           wrapp
+ed                                                                           NOP
+xxxx ┌──┐ link
+a                                                                              b
+end ❤️ 👍🏽 👨‍👩‍👧 🇯🇵 |

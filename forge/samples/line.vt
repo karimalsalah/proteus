@@ -1,0 +1,4 @@
+[38;2;255;122;144merror[E0308][0m: mismatched types
+  [38;2;94;230;255m-->[0m src/main.rs:12:18
+[38;2;79;227;166m   Compiling[0m proteus v0.2.0
+> cargo build

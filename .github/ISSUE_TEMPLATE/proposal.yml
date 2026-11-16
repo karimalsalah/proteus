@@ -1,0 +1,12 @@
+name: Proposal
+description: Something PROTEUS should do
+labels: [proposal]
+body:
+  - type: textarea
+    attributes: { label: The problem, description: "Who it hurts (a person, an agent, both) and how you know. Evidence beats opinion." }
+    validations: { required: true }
+  - type: textarea
+    attributes: { label: What to build }
+  - type: textarea
+    attributes: { label: How we would know it worked, description: "The number that proves it, and the reading that would mean drop it." }
+    validations: { required: true }

@@ -1,0 +1,167 @@
+[1t[6n[c[?1004h[?9001h[1m[92m   Compiling[0m leanfix v0.1.0 (C:\Users\devusr\AppData\Local\Temp\proteus-spike-fix-29912\leanfix)
+[1m[96m    Building[0m [                             ] 0/1: leanfix(bin)                                                                                                                                                                              [1m[93mwarning[0m[1m[97m: unused import: `std::collections::HashMap`[0m
+ [1m[96m--> [0msrc\main.rs:1:5
+  [1m[96m|[0m
+[1m[96m1[0m [1m[96m|[0m use std::collections::HashMap;
+  [1m[96m|[0m     [1m[93m^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [1m[96m|[0m
+  [1m[96m= [0m[1m[97mnote[0m: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+[1m[96m    Building[0m [                             ] 0/1: leanfix(bin)                                                                                                                                                                              [1m[91merror[E0308][0m[1m[97m: mismatched types[0m
+  [1m[96m--> [0msrc\main.rs:64:22
+   [1m[96m|[0m
+[1m[96m64[0m [1m[96m|[0m     let total: u32 = "seven";
+   [1m[96m|[0m                [1m[96m---[0m   [1m[91m^^^^^^^[0m [1m[91mexpected `u32`, found `&str`[0m
+   [1m[96m|[0m                [1m[96m|[0m
+   [1m[96m|[0m                [1m[96mexpected due to this[0m
+
+[1m[96m    Building[0m [                             ] 0/1: leanfix(bin)                                                                                                                                                                              [1m[93mwarning[0m[1m[97m: unused variable: `scratch`[0m
+ [1m[96m--> [0msrc\main.rs:4:9
+  [1m[96m|[0m
+[1m[96m4[0m [1m[96m|[0m     let scratch = x;
+  [1m[96m|[0m         [1m[93m^^^^^^^[0m [1m[93mhelp: if this is intentional, prefix it with an underscore: `_scratch`[0m
+  [1m[96m|[0m
+  [1m[96m= [0m[1m[97mnote[0m: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+[1m[96m    Building[0m [                             ] 0/1: leanfix(bin)                                                                                                                                                                              [1m[93mwarning[0m[1m[97m: unused variable: `scratch`[0m
+ [1m[96m--> [0msrc\main.rs:9:9
+  [1m[96m|[0m
+[1m[96m9[0m [1m[96m|[0m     let scratch = x;
+  [1m[96m|[0m         [1m[93m^^^^^^^[0m [1m[93mhelp: if this is intentional, prefix it with an underscore: `_scratch`[0m
+
+[1m[93mwarning[0m[1m[97m: unused variable: `scratch`[0m
+  [1m[96m--> [0msrc\main.rs:14:9
+   [1m[96m|[0m
+[1m[96m14[0m [1m[96m|[0m     let scratch = x;
+   [1m[96m|[0m         [1m[93m^^^^^^^[0m [1m[93mhelp: if this is intentional, prefix it with an underscore: `_scratch`[0m
+
+[1m[93mwarning[0m[1m[97m: unused variable: `scratch`[0m
+  [1m[96m--> [0msrc\main.rs:19:9
+   [1m[96m|[0m
+[1m[96m19[0m [1m[96m|[0m     let scratch = x;
+   [1m[96m|[0m         [1m[93m^^^^^^^[0m [1m[93mhelp: if this is intentional, prefix it with an underscore: `_scratch`[0m
+
+[1m[93mwarning[0m[1m[97m: unused variable: `scratch`[0m
+  [1m[96m--> [0msrc\main.rs:24:9
+   [1m[96m|[0m
+[1m[96m24[0m [1m[96m|[0m     let scratch = x;
+   [1m[96m|[0m         [1m[93m^^^^^^^[0m [1m[93mhelp: if this is intentional, prefix it with an underscore: `_scratch`[0m
+
+[1m[93mwarning[0m[1m[97m: unused variable: `scratch`[0m
+  [1m[96m--> [0msrc\main.rs:29:9
+   [1m[96m|[0m
+[1m[96m29[0m [1m[96m|[0m     let scratch = x;
+   [1m[96m|[0m         [1m[93m^^^^^^^[0m [1m[93mhelp: if this is intentional, prefix it with an underscore: `_scratch`[0m
+
+[1m[93mwarning[0m[1m[97m: unused variable: `scratch`[0m
+  [1m[96m--> [0msrc\main.rs:34:9
+   [1m[96m|[0m
+[1m[96m34[0m [1m[96m|[0m     let scratch = x;
+   [1m[96m|[0m         [1m[93m^^^^^^^[0m [1m[93mhelp: if this is intentional, prefix it with an underscore: `_scratch`[0m
+
+[1m[93mwarning[0m[1m[97m: unused variable: `scratch`[0m
+  [1m[96m--> [0msrc\main.rs:39:9
+   [1m[96m|[0m
+[1m[96m39[0m [1m[96m|[0m     let scratch = x;
+   [1m[96m|[0m         [1m[93m^^^^^^^[0m [1m[93mhelp: if this is intentional, prefix it with an underscore: `_scratch`[0m
+
+[1m[93mwarning[0m[1m[97m: unused variable: `scratch`[0m
+  [1m[96m--> [0msrc\main.rs:44:9
+   [1m[96m|[0m
+[1m[96m44[0m [1m[96m|[0m     let scratch = x;
+   [1m[96m|[0m         [1m[93m^^^^^^^[0m [1m[93mhelp: if this is intentional, prefix it with an underscore: `_scratch`[0m
+
+[1m[93mwarning[0m[1m[97m: unused variable: `scratch`[0m
+  [1m[96m--> [0msrc\main.rs:49:9
+   [1m[96m|[0m
+[1m[96m49[0m [1m[96m|[0m     let scratch = x;
+   [1m[96m|[0m         [1m[93m^^^^^^^[0m [1m[93mhelp: if this is intentional, prefix it with an underscore: `_scratch`[0m
+
+[1m[93mwarning[0m[1m[97m: unused variable: `scratch`[0m
+  [1m[96m--> [0msrc\main.rs:54:9
+   [1m[96m|[0m
+[1m[96m54[0m [1m[96m|[0m     let scratch = x;
+   [1m[96m|[0m         [1m[93m^^^^^^^[0m [1m[93mhelp: if this is intentional, prefix it with an underscore: `_scratch`[0m
+
+[1m[93mwarning[0m[1m[97m: unused variable: `scratch`[0m
+  [1m[96m--> [0msrc\main.rs:59:9
+   [1m[96m|[0m
+[1m[96m59[0m [1m[96m|[0m     let scratch = x;
+   [1m[96m|[0m         [1m[93m^^^^^^^[0m [1m[93mhelp: if this is intentional, prefix it with an underscore: `_scratch`[0m
+
+[1m[93mwarning[0m[1m[97m: unused variable: `scratch`[0m
+  [1m[96m--> [0msrc\main.rs:69:9
+   [1m[96m|[0m
+[1m[96m69[0m [1m[96m|[0m     let scratch = x;
+   [1m[96m|[0m         [1m[93m^^^^^^^[0m [1m[93mhelp: if this is intentional, prefix it with an underscore: `_scratch`[0m
+
+[1m[93mwarning[0m[1m[97m: unused variable: `scratch`[0m
+  [1m[96m--> [0msrc\main.rs:74:9
+   [1m[96m|[0m
+[1m[96m74[0m [1m[96m|[0m     let scratch = x;
+   [1m[96m|[0m         [1m[93m^^^^^^^[0m [1m[93mhelp: if this is intentional, prefix it with an underscore: `_scratch`[0m
+
+[1m[93mwarning[0m[1m[97m: unused variable: `scratch`[0m
+  [1m[96m--> [0msrc\main.rs:79:9
+   [1m[96m|[0m
+[1m[96m79[0m [1m[96m|[0m     let scratch = x;
+   [1m[96m|[0m         [1m[93m^^^^^^^[0m [1m[93mhelp: if this is intentional, prefix it with an underscore: `_scratch`[0m
+
+[1m[93mwarning[0m[1m[97m: unused variable: `scratch`[0m
+  [1m[96m--> [0msrc\main.rs:84:9
+   [1m[96m|[0m
+[1m[96m84[0m [1m[96m|[0m     let scratch = x;
+   [1m[96m|[0m         [1m[93m^^^^^^^[0m [1m[93mhelp: if this is intentional, prefix it with an underscore: `_scratch`[0m
+
+[1m[93mwarning[0m[1m[97m: unused variable: `scratch`[0m
+  [1m[96m--> [0msrc\main.rs:89:9
+   [1m[96m|[0m
+[1m[96m89[0m [1m[96m|[0m     let scratch = x;
+   [1m[96m|[0m         [1m[93m^^^^^^^[0m [1m[93mhelp: if this is intentional, prefix it with an underscore: `_scratch`[0m
+
+[1m[93mwarning[0m[1m[97m: unused variable: `scratch`[0m
+  [1m[96m--> [0msrc\main.rs:94:9
+   [1m[96m|[0m
+[1m[96m94[0m [1m[96m|[0m     let scratch = x;
+   [1m[96m|[0m         [1m[93m^^^^^^^[0m [1m[93mhelp: if this is intentional, prefix it with an underscore: `_scratch`[0m
+
+[1m[93mwarning[0m[1m[97m: unused variable: `scratch`[0m
+  [1m[96m--> [0msrc\main.rs:99:9
+   [1m[96m|[0m
+[1m[96m99[0m [1m[96m|[0m     let scratch = x;
+   [1m[96m|[0m         [1m[93m^^^^^^^[0m [1m[93mhelp: if this is intentional, prefix it with an underscore: `_scratch`[0m
+
+[1m[93mwarning[0m[1m[97m: unused variable: `scratch`[0m
+   [1m[96m--> [0msrc\main.rs:104:9
+    [1m[96m|[0m
+[1m[96m104[0m [1m[96m|[0m     let scratch = x;
+    [1m[96m|[0m         [1m[93m^^^^^^^[0m [1m[93mhelp: if this is intentional, prefix it with an underscore: `_scratch`[0m
+
+[1m[93mwarning[0m[1m[97m: unused variable: `scratch`[0m
+   [1m[96m--> [0msrc\main.rs:109:9
+    [1m[96m|[0m
+[1m[96m109[0m [1m[96m|[0m     let scratch = x;
+    [1m[96m|[0m         [1m[93m^^^^^^^[0m [1m[93mhelp: if this is intentional, prefix it with an underscore: `_scratch`[0m
+
+[1m[93mwarning[0m[1m[97m: unused variable: `scratch`[0m
+   [1m[96m--> [0msrc\main.rs:114:9
+    [1m[96m|[0m
+[1m[96m114[0m [1m[96m|[0m     let scratch = x;
+    [1m[96m|[0m         [1m[93m^^^^^^^[0m [1m[93mhelp: if this is intentional, prefix it with an underscore: `_scratch`[0m
+
+[1m[93mwarning[0m[1m[97m: unused variable: `scratch`[0m
+   [1m[96m--> [0msrc\main.rs:119:9
+    [1m[96m|[0m
+[1m[96m119[0m [1m[96m|[0m     let scratch = x;
+    [1m[96m|[0m         [1m[93m^^^^^^^[0m [1m[93mhelp: if this is intentional, prefix it with an underscore: `_scratch`[0m
+
+[1m[93mwarning[0m[1m[97m: unused variable: `scratch`[0m
+   [1m[96m--> [0msrc\main.rs:124:9
+    [1m[96m|[0m
+[1m[96m124[0m [1m[96m|[0m     let scratch = x;
+    [1m[96m|[0m         [1m[93m^^^^^^^[0m [1m[93mhelp: if this is intentional, prefix it with an underscore: `_scratch`[0m
+
+[1m[96m    Building[0m [                             ] 0/1: leanfix(bin)                                                                                                                                                                              [1m[97mFor more information about this error, try `rustc --explain E0308`.[0m
+[1m[96m    Building[0m [                             ] 0/1: leanfix(bin)                                                                                                                                                                              [1m[93mwarning[0m: `leanfix` (bin "leanfix") generated 25 warnings
+[1m[91merror[0m: could not compile `leanfix` (bin "leanfix") due to 1 previous error; 25 warnings emitted
+[?1004l[?9001l

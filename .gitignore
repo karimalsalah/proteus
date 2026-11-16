@@ -1,0 +1,9 @@
+/target
+/dist
+*.prtj
+*.prtk
+
+/forge/out
+
+/.claude/
+/forge/sign/target

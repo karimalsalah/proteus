@@ -1,0 +1,22 @@
+# The measurements behind chronicle's design choices: SHA-256 against BLAKE3,
+# deflate against zstd against nothing, one pack file against a file per
+# object, and how fast this machine can create files at all. Not part of
+# PROTEUS; nothing here is linked into it.
+#   cargo run --release -- <a folder of real files> <an empty scratch folder under %TEMP%> [MB] [files]
+#   cargo run --release --bin mkfiles -- <an empty scratch folder under %TEMP%> 10000 20000
+[package]
+name = "chronicle-lab"
+version = "0.1.0"
+edition = "2021"
+default-run = "chronicle-lab"
+
+[workspace]
+
+[dependencies]
+blake3 = { version = "1", default-features = false, features = ["std", "pure"] }
+sha2 = "0.10"
+flate2 = "1"
+zstd = "0.13"
+
+[profile.release]
+opt-level = 3

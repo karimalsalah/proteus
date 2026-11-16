@@ -1,0 +1,19 @@
+[1;38;2;94;230;255mPROTEUS[0m [2mfirst light[0m   [3mitalic[0m [1mbold[0m [1;3mbold italic[0m [4munderline[0m [9mstrike[0m [4:3mcurl[0m [7m inverse [0m
+
+[30m black [31m red [32m green [33m yellow [34m blue [35m magenta [36m cyan [37m white [0m
+[90m black [91m red [92m green [93m yellow [94m blue [95m magenta [96m cyan [97m white [0m
+[40m    [41m    [42m    [43m    [44m    [45m    [46m    [47m    [0m  [100m    [101m    [102m    [103m    [104m    [105m    [106m    [107m    [0m
+
+╭──────────────────────╮  ┌──────┬──────┐  ┏━━━━━━┳━━━━━━┓  ╔══════╗
+│ > rounded box        │  │ cell │ cell │  ┃ heavy┃ heavy┃  ║double║
+│   fn main() { }      │  ├──────┼──────┤  ┣━━━━━━╋━━━━━━┫  ╚══════╝
+╰──────────────────────╯  └──────┴──────┘  ┗━━━━━━┻━━━━━━┛  ┄┄┄ ╌╌╌ ┈┈┈
+
+blocks ▁▂▃▄▅▆▇█ ▏▎▍▌▋▊▉█ ░▒▓ ▖▗▘▙▚▛▜▝▞▟  braille ⠁⠂⠄⡀⢀⠠⠐⠈ ⣾⣽⣻⢿⡿⣟⣯⣷ ⣿⣿
+powerline [44;97m main [0;34m[0m [42;30m ok [0;32m[0m   arrows → ← ↑ ↓ ⇒ ≠ ≤ ≥  ligatures -> => != === <= >=  ✓ ✗ ● ○ ◆ ▶
+
+[38;5;208mindexed 208[0m [38;5;39mindexed 39[0m [38;5;244mgrey 244[0m  wide: 日本語 한국어 中文  emoji: 😀 🚀
+
+The quick brown fox jumps over the lazy dog. 0123456789 {}[]()<>|\/~`@#$%^&*_+-=
+[38;2;255;122;144m● error:[0m mismatched types   [38;2;79;227;166m● ok:[0m 42 passed   [38;2;255;207;92m● warn:[0m unused variable
+> 

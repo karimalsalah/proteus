@@ -1,0 +1,24 @@
+[1;38;2;94;230;255mdouble lines[0m [2m(U+2550 to U+256C, drawn by the engine)[0m
+
+╔═══════╦═══════╗  ╒═══════╤═══════╕  ╓───────╥───────╖  ┌───────┬───────┐  ╔═════════════╗
+║ double║ all   ║  │ double│ across│  ║ double║ down  ║  │ single│ light │  ║ ┌─────────┐ ║
+╠═══════╬═══════╣  ╞═══════╪═══════╡  ╟───────╫───────╢  ├───────┼───────┤  ║ │ nested  │ ║
+║ round ║ about ║  │ single│ down  │  ║ single║ across║  │ for   │ scale │  ║ └─────────┘ ║
+╚═══════╩═══════╝  ╘═══════╧═══════╛  ╙───────╨───────╜  └───────┴───────┘  ╚═════════════╝
+
+all 29   ═ ║ ╒ ╓ ╔ ╕ ╖ ╗ ╘ ╙ ╚ ╛ ╜ ╝ ╞ ╟ ╠ ╡ ╢ ╣ ╤ ╥ ╦ ╧ ╨ ╩ ╪ ╫ ╬
+joined   ═══╪═══╤═══╧═══╬═══  ──╫──╥──╨──  ╔╗ ╒╕ ╓╖  ╔╦╗ ╒╤╕ ╓╥╖   diagonals ╱╲╳ ╱╱╱ ╲╲╲ ╳╳╳  ╱╲
+            │   │       ║       ║  ║       ╚╝ ╘╛ ╙╜  ╠╬╣ ╞╪╡ ╟╫╢               ╲╱    ╱ ╲     ╲╱
+                                                     ╚╩╝ ╘╧╛ ╙╨╜
+
+[1;38;2;94;230;255munderlines[0m [2m(SGR 4, 4:2, 4:3, 4:4, 4:5, 21 and SGR 58 colours)[0m
+
+[4mplain underline[0m   [4:2mdouble underline[0m   [4:3mundercurl is a wave[0m   [4:4mdotted underline[0m   [4:5mdashed underline[0m
+
+[4:3;58;2;255;122;144mspelling errror[0m   [4:3;58;5;39mindexed blue curl[0m   [4:4;58:2::255:207:92mdotted amber[0m   [4:5;58;2;79;227;166mdashed green[0m   [4;58;2;255;122;144mred line[0m
+
+[4:3mgjpqy_gjpqy[0m   [4:4mgjpqy_gjpqy[0m   [4:5mgjpqy_gjpqy[0m   [4mgjpqy_gjpqy[0m   [21mgjpqy_gjpqy[0m   [4:3m   across   gaps   [0m
+
+[1;4:3mbold curl[0m  [3;4:4mitalic dotted[0m  [9;4:5mstruck dashed[0m  [7;4:3m inverse curl [0m  [2;4:3mdim curl[0m  [4:3m日本語 한국어[0m  [4:4m日本語[0m  [4:5m日本語[0m
+
+[38;2;255;122;144m[4:3merror[E0308][0m: mismatched types   [38;2;255;207;92m[4:4mwarning[0m: unused variable   [38;2;79;227;166m[4:5mhint[0m: dashes for a suggestion
