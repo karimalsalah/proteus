@@ -6,6 +6,10 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+# A newer push to the same branch cancels the run it supersedes.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   test:
     runs-on: windows-latest
@@ -19,10 +23,9 @@ jobs:
       - uses: Swatinem/rust-cache@v2
       - name: Build
         run: cargo build --release --locked
+      # One test at a time: in parallel on GitHub's 4-core runner the test
+      # process stops without a summary (issue #24); serially every test passes.
       - name: Test
-        run: cargo test --release --locked
-      - name: Find the test that stopped the run
-        if: failure()
         run: cargo test --release --locked -- --test-threads=1
       - name: Headless render
         shell: pwsh

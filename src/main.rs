@@ -6,7 +6,7 @@
 //!   proteus keys ...        show what a program inside the terminal receives per key (see probe.rs)
 //!   proteus recall ...      a session's past: find text, read a moment, record (see recall_cli.rs)
 //!   proteus sessions        list what the session daemon is running
-//!   proteus send ID TEXT    type into a running session ("\r" presses Enter)
+//!   proteus send ID [--raw] TEXT  type into a running session ("\r" presses Enter; --raw types TEXT exactly)
 //!   proteus mcp             serve agents: sessions to spawn, drive, wait on, read and see (mcp.rs)
 //!   proteus --attach ID     open a window on a session an agent is driving
 //!   proteus procs ...       every process a session has started (see procs_cli.rs)
@@ -140,9 +140,12 @@ fn main() {
         Some("mcp") => mcp::run(&args[1..]),
         // proteus send <session id> <text>   ("\r" in the text presses Enter)
         Some("send") => {
+            // --raw types the text exactly: Windows paths are full of backslashes (issue #20).
+            let raw = args.get(2).is_some_and(|a| a == "--raw");
             let id = args.get(1).and_then(|s| s.parse::<u64>().ok()).unwrap_or(0);
-            let text = args.get(2..).map(|a| a.join(" ")).unwrap_or_default();
-            remote::send(id, &unescape(&text)).map_err(|e| e.into())
+            let text = args.get(if raw { 3 } else { 2 }..).map(|a| a.join(" ")).unwrap_or_default();
+            let bytes = if raw { text.into_bytes() } else { unescape(&text) };
+            remote::send(id, &bytes).map_err(|e| e.into())
         }
         Some("sessions") => match remote::list() {
             Ok(v) => {

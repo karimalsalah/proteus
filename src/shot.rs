@@ -114,7 +114,34 @@ pub fn run(args: &[String]) -> Res<()> {
     let format = wgpu::TextureFormat::Rgba8UnormSrgb;
     let mut r = Renderer::new(&gpu.device, format, font_pt * scale, Theme::void_light());
     r.resize(&gpu.device, w, h, 12.0 * scale);
-    let (cols, rows) = r.grid();
+    let (mut cols, mut rows) = r.grid();
+    // A journal is shown at the size it was recorded at. If the image is too
+    // small for that grid, the font shrinks; history is never rewrapped into
+    // a narrower grid (that made a correct screen look broken: issue #22).
+    let mut recorded: Option<(usize, usize)> = None;
+    if let (Some(p), None) = (&jr, &cmd) {
+        let wanted = until.map_or(Target::End, |s| Target::Time(recall::micros(s)));
+        if let Ok(s) = recall::Index::open(p).and_then(|mut i| i.seek(wanted, None)) {
+            use alacritty_terminal::grid::Dimensions;
+            let (rc, rr) = (s.replay.term.columns(), s.replay.term.screen_lines());
+            let need_rows = rr + if scrub { BAR_ROWS } else { 0 };
+            let mut px = font_pt * scale;
+            for _ in 0..40 {
+                if cols >= rc && rows >= need_rows {
+                    break;
+                }
+                px *= 0.96;
+                r.set_font_px(&gpu.queue, px);
+                r.resize(&gpu.device, w, h, 12.0 * scale);
+                (cols, rows) = r.grid();
+            }
+            if cols < rc || rows < need_rows {
+                println!("note: a {w}x{h} image cannot hold the recorded {rc}x{rr} grid; it is shown rewrapped to {cols}x{rows}");
+            } else {
+                recorded = Some((rc, rr));
+            }
+        }
+    }
 
     let notify: crate::term::Notify = Arc::new(|_| {});
     let started = Instant::now();
@@ -161,6 +188,7 @@ pub fn run(args: &[String]) -> Res<()> {
             let wanted = until.map_or(Target::End, |s| Target::Time(recall::micros(s)));
             let target = if waiting { Target::End } else { wanted };
             let view_rows = if scrub && !waiting { rows.saturating_sub(BAR_ROWS).max(1) } else { rows };
+            let (cols, view_rows) = recorded.unwrap_or((cols, view_rows));
             let t0 = Instant::now();
             let s = recall::Index::open(&p)?.seek(target, Some((cols, view_rows)))?;
             println!(
