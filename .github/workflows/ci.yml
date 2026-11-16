@@ -30,7 +30,7 @@ jobs:
           $env:PROTEUS_DATA = "$env:RUNNER_TEMP\proteus"
           ./target/release/proteus.exe shot --vt forge/samples/basic.vt --out basic.png --size 1600x800
           if (-not (Test-Path basic.png)) { throw 'no image' }
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: render
