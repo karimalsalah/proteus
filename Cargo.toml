@@ -6,7 +6,7 @@ description = "PROTEUS - GPU-native terminal engine for humans and agents"
 license = "MIT"
 
 [dependencies]
-wgpu = "27"
+wgpu = "30"
 winit = "0.30"
 alacritty_terminal = "0.25"
 portable-pty = "0.9"
