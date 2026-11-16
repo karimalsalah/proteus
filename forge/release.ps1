@@ -30,11 +30,21 @@ $public = (& $sign public $Key | Out-String).Trim()
 $embedded = (Select-String -Path src\update.rs -Pattern 'pub const PUBLIC_KEY: &str = "([0-9a-f]{64})"').Matches[0].Groups[1].Value
 if ($public -ne $embedded) { throw "this key is not the one the exe trusts (key $public, exe $embedded)" }
 if ((& $sign verify $public "$out\PROTEUS.manifest" | Out-String).Trim() -ne 'ok') { throw 'the signature just made does not verify' }
-"release $build`n  sha256 $sha`n  signed with $public`n  files in $out"
+# The bundle Claude Desktop installs with a double click, and the MCP Registry lists.
+$ver = $build -replace '-.*$', ''
+$b = "$out\mcpb"; New-Item -ItemType Directory -Force "$b\server" | Out-Null
+Copy-Item "$out\PROTEUS.exe" "$b\server\proteus.exe"; Copy-Item packaging\mcpb\icon.png "$b\icon.png"
+[IO.File]::WriteAllText("$PWD\$b\manifest.json", ((Get-Content packaging\mcpb\manifest.json.in -Raw) -replace '@VERSION@', $ver), [Text.UTF8Encoding]::new($false))
+Compress-Archive -Path "$b\manifest.json", "$b\icon.png", "$b\server" -DestinationPath "$out\proteus-mcp.zip" -Force
+Move-Item "$out\proteus-mcp.zip" "$out\proteus-mcp.mcpb" -Force; Remove-Item $b -Recurse -Force
+# Scoop installs from the manifest in the repository; it names this release.
+$scoop = (Get-Content packaging\scoop\proteus.json.in -Raw) -replace '@VERSION@', $ver -replace '@SHA256@', $sha
+[IO.File]::WriteAllText("$PWD\packaging\scoop\proteus.json", $scoop, [Text.UTF8Encoding]::new($false))
+"release $build`n  sha256 $sha`n  signed with $public`n  files in $out (commit packaging\scoop\proteus.json after publishing)"
 if ($Publish) {
     $tag = 'v' + ($build -replace '-.*$', '')
     if (-not $Notes) { $Notes = "PROTEUS $build. Signed: verify with ``proteus update --check``. What is measured and what is not done: forge/ledger.json." }
-    gh release create $tag -R $Repo --target main --latest "$out\PROTEUS.exe" "$out\PROTEUS.manifest" "$out\PROTEUS.manifest.sig" --title "PROTEUS $($build -replace '-.*$', '')" --notes $Notes
+    gh release create $tag -R $Repo --target main --latest "$out\PROTEUS.exe" "$out\PROTEUS.manifest" "$out\PROTEUS.manifest.sig" "$out\proteus-mcp.mcpb" --title "PROTEUS $($build -replace '-.*$', '')" --notes $Notes
     if ($LASTEXITCODE -ne 0) { throw 'upload failed' }
     "published $tag"
 }

@@ -1,0 +1,35 @@
+# Lists PROTEUS in the official MCP Registry as io.github.karimalsalah/proteus.
+# Runs when a release is published (or by hand for a tag). server.json is
+# filled from the release's own proteus-mcp.mcpb, so the hash is the hash of
+# what people download. Authentication is GitHub's OIDC token: no secrets.
+name: mcp-registry
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag to list, for example v0.5.3
+        required: true
+permissions:
+  id-token: write
+  contents: read
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fill server.json from the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ inputs.tag || github.event.release.tag_name }}
+        run: |
+          gh release download "$TAG" -R "$GITHUB_REPOSITORY" -p proteus-mcp.mcpb -D rel
+          SHA=$(sha256sum rel/proteus-mcp.mcpb | cut -d' ' -f1)
+          sed -e "s/@VERSION@/${TAG#v}/g" -e "s/@TAG@/$TAG/g" -e "s/@SHA256@/$SHA/g" packaging/mcp/server.json.in > server.json
+          cat server.json
+      - name: Publish
+        run: |
+          curl -sSL https://github.com/modelcontextprotocol/registry/releases/download/v1.8.9/mcp-publisher_linux_amd64.tar.gz | tar xz mcp-publisher
+          ./mcp-publisher login github-oidc
+          ./mcp-publisher publish

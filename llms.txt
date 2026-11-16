@@ -1,0 +1,19 @@
+# PROTEUS
+
+> A GPU terminal for Windows (Rust, wgpu) that is the system of record for people and AI agents: it journals every session with timestamps, sees every process a session starts through a Windows job object, can undo shell commands with a content-addressed history of the working tree, renders any past moment to PNG, and serves agents over MCP. One self-contained exe that updates itself from signed releases. MIT.
+
+## Start here
+
+- [README](https://github.com/karimalsalah/proteus/blob/main/README.md): what it does, install, keys, what is not done
+- [For AI agents](https://github.com/karimalsalah/proteus#for-ai-agents): MCP tools (spawn, send, wait, read, screen, shot, sessions, kill) and how to register the server
+- [Ledger](https://github.com/karimalsalah/proteus/blob/main/forge/ledger.json): what is done with the evidence for each claim, known issues, measured numbers
+- [Roadmap](https://github.com/karimalsalah/proteus/blob/main/forge/roadmap.md): ranked next work, each with a success metric and a kill criterion
+- [CLAUDE.md](https://github.com/karimalsalah/proteus/blob/main/CLAUDE.md): rules and source layout for anyone (person or agent) changing the code
+
+## Facts
+
+- Install: download PROTEUS.exe from the latest GitHub release; no installer. Scoop manifest at packaging/scoop/proteus.json.
+- MCP: `proteus mcp` over stdio; Registry name io.github.karimalsalah/proteus; Claude Desktop bundle proteus-mcp.mcpb in each release.
+- Platform: Windows 10/11 x64 only. Uses its own bundled ConPTY.
+- Idle cost: 0.00% CPU and zero frames when nothing changes (measured by the gate on every build).
+- Not done: world view, time scrubbing and --attach not yet driven by a person; command boundaries built but off; no colour emoji or images; no sandbox.

@@ -7,3 +7,4 @@
 
 /.claude/
 /forge/sign/target
+!/forge/samples/*.prtj

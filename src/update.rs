@@ -218,7 +218,9 @@ pub fn update(target: &Path, have: &str, source: &Source, public_key_hex: &str, 
 /// build folder, never when switched off.
 pub fn automatic_allowed(exe: &Path, mode: &str) -> bool {
     let p = exe.to_string_lossy().to_ascii_lowercase().replace('/', "\\");
-    mode != "off" && std::env::var_os("PROTEUS_DATA").is_none() && !p.contains("\\dist\\") && !p.contains("\\target\\") && !p.contains("\\runtime\\")
+    // A copy a package manager installed is that manager's to update.
+    let managed = ["\\scoop\\apps\\", "\\winget\\packages\\", "\\chocolatey\\", "\\claude\\extensions\\", "\\server\\proteus.exe"].iter().any(|m| p.contains(m));
+    mode != "off" && !managed && std::env::var_os("PROTEUS_DATA").is_none() && !p.contains("\\dist\\") && !p.contains("\\target\\") && !p.contains("\\runtime\\")
 }
 
 /// Called once when a window starts: at most one check a day, on its own
@@ -384,5 +386,7 @@ mod tests {
         assert!(!automatic_allowed(Path::new(r"C:\src\proteus\dist\proteus-1.exe"), "auto"));
         assert!(!automatic_allowed(Path::new(r"C:\src\proteus\target\release\proteus.exe"), "auto"));
         assert!(!automatic_allowed(Path::new(r"C:\Users\x\Desktop\PROTEUS.exe"), "off"));
+        assert!(!automatic_allowed(Path::new(r"C:\Users\x\scoop\apps\proteus\current\proteus.exe"), "auto"));
+        assert!(!automatic_allowed(Path::new(r"C:\Users\x\AppData\Local\Microsoft\WinGet\Packages\p\proteus.exe"), "auto"));
     }
 }

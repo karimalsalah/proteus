@@ -1,75 +1,159 @@
+<div align="center">
+
 # PROTEUS
 
-A GPU terminal for Windows, built for people who direct AI agents and for the agents themselves. One self-contained exe.
+**The terminal is where every command passes. So make it the system of record.**
 
-The idea: every command a person or an agent runs passes through the terminal, so the terminal can be the system of record. It senses what happens (bytes, processes, files), remembers it (a journal of every session, a history of the working tree), and gives agents organs to see, drive, wait and undo. Nothing on screen or in sound is decorative: every mark and every note is a real event.
+A GPU terminal for Windows that remembers every session, sees every process, undoes shell commands, and gives AI agents a real terminal to drive over MCP. One 22 MB exe. No install.
 
-**Status: early.** It is one person's daily terminal, not a release. "PROTEUS" is a provisional name. Read [What is not done](#what-is-not-done) before trusting it with anything.
+[![CI](https://github.com/karimalsalah/proteus/actions/workflows/ci.yml/badge.svg)](https://github.com/karimalsalah/proteus/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/karimalsalah/proteus?label=release)](https://github.com/karimalsalah/proteus/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/karimalsalah/proteus/total)](https://github.com/karimalsalah/proteus/releases)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+![Windows 11](https://img.shields.io/badge/Windows-11-0078D4)
+![Rust](https://img.shields.io/badge/Rust-wgpu-orange)
 
-## What it does today
+**[Download PROTEUS.exe](https://github.com/karimalsalah/proteus/releases/latest/download/PROTEUS.exe)** · [What it does](#what-it-does) · [For agents](#for-ai-agents) · [What is not done](#what-is-not-done) · [Roadmap](forge/roadmap.md)
+
+![A cargo build unfolding in the world view: every node is a real process the session started, every bar a real span, every colour a real exit code](docs/media/world.gif)
+
+*A real `cargo build` (and one that fails), replayed from its journal in the world view. Every node is a process the session started, with its command line and exit code, reported by Windows itself. Nothing in this picture is drawn for decoration.*
+
+</div>
+
+---
+
+## Why
+
+Every command you run, and every command your AI agents run, goes through a terminal. Today the terminal forgets all of it the moment it scrolls away. It cannot tell you what a build spawned, which process failed, what the screen said ten minutes ago, or how to put the files back.
+
+PROTEUS keeps all of that:
+
+- **It remembers.** Every session is journaled with timestamps. Any past instant renders exactly, in milliseconds.
+- **It senses.** Windows reports every process a session starts (command line, parent, exit code, CPU time) through a job object. No shell hooks.
+- **It undoes.** `proteus run -- <cmd>` snapshots the working tree before and after. `proteus chronicle undo` puts it back.
+- **It serves agents.** `proteus mcp` gives any MCP client sessions it can spawn, type into, wait on without polling, read without noise, and see as images.
+- **It costs nothing when idle.** 0.00% CPU and zero frames drawn while nothing changes, measured on every build.
+
+## What it does
+
+<table>
+<tr>
+<td width="50%">
+
+**Time travel.** Ctrl+Shift+← steps back through a session, output event by output event. The bar is the session's real output rate over its whole life. Keyframes make any instant reachable in milliseconds; `proteus recall find TEXT` says when text was on screen.
+
+</td>
+<td><img src="docs/media/scrub.png" alt="A session shown as it stood in the past, with the scrub bar"></td>
+</tr>
+<tr>
+<td><img src="docs/media/reveal.gif" alt="Text arriving: each glyph unfolds and casts light as it lands"></td>
+<td>
+
+**Light from real events.** Text that lands in an empty cell unfolds and casts light in its own colour. Spinners and in-place edits swap instantly, so an agent's busy indicator costs 9 frames a second, not 100. Nothing animates when nothing happens.
+
+</td>
+</tr>
+<tr>
+<td>
+
+**Drawn by the engine.** Box drawing (light, heavy, rounded, double, mixed junctions), blocks, braille and powerline are drawn by the GPU, not the font, so they join perfectly at any size. Undercurl is a real wave; dotted and dashed underlines take their own colour.
+
+</td>
+<td><img src="docs/media/draw.png" alt="Engine-drawn boxes, junctions and underline styles"></td>
+</tr>
+</table>
 
 | | |
 |---|---|
-| **Draws nothing when nothing changes** | 0.00% of a core and no frames while idle, measured by the gate on every build |
-| **Sessions outlive their window** | A daemon in the same exe holds sessions; a new window picks up where the last one left off |
-| **Remembers everything printed** | Each session is journaled with timestamps; `proteus shot --journal F --until T` renders the screen as it stood at any moment |
-| **Time travel** | Keyframes make any instant reachable in milliseconds; `proteus recall find TEXT` says when text was on screen; Ctrl+Shift+Left/Right scrubs in the window |
-| **Sees every process** | A job object per session reports each process a session starts, with command line and exit code, with no hooks |
-| **World view** | Ctrl+Shift+W shows the session's processes as a tree and a timeline; every mark is a recorded event |
-| **Undo for the shell** | `proteus run -- CMD` records the working tree before and after; `proteus chronicle undo` puts it back |
-| **Organs for agents** | `proteus mcp` is an MCP server: sessions, screen, shot, send, event-driven wait, lean reads |
-| **Hears what happens** | Sound is computed from real events (no samples, nothing loops); the audio device sleeps between sounds |
-| **Speaks the protocols** | Kitty keyboard protocol, synchronized output, colour queries, OSC 7501 program status (it answers the query, so agents that report their state start doing so) |
-| **Checks itself** | `proteus shot` renders to PNG with no window, `proteus ears` renders sound to WAV; a gate script runs tests, a real-window key test, a benchmark and idle budgets before anything ships |
+| **Sessions outlive windows** | A daemon inside the same exe holds sessions. Close the window, open another, and it picks up exactly where you were. |
+| **Undo for the shell** | Content-addressed history of the working tree. Restore is a dry run until you pass `--apply`, never follows links out of the tree, and snapshots first. |
+| **Sound from events** | A tick per key, a grain for arriving text, a chime for the bell, rising for success and falling for failure. Computed, not sampled. The audio device sleeps between sounds. |
+| **Protocols** | Kitty keyboard protocol (real Shift+Enter for agent UIs), synchronized output, colour queries, OSC 7501 program status (agents that report their state start doing so). |
+| **Self-updating** | Checks once a day for a newer release, verifies its Ed25519 signature, size and hash, and applies it at next launch. No downgrades. `"update": "off"` turns it off. |
+| **Eyes and ears** | `proteus shot` renders any session, journal or moment to PNG with no window. `proteus ears` renders every sound to WAV. Agents can look at what they did. |
 
-Numbers, with how each was measured, are in [`forge/ledger.json`](forge/ledger.json). The rule in this repository is that a claim without a measurement does not get written down.
+Every number on this page has a command that produced it in [`forge/ledger.json`](forge/ledger.json). The rule in this repository: a claim without a measurement does not get written down.
+
+## Install
+
+**Direct:** download [`PROTEUS.exe`](https://github.com/karimalsalah/proteus/releases/latest/download/PROTEUS.exe) and run it. That is the whole install. It unpacks what it needs (console host, fonts) into `%LOCALAPPDATA%\proteus` on first run and updates itself after that.
+
+**Scoop:**
+```powershell
+scoop install https://raw.githubusercontent.com/karimalsalah/proteus/main/packaging/scoop/proteus.json
+```
+
+> Windows SmartScreen will say "unknown publisher" on first run: the exe is not yet signed with a Windows code-signing certificate. Choose *More info → Run anyway*, or check the download against the signed `PROTEUS.manifest` in the release.
+
+## For AI agents
+
+PROTEUS is an MCP server. It gives an agent what a person has at a terminal: a real pseudo-console, a screen to look at, and patience.
+
+| Tool | What it does |
+|---|---|
+| `spawn` | Start a program on a real terminal; a person can watch it live with `proteus --attach N` |
+| `send` | Type text and named keys; returns a cursor into the output |
+| `wait` | Block until a regex matches, output goes quiet, or the program exits. Event-driven, not polling |
+| `read` | Output since a cursor, **lean**: escape codes stripped, progress bars collapsed to their final state, repeats folded, errors never dropped, with raw and lean byte counts |
+| `screen` / `shot` | The screen as text or as a PNG, now or as it stood at any earlier moment |
+| `sessions` / `kill` | List and end sessions. By default an agent drives only sessions it started |
+
+**Claude Desktop:** download `proteus-mcp.mcpb` from the [latest release](https://github.com/karimalsalah/proteus/releases/latest) and open it.
+
+**Claude Code** (or any MCP client):
+```powershell
+claude mcp add --scope user --transport stdio proteus -- "C:\path\to\PROTEUS.exe" mcp
+```
+
+It is listed in the [MCP Registry](https://registry.modelcontextprotocol.io/) as `io.github.karimalsalah/proteus`.
+
+## Use
+
+```powershell
+proteus                          # a window on a new session, or the one you left
+proteus sessions                 # what the daemon is running
+proteus run -- cargo test        # one undoable step
+proteus chronicle undo           # dry run; add --apply to perform it
+proteus procs --journal F --tree # every process a session started
+proteus recall find "error[E"    # when it was on screen
+proteus shot --journal F --until 90 --out then.png
+proteus update --check           # is there a newer signed release
+```
+
+Keys: **Ctrl+Shift+W** world view · **Ctrl+Shift+←/→** step through time (Home/End: start, now) · **Ctrl+Shift+D** detach (session keeps running) · **Ctrl+Shift+Delete** reset the keyboard protocol if a program died with it on.
+
+Settings live in `%LOCALAPPDATA%\proteus\config.json`: `font_pt`, `reveal`, `light`, `sound`, `volume`, `update`, `shell`, journal retention.
+
+## What is not done
+
+PROTEUS is early: one person's daily terminal, built in the open. Please read this before trusting it with anything.
+
+- **Three views have not been driven by a person yet.** The world view, time scrubbing and `--attach` are tested headless through `proteus shot` (that is how the images above were made). [#5](https://github.com/karimalsalah/proteus/issues/5) asks for the first real try.
+- **Agents' own tool commands are seen as processes, not as output.** Harnesses run each command in a separate process. Routing them into PROTEUS sessions is [#3](https://github.com/karimalsalah/proteus/issues/3).
+- **Command boundaries are built but not switched on** ([#1](https://github.com/karimalsalah/proteus/issues/1)), and agent status is answered but not shown ([#2](https://github.com/karimalsalah/proteus/issues/2)).
+- **Undo covers files in the tracked tree only.** Not network, registry, databases or anything in `.gitignore`.
+- **No colour emoji, ligatures or images yet.** Journals are plaintext and hold everything printed, including command lines.
+- **Windows only. No sandbox.** PROTEUS observes; it does not contain.
+- **Nobody has tuned the sound or the light by ear and eye.**
+
+The [roadmap](forge/roadmap.md) ranks what comes next, each item with the number that proves it worked and the reading that means drop it.
 
 ## Build
 
 Windows 11, Rust (MSVC toolchain).
 
 ```powershell
-cargo build --release          # target\release\proteus.exe is the whole product
+cargo build --release            # target\release\proteus.exe is the whole product
 cargo test --release
-pwsh forge\gate.ps1            # tests, runs-alone check, sound, screenshots, real keys, bench, idle budget
+pwsh forge\gate.ps1 -SkipBench   # the headless gate: tests, runs-alone check, sound, screenshots
+pwsh forge\gate.ps1              # full gate: real keys into a test window, bench, idle budget
 ```
-
-The first run creates `%LOCALAPPDATA%\proteus\config.json`.
-
-## Use
-
-```powershell
-proteus                         # a window on a new or orphaned session
-proteus sessions                # what the daemon is running
-proteus shot --cmd "cmd /c ver" --out x.png
-proteus run -- cargo test       # one undoable step
-proteus chronicle undo          # dry run; add --apply to perform it
-proteus mcp                     # serve agents over stdio
-proteus licenses                # third-party notices
-```
-
-Register the MCP server with an agent harness, for example Claude Code:
-
-```powershell
-claude mcp add --scope user --transport stdio proteus -- "C:\path\to\proteus.exe" mcp
-```
-
-## What is not done
-
-- **Window paths nobody has pressed.** The world view, time scrubbing and `--attach` were built and tested headless (through `proteus shot`). The gate types real keys into a real window, but those three views have not been driven by a person yet.
-- **Undo covers files in a tracked tree only.** Not network, registry, database or anything in `.gitignore`. Restore is a dry run unless you pass `--apply`.
-- **An agent's own tool commands are not seen as output.** Harnesses run them in separate processes. PROTEUS sees those processes, but lean reads, undo by command and receipts reach them only when commands are routed into PROTEUS sessions. That routing is not built.
-- **Command boundaries are built but not switched on.** The scanner and the PowerShell integration exist and are tested through a real console host; sessions do not load the integration yet.
-- **No colour emoji, no ligatures, no images.** Journals are plaintext and hold everything printed, including command lines.
-- **Windows only.** No sandboxing: PROTEUS observes, it does not contain.
-- **Nobody has tuned the sound or the light by ear and eye.**
-
-The ranked plan, with a success metric and a kill criterion for each item, is in [`forge/roadmap.md`](forge/roadmap.md).
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md). The short version: measured claims only, nothing mock in tests, the gate must pass, and say plainly what you did not test.
+The [good first issues](https://github.com/karimalsalah/proteus/issues?q=is%3Aopen+label%3A%22good+first+issue%22) are small and self-contained. Read [CONTRIBUTING.md](CONTRIBUTING.md): measured claims only, nothing mock in tests, the gate must pass, and say plainly what you did not test. Questions and ideas go in [Discussions](https://github.com/karimalsalah/proteus/discussions).
 
 ## Licence
 
-MIT for PROTEUS itself ([LICENSE](LICENSE)). It embeds Microsoft's ConPTY (MIT) and the Maple Mono NF font (SIL OFL 1.1); see `proteus licenses`.
+MIT ([LICENSE](LICENSE)). PROTEUS embeds Microsoft's ConPTY (MIT) and Maple Mono NF (SIL OFL 1.1). `proteus licenses` prints every bundled notice, including all 178 Rust dependencies.

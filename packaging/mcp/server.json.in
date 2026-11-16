@@ -1,0 +1,17 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.karimalsalah/proteus",
+  "title": "PROTEUS terminal",
+  "description": "Windows terminal sessions for agents: spawn, type, wait without polling, lean reads, screenshots.",
+  "version": "@VERSION@",
+  "websiteUrl": "https://github.com/karimalsalah/proteus",
+  "repository": { "url": "https://github.com/karimalsalah/proteus", "source": "github" },
+  "packages": [
+    {
+      "registryType": "mcpb",
+      "identifier": "https://github.com/karimalsalah/proteus/releases/download/@TAG@/proteus-mcp.mcpb",
+      "fileSha256": "@SHA256@",
+      "transport": { "type": "stdio" }
+    }
+  ]
+}

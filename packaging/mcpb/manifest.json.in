@@ -1,0 +1,32 @@
+{
+  "manifest_version": "0.3",
+  "name": "proteus",
+  "display_name": "PROTEUS terminal",
+  "version": "@VERSION@",
+  "description": "Real Windows terminal sessions for agents: spawn programs, type into them, wait without polling, read lean output, and see the screen.",
+  "long_description": "PROTEUS is a GPU terminal for Windows that journals every session. As an MCP server it gives an agent sessions on a real pseudo-console that a person can watch live: spawn, send keys, wait for a regex, quiet or exit (event-driven), read output with escape codes stripped and progress bars collapsed, and the screen as text or PNG at any moment. By default an agent may drive only the sessions it started.",
+  "author": { "name": "karimalsalah", "url": "https://github.com/karimalsalah" },
+  "repository": { "type": "git", "url": "https://github.com/karimalsalah/proteus" },
+  "homepage": "https://github.com/karimalsalah/proteus",
+  "documentation": "https://github.com/karimalsalah/proteus#for-ai-agents",
+  "support": "https://github.com/karimalsalah/proteus/issues",
+  "license": "MIT",
+  "icon": "icon.png",
+  "keywords": ["terminal", "windows", "conpty", "shell", "sessions", "screenshot"],
+  "server": {
+    "type": "binary",
+    "entry_point": "server/proteus.exe",
+    "mcp_config": { "command": "${__dirname}/server/proteus.exe", "args": ["mcp"], "env": {} }
+  },
+  "tools": [
+    { "name": "sessions", "description": "List the terminal sessions the daemon is running" },
+    { "name": "spawn", "description": "Start a program on a real terminal and get its session number" },
+    { "name": "send", "description": "Type text and named keys into a session" },
+    { "name": "wait", "description": "Block until output matches a regex, goes quiet, or the program exits" },
+    { "name": "read", "description": "Output since a cursor, lean (escape codes stripped, progress collapsed) or raw" },
+    { "name": "screen", "description": "The screen as text, now or at an earlier moment" },
+    { "name": "shot", "description": "The screen as a PNG image, now or at an earlier moment" },
+    { "name": "kill", "description": "End a session this server started" }
+  ],
+  "compatibility": { "platforms": ["win32"] }
+}
