@@ -1,0 +1,59 @@
+# Builds PROTEUS.exe on GitHub's own runners from a commit of this repository,
+# so SignPath Foundation can sign it with a Windows code-signing certificate
+# that vouches the binary came from this source. The signed exe is downloaded
+# by forge/release.ps1, checked, and published with the update manifest, which
+# is still signed (Ed25519) on the release machine: that key never touches CI.
+name: release-build
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Commit or branch to build
+        default: main
+permissions:
+  contents: read
+  actions: read
+jobs:
+  build:
+    runs-on: windows-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Build
+        run: cargo build --release --locked
+      - name: Stage
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force dist | Out-Null
+          Copy-Item target/release/proteus.exe dist/PROTEUS.exe
+          "sha256 " + (Get-FileHash dist/PROTEUS.exe -Algorithm SHA256).Hash.ToLower()
+          "build " + ((& dist/PROTEUS.exe --version | Out-String).Trim())
+      - uses: actions/upload-artifact@v4
+        id: upload
+        with:
+          name: PROTEUS-unsigned
+          path: dist/PROTEUS.exe
+          if-no-files-found: error
+      # Runs once SignPath Foundation has accepted the project and the
+      # organisation id (variable) and API token (secret) are set.
+      - name: Sign (SignPath Foundation)
+        if: ${{ vars.SIGNPATH_ORGANIZATION_ID != '' }}
+        uses: signpath/github-action-submit-signing-request@v1
+        with:
+          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+          organization-id: ${{ vars.SIGNPATH_ORGANIZATION_ID }}
+          project-slug: proteus
+          signing-policy-slug: release-signing
+          github-artifact-id: ${{ steps.upload.outputs.artifact-id }}
+          wait-for-completion: true
+          output-artifact-directory: signed
+      - uses: actions/upload-artifact@v4
+        if: ${{ vars.SIGNPATH_ORGANIZATION_ID != '' }}
+        with:
+          name: PROTEUS-signed
+          path: signed/PROTEUS.exe
+          if-no-files-found: error

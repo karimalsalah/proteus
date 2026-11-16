@@ -1,10 +1,13 @@
 # Make a signed release from the current build.
-#   pwsh forge\release.ps1 [-Key FILE] [-Publish] [-SkipGate] [-Notes TEXT]
+#   pwsh forge\release.ps1 [-Key FILE] [-Publish] [-SkipGate] [-Notes TEXT] [-Ci]
+# -Ci: the exe is built by GitHub Actions (release-build.yml) from the public
+# commit this checkout last exported, and Windows-signed there by SignPath once
+# the project is accepted; it is downloaded, checked and published from here.
 # Writes dist\release\PROTEUS.exe, PROTEUS.manifest and PROTEUS.manifest.sig.
 # The manifest states the build, size and SHA-256 of the exe and is signed
 # with the release key, which stays on this machine. -Publish uploads the
 # three files as a GitHub release of the repository this checkout pushes to.
-param([string]$Repo = 'karimalsalah/proteus', [string]$Key = (Join-Path $env:USERPROFILE '.proteus-release\signing.key'), [switch]$Publish, [switch]$SkipGate, [string]$Notes = '')
+param([string]$Repo = 'karimalsalah/proteus', [string]$Key = (Join-Path $env:USERPROFILE '.proteus-release\signing.key'), [switch]$Publish, [switch]$SkipGate, [string]$Notes = '', [switch]$Ci)
 $ErrorActionPreference = 'Stop'
 Set-Location (Split-Path $PSScriptRoot -Parent)
 if (-not (Test-Path $Key)) { throw "no release key at $Key (create one with: cargo run --release --manifest-path forge\sign\Cargo.toml -- keygen `"$Key`")" }
@@ -18,7 +21,30 @@ if (-not $SkipGate) {
 $exe = 'target\release\proteus.exe'
 if (-not (Test-Path $exe)) { throw 'no build to release' }
 $out = 'dist\release'; Remove-Item $out -Recurse -Force -ErrorAction SilentlyContinue; New-Item -ItemType Directory -Force $out | Out-Null
-Copy-Item $exe "$out\PROTEUS.exe"
+if ($Ci) {
+    # The public tree must be this commit's export, so the CI build is this code.
+    pwsh -NoProfile -File forge\export.ps1 -Message "Release build $(git rev-parse --short HEAD)"
+    $publicHead = (Get-Content (Join-Path (git rev-parse --git-dir) 'proteus-public-head') -Raw).Trim()
+    gh workflow run release-build.yml -R $Repo -f "ref=$publicHead"
+    Start-Sleep -Seconds 8
+    $run = gh run list -R $Repo --workflow release-build.yml --limit 1 --json databaseId -q '.[0].databaseId'
+    gh run watch $run -R $Repo --exit-status --interval 30 | Out-Null
+    if ($LASTEXITCODE -ne 0) { throw "the CI release build failed: gh run view $run -R $Repo --log-failed" }
+    $names = gh api "repos/$Repo/actions/runs/$run/artifacts" -q '.artifacts[].name'
+    $want = if ($names -contains 'PROTEUS-signed') { 'PROTEUS-signed' } else { 'PROTEUS-unsigned' }
+    gh run download $run -R $Repo -n $want -D $out
+    "CI build: run $run, artifact $want"
+    $ciVer = ((& "$out\PROTEUS.exe" --version | Out-String).Trim() -replace '^proteus ', '' -replace '-.*$', '')
+    $srcVer = (Select-String -Path Cargo.toml -Pattern '^version = "(.+)"').Matches[0].Groups[1].Value
+    if ($ciVer -ne $srcVer) { throw "the CI build is version $ciVer, this checkout is $srcVer" }
+    if ($want -eq 'PROTEUS-signed') {
+        $sig = Get-AuthenticodeSignature "$out\PROTEUS.exe"
+        if ($sig.Status -ne 'Valid') { throw "the Windows signature does not verify: $($sig.Status) $($sig.StatusMessage)" }
+        "Windows signature: $($sig.SignerCertificate.Subject)"
+    }
+} else {
+    Copy-Item $exe "$out\PROTEUS.exe"
+}
 $build = ((& "$out\PROTEUS.exe" --version | Out-String).Trim() -replace '^proteus ', '')
 if ($build -notmatch '^\d+\.\d+\.\d+-\d+$') { throw "unexpected build id: $build" }
 $sha = (Get-FileHash "$out\PROTEUS.exe" -Algorithm SHA256).Hash.ToLower()
@@ -44,7 +70,8 @@ $scoop = (Get-Content packaging\scoop\proteus.json.in -Raw) -replace '@VERSION@'
 if ($Publish) {
     $tag = 'v' + ($build -replace '-.*$', '')
     if (-not $Notes) { $Notes = "PROTEUS $build. Signed: verify with ``proteus update --check``. What is measured and what is not done: forge/ledger.json." }
-    gh release create $tag -R $Repo --target main --latest "$out\PROTEUS.exe" "$out\PROTEUS.manifest" "$out\PROTEUS.manifest.sig" "$out\proteus-mcp.mcpb" --title "PROTEUS $($build -replace '-.*$', '')" --notes $Notes
+    $target = if ($Ci) { $publicHead } else { 'main' }
+    gh release create $tag -R $Repo --target $target --latest "$out\PROTEUS.exe" "$out\PROTEUS.manifest" "$out\PROTEUS.manifest.sig" "$out\proteus-mcp.mcpb" --title "PROTEUS $($build -replace '-.*$', '')" --notes $Notes
     if ($LASTEXITCODE -ne 0) { throw 'upload failed' }
     "published $tag"
 }
