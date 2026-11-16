@@ -1480,7 +1480,14 @@ fn a_moment_find_prints_is_the_moment_at_reads() {
 #[test]
 fn a_journal_is_read_correctly_while_it_grows() {
     let script = dir().join("growing.cmd");
-    std::fs::write(&script, "@echo off\r\ndir /s C:\\Windows\\System32\\drivers\r\nping -n 2 127.0.0.1 >nul\r\ndir C:\\Windows\\System32\r\n").unwrap();
+    // Two long listings of known size with a pause between them, printed by a
+    // real program through the real console host. (Listing a system folder
+    // instead made the size depend on the machine: it failed on CI.)
+    let data = dir().join("growing.txt");
+    let line = "0123456789 the quick brown fox jumps over the lazy dog 0123456789 abcdefghijklmnopqrstuvwxyz\r\n";
+    std::fs::write(&data, line.repeat(2_400)).unwrap();
+    let d = data.to_string_lossy().into_owned();
+    std::fs::write(&script, format!("@echo off\r\ntype \"{d}\"\r\nping -n 2 127.0.0.1 >nul\r\ntype \"{d}\"\r\n")).unwrap();
     let p = dir().join("growing.prtj");
     let _ = std::fs::remove_file(sidecar(&p));
     let _ = std::fs::remove_file(&p);
@@ -1525,6 +1532,7 @@ fn a_journal_is_read_correctly_while_it_grows() {
     }
     let bytes = writer.join().unwrap().expect("cmd.exe could not be run on a pseudo-terminal");
     let _ = std::fs::remove_file(&script);
+    let _ = std::fs::remove_file(&data);
     assert!(bytes > 300_000, "expected two long listings, got {bytes} bytes");
     let (mut ix, mut tl) = (ix.expect("the journal never became readable"), tl.expect("the journal never became readable"));
     let mut steps = lens.clone();
